@@ -1,0 +1,25 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Tuition Class Management Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DinushaNaween/ClzMate_api.git"
+  },
+  "keywords": [
+    "ClzMate_api"
+  ],
+  "author": "Group Operam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DinushaNaween/ClzMate_api/issues"
+  },
+  "homepage": "https://github.com/DinushaNaween/ClzMate_api#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
