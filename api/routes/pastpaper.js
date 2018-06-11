@@ -26,4 +26,17 @@ router.get('/:classId', (req, res, next) => {
         });
     }
 });
+
+router.patch('/:classId', (req, res, next)=>{
+    res.status(200).json({
+        message: 'PATCH'
+    });
+});
+
+router.delete('/:classId', (req, res, next)=>{
+    res.status(200).json({
+        message: 'DELETE'
+    });
+});
+
 module.exports = router;
