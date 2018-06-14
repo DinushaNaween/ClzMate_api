@@ -48,12 +48,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', upload.single('classImage'), (req, res, next) => {
-    const Class = new Class({
+    const newclass = new Class({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
     });
-    Class
+    newclass
         .save()
         .then(result => {
             console.log(result);
