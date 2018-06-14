@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/');
+    },
+    filename: function(req, file, cb){
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+})
+
+//const upload = multer({ storage: storage })
+const upload = multer({storage: storage});
+
 
 const Class = require('../models/class');
 
@@ -34,11 +48,36 @@ router.get('/', (req, res, next) => {
         });
 });
 
-router.post('/', (req, res, next)=>{
-    res.status(201).json({
-        message: 'POST'
-    })
-})
+router.post('/', (req, res, next) => {
+    const class = new Class({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name,
+        price: req.body.price
+    });
+    class
+        .save()
+        .then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: 'Handling POST request to /classes',
+                createdClass: {
+                    name: result.name,
+                    price: result.price,
+                    _id: result._id,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/classes/' + result._id
+                    }
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 router.get('/:classId', (req, res, next) => {
     const id = req.params.classId;
