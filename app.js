@@ -4,8 +4,7 @@ const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 
-const classRoutes = require('./api/routes/classes');
-const pastpapersRoutes = require('./api/routes/pastpapers');
+const papersRoutes = require('./api/routes/papers');
 
 mongoose.connect('mongodb://localhost:27017/ClzMate',);
 
@@ -28,8 +27,7 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.use('/classes', classRoutes);
-app.use('/pastpapers', pastpapersRoutes);
+app.use('/papers', papersRoutes);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');
