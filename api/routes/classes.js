@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 //const upload = multer({ storage: storage })
 const upload = multer({storage: storage});
 
-
 const Class = require('../models/class');
 
 router.get('/', (req, res, next) => {
@@ -48,13 +47,13 @@ router.get('/', (req, res, next) => {
         });
 });
 
-router.post('/', (req, res, next) => {
-    const class = new Class({
+router.post('/', upload.single('classImage'), (req, res, next) => {
+    const Class = new Class({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         price: req.body.price
     });
-    class
+    Class
         .save()
         .then(result => {
             console.log(result);
@@ -81,28 +80,79 @@ router.post('/', (req, res, next) => {
 
 router.get('/:classId', (req, res, next) => {
     const id = req.params.classId;
-    if (id === 'special'){
-        res.status(200).json({
-            message: 'special ID',
-            id: id
+    Class.findById(id)
+        .select('name price _id')
+        .exec()
+        .then(doc => {
+            console.log("From Database", doc);
+            if (doc) {
+                res.status(200).json({
+                    class: doc,
+                    request: {
+                        type: 'GET',
+                        description: 'Get all class details.',
+                        url: 'http://localhost:3000/classes'
+                    }
+                });
+            } else {
+                res.status(404).json({
+                    message: 'No valid entry found for this classId'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
         });
-    } else {
-        res.status(200).json({
-            message: 'Not Special'
-        });
+
+});
+
+
+router.patch('/:classId', (req, res, next) => {
+    const id = req.params.classId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
     }
+    Class.update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Class Updated',
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/classes/' + id
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 });
 
-router.patch('/:classId', (req, res, next)=>{
-    res.status(200).json({
-        message: 'PATCH'
-    });
-});
-
-router.delete('/:classId', (req, res, next)=>{
-    res.status(200).json({
-        message: 'DELETE'
-    });
+router.delete('/:classId', (req, res, next) => {
+    const id = req.params.classId;
+    Class.remove({ _id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Class Deleted.',
+                request: {
+                    type: 'POST',
+                    url: 'https://localhost:3000/classes',
+                    body: { name: 'String', price: 'Number' }
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
 });
 
 module.exports = router;
