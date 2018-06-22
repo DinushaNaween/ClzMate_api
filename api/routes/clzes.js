@@ -1,18 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const multer = require('multer');
-const path = require('path');
-
-const storage = multer.diskStorage({
-    destination: '../uploads',
-    filename: function(req, file, cb){
-        cb(null, file.fieldname + '_' + Date.now() + 
-        path.extname(file.originalname));
-    }
-});
-
-const upload = multer({ storage: storage }).single(clzImage);
 
 const Clz = require('../models/clz');
 
@@ -46,7 +34,7 @@ router.get('/', (req, res, next) => {
         });
 });
 
-router.post('/', upload.single('clzImage'), (req, res, next) => {
+router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,

@@ -3,9 +3,11 @@ const app = express();
 const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 const clzRoutes = require('./api/routes/clzes');
 const paperRoutes = require('./api/routes/papers');
+const userRoutes = require('./api/routes/user');
 
 mongoose.connect('mongodb://localhost:27017/ClzMate',);
 
@@ -14,6 +16,11 @@ mongoose.Promise = global.Promise;
 app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//require('./config/passport')(passport);
 
 app.use((req, res, next)=>{
     res.header("Access-Control-Allow-Origin","*");
@@ -30,6 +37,7 @@ app.use((req, res, next)=>{
 
 app.use('/clzes', clzRoutes);
 app.use('/papers', paperRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');
