@@ -79,15 +79,7 @@ router.post('/login', (req, res) =>{
                         }
                         console.log('token genetasjhdbcks')
                     });
-                    // console.log("token"+token);
-                    // return res.status(200).json({
-                    //     message: 'Authantication Successful',
-                    //     token: token
-                    // });
                 }
-            //     res.status(401).json({
-            //         message: 'Authantication Failed. Password is not correct.'
-            //     });
             });
         })
         .catch(err => {
