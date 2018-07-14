@@ -3,11 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
+
+const uploadController = require("../controllers/uploadController");
 
 const User = require('../models/user');
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', uploadController.userImageUploader, (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -74,10 +75,10 @@ router.post('/login', (req, res) =>{
                             console.log(token);
                             return res.status(200).json({
                                 message: 'User Logged in',
-                                token: token
+                                token: this.token
                             })
                         }
-                        console.log('token genetasjhdbcks')
+                        console.log('token genetas : '+ this.token);
                     });
                 }
             });
