@@ -4,15 +4,16 @@ const addressSchema = mongoose.Schema({
     no: { type: String },
     firstStreet: { type: String },
     secondStreet: { type: String },
-    city: { type:String, required }
+    city: { type: String, required: true },
+    district: { type: String }
 })
 
 const contactDetailsSchema = mongoose.Schema({
-    landNumber: { type: number },
-    mobileNumber: { type: number },
-    momNumber: { type: number },
-    dadNumber: { type: number },
-    gardianNumber: { type: number }
+    landNumber: { type: Number },
+    mobileNumber: { type: Number },
+    momNumber: { type: Number },
+    dadNumber: { type: Number },
+    gardianNumber: { type: Number }
 })
 
 const userSchema = mongoose.Schema({
@@ -35,8 +36,13 @@ const userSchema = mongoose.Schema({
     school: { type: String, required: true },
     birthday: { type: Date },
     address: { type: addressSchema },
-    contactDetails: { type: contactDetailsSchema }
+    contactDetails: { type: contactDetailsSchema },
+    stream: { type: String }
 });
 
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = {
+    user: mongoose.model('User', userSchema),
+    address: mongoose.model('Address', addressSchema),
+    contactDetails: mongoose.model('ContactDetails', contactDetailsSchema),
+};
