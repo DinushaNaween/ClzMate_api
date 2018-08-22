@@ -40,9 +40,6 @@ const userSchema = mongoose.Schema({
     stream: { type: String }
 });
 
-
-module.exports = {
-    user: mongoose.model('User', userSchema),
-    address: mongoose.model('Address', addressSchema),
-    contactDetails: mongoose.model('ContactDetails', contactDetailsSchema),
-};
+module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Address', addressSchema);
+module.exports = mongoose.model('ContactDetails', contactDetailsSchema);

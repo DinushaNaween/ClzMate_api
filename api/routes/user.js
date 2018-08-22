@@ -8,6 +8,36 @@ const uploadController = require("../controllers/uploadController");
 
 const User = require('../models/user');
 
+router.get('/', (req, res, next) =>{
+    User.find()
+        .select('email role _id')
+        .exec()
+        .then(docs => {
+            console.log(docs);
+            const responce = {
+                count: docs.length,
+                Users: docs.map(doc => {
+                    return {
+                        email: doc.email,
+                        role: doc.role,
+                        _id: doc._id,
+                        request: {
+                            type: 'get',
+                            url: 'http://localhost:3000/user/' +doc._id
+                        }
+                    }
+                })
+            }
+            res.status(200).json(responce);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
 router.post('/signup', uploadController.userImageUploader, (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
