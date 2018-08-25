@@ -7,7 +7,7 @@ const Clz = require('../models/clz');
 router.get('/', (req, res, next) => {
     Clz.find()
         .select('name price _id')
-        .exec()
+        .exec() 
         .then(docs => {
             console.log(docs);
             const response = {

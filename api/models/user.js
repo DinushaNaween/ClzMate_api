@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const addressSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     no: { type: String },
     firstStreet: { type: String },
     secondStreet: { type: String },
@@ -9,11 +10,12 @@ const addressSchema = mongoose.Schema({
 })
 
 const contactDetailsSchema = mongoose.Schema({
-    landNumber: { type: Number },
-    mobileNumber: { type: Number },
-    momNumber: { type: Number },
-    dadNumber: { type: Number },
-    gardianNumber: { type: Number }
+    _id: mongoose.Schema.Types.ObjectId,
+    landNumber: { type: String },
+    mobileNumber: { type: String },
+    momNumber: { type: String },
+    dadNumber: { type: String },
+    gardianNumber: { type: String }
 })
 
 const userSchema = mongoose.Schema({
@@ -31,15 +33,17 @@ const userSchema = mongoose.Schema({
     fullName: { type: String, required: true },
     batch: { type: Number, required: true },
     subject: [{ 
-        type: String 
+        type: String
     }],
     school: { type: String, required: true },
-    birthday: { type: Date },
-    address: { type: addressSchema },
-    contactDetails: { type: contactDetailsSchema },
+    birthday: { type: String },
+    address: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
+    contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
     stream: { type: String }
 });
 
-module.exports = mongoose.model('User', userSchema);
-module.exports = mongoose.model('Address', addressSchema);
-module.exports = mongoose.model('ContactDetails', contactDetailsSchema);
+module.exports = {
+    user: mongoose.model('User', userSchema),
+    address: mongoose.model('Address', addressSchema),
+    contactDetails: mongoose.model('ContactDetails', contactDetailsSchema)
+};
