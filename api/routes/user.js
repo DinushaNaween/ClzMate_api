@@ -15,15 +15,14 @@ const ContactDetails = userModels.contactDetails;
 router.get('/', (req, res, next) =>{
     User
         .find()
-        //.select('email role _id')
         .exec()
         .then(docs => { 
             console.log(docs);
-            const responce = {
+            const responce1 = {
                 count: docs.length,
-                User: docs.map(doc => {
+                Users: docs.map(doc => {
                     return {
-                        Message1: 'User Details',
+                        Message: 'User Details',
                         Id: doc._id,
                         Email: doc.email,
                         Role: doc.role,
@@ -33,19 +32,6 @@ router.get('/', (req, res, next) =>{
                         School: doc.school,
                         Birthday: doc.birthday,
                         Stream: doc.stream,
-                        Address: doc.address,
-                        Message2: 'Address',
-                        No: doc.no,
-                        First_Street: doc.firstStreet,
-                        Second_Street: doc.secondStreet,
-                        city: doc.city,
-                        District: doc.district,
-                        Message3: 'Contact Details',
-                        Land_Number: doc.landNumber,
-                        Mobile_Number: doc.mobileNumber,
-                        Mom_Number: doc.momNumber,
-                        Dad_Number: doc.dadNumber,
-                        Gardian_Number: doc.gardianNumber,
                         request: {
                             type: 'get',
                             url: 'http://localhost:3000/user/' +doc._id
@@ -53,7 +39,59 @@ router.get('/', (req, res, next) =>{
                     }
                 })
             }
-            res.status(200).json(responce);
+            Address
+                .find()
+                .exec()
+                .then(docs => {
+                    console.log(docs)
+                    responce2 = {
+                        count: docs.length,
+                        Address: docs.map(doc => {
+                            return {
+                                Message: 'Address',
+                                _id: doc._id,
+                                Address: doc.city,
+                                First_Street: doc.firstStreet,
+                                Second_Street: doc.secondStreet,
+                                city: doc.city,
+                                District: doc.district,
+                            }
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            ContactDetails
+                .find()
+                .exec()
+                .then(docs => {
+                    console.log(docs)
+                    responce3 = {
+                        count: docs.length,
+                        ContactDetails: docs.map(doc => {
+                            return {
+                                Message: 'Contact Details',
+                                _id: doc._id,
+                                Land_Number: doc.landNumber,
+                                Mobile_Number: doc.mobileNumber,
+                                Mom_Number: doc.momNumber,
+                                Dad_Number: doc.dadNumber,
+                                Gardian_Number: doc.gardianNumber,
+                            }
+                        })
+                    }
+                    res.status(200).json([responce1,responce2,responce3]);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
         })
         .catch(err => {
             console.log(err);
@@ -198,10 +236,11 @@ router.post('/login', (req, res) =>{
                         if(err){
                             res.json({ error: err })
                         } else {
-                            console.log(token);
+                            console.log('Token is:- '+token);
                             return res.status(200).json({
-                                message: 'User Logged in',
-                                token: this.token
+                                Message: 'User Logged in',
+                                Email: req.body.email,
+                                JWT_Token: token
                             })
                         }
                         console.log('token genetas : '+ this.token);
@@ -211,6 +250,7 @@ router.post('/login', (req, res) =>{
         })
         .catch(err => {
             console.log(err);
+            console.log('catch block')
             res.status(500).json({
                 error: err
             });
