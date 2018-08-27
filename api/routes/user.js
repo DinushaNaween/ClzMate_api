@@ -15,7 +15,7 @@ const ContactDetails = userModels.contactDetails;
 router.get('/', (req, res, next) =>{
     User
         .find()
-        .exec()
+        .exec() 
         .then(docs => { 
             console.log(docs);
             const responce1 = {
@@ -228,16 +228,18 @@ router.post('/login', (req, res) =>{
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (err){
                     return res.status(401).json({
-                        message: 'Authantication Failed'
+                        message: 'Authantication Failed. Password is incorrect.'
                     });
                 }
                 if (result){
-                    const token = jwt.sign({user: user}, 'secretkey',(err, token) => {
+                    token = jwt.sign({user: user}, 'secretkey',(err, token) => {
                         if(err){
                             res.json({ error: err })
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
+                                Database_password: user[0].password,
+                                current_password: req.body.password,
                                 Message: 'User Logged in',
                                 Email: req.body.email,
                                 JWT_Token: token
