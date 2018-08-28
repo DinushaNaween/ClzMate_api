@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const uploadController = require("../controllers/uploadController");
+const uploadController = require('../controllers/uploadController');
 
 const userModels = require('../models/user');
 
@@ -228,11 +228,6 @@ router.post('/login', (req, res) =>{
                 });
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
-                if (err){
-                    return res.status(401).json({
-                        message: 'Authantication Failed. Password is incorrect.'
-                    })
-                }
                 if (result){
                     token = jwt.sign({user: user}, 'secretkey',(err, token) => {
                         if(err){
@@ -240,6 +235,8 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
+                                currentpassword: req.body.password,
+                                databasePassword: user[0].password,
                                 Message: 'User Logged in',
                                 Email: req.body.email,
                                 JWT_Token: token
@@ -247,6 +244,11 @@ router.post('/login', (req, res) =>{
                         }
                         console.log('token genetas : '+ this.token);
                     });
+                }
+                else {
+                    return res.status(401).json({
+                        message: 'Authantication Failed. Password is incorrect.'
+                    })
                 }
             });
         })
@@ -259,14 +261,24 @@ router.post('/login', (req, res) =>{
         });
 });
 
-router.delete('/:userid', (req, res, next) => {
-    User.remove({ _id: req.params.userId })
-        .exec()
+router.delete('/:userId', (req, res ) => {
+    User
+        .remove({ _id: req.params.userId })
         .then(result => {
             res.status(200).json({
-                message: 'User Deleted'
+                Message: 'User Deleted',
+                Deleted_User: req.params.userId
             });
-        })
+            console.log(result);
+            
+                Address
+                    .remove({ _id: req.params.userId })
+                    .then()
+            
+                ContactDetails  
+                    .remove({ _id: req.params.userId })
+                    .then()
+            })
         .catch(err => {
             console.log(err);
             res.status(500).json({
