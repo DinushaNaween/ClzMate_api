@@ -12,7 +12,7 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
-router.get('/', (req, res, next) =>{
+router.get('/', (req, res, next ) =>{
     User
         .find()
         .exec() 
@@ -101,7 +101,7 @@ router.get('/', (req, res, next) =>{
         });
 });
 
-router.post('/signup', uploadController.userImageUploader, (req, res, next) => {
+router.post('/signup', uploadController.userImageUploader, (req, res) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -128,7 +128,9 @@ router.post('/signup', uploadController.userImageUploader, (req, res, next) => {
                             school: req.body.school,
                             subject: req.body.subject,
                             birthday: req.body.birthday,
-                            stream: req.body.stream
+                            stream: req.body.stream,
+                            classDistrict: req.body.classDistrict,
+                            classInstitute: req.body.classInstitute
                         });
                         const address = new Address({
                             _id: user._id,
@@ -155,7 +157,7 @@ router.post('/signup', uploadController.userImageUploader, (req, res, next) => {
                             .save()
 
                             .then(result => {
-                                console.log({
+                                console.log({ 
                                     Message1: ' User Signed up ',
                                     E_mail: req.body.email,
                                     Hashed_password: hash,
@@ -229,7 +231,7 @@ router.post('/login', (req, res) =>{
                 if (err){
                     return res.status(401).json({
                         message: 'Authantication Failed. Password is incorrect.'
-                    });
+                    })
                 }
                 if (result){
                     token = jwt.sign({user: user}, 'secretkey',(err, token) => {
@@ -238,8 +240,6 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
-                                Database_password: user[0].password,
-                                current_password: req.body.password,
                                 Message: 'User Logged in',
                                 Email: req.body.email,
                                 JWT_Token: token
@@ -255,7 +255,7 @@ router.post('/login', (req, res) =>{
             console.log('catch block')
             res.status(500).json({
                 error: err
-            });
+            }); 
         });
 });
 

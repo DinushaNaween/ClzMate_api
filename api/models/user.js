@@ -39,7 +39,7 @@ const userSchema = mongoose.Schema({
     birthday: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
     contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
-    stream: { type: String }
+    stream: { type: String },
 });
 
 module.exports = {
