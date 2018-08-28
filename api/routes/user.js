@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 const uploadController = require('../controllers/uploadController');
 
@@ -11,6 +12,19 @@ const userModels = require('../models/user');
 const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
+
+// const upload = multer({ dest: 'uploads/' })
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/uploads')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now()) 
+    }
+  })
+   
+  var upload = multer({ storage: storage })
 
 router.get('/', (req, res, next ) =>{
     User
@@ -286,5 +300,9 @@ router.delete('/:userId', (req, res ) => {
             });
         });
 });
+
+router.post('/image', upload.single('image'), (req, res, next) => {
+
+})
 
 module.exports = router;
