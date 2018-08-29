@@ -13,20 +13,7 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
-// const upload = multer({ dest: 'uploads/' })
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '/uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now()) 
-    }
-  })
-   
-  var upload = multer({ storage: storage })
-
-router.get('/', (req, res, next ) =>{
+router.get('/', (req, res) =>{
     User
         .find()
         .exec() 
@@ -115,10 +102,10 @@ router.get('/', (req, res, next ) =>{
         });
 });
 
-router.post('/signup', uploadController.userImageUploader, (req, res) => {
+router.post('/signup', uploadController.userImageUpload.single('image'), (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
-        .then(user => {
+        .then(user => { 
             if(user.length >= 1){
                 return res.status(409).json({
                     message: 'Mail Exists'
@@ -301,8 +288,29 @@ router.delete('/:userId', (req, res ) => {
         });
 });
 
-router.post('/image', upload.single('image'), (req, res, next) => {
-
-})
+router.patch('/:userId', (req, res, next) => {
+    const id = req.params.userId;
+    const updateOps = {};
+    for (const ops of req.body){
+        updateOps[ops.propName] = ops.value;
+    }
+    User.update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                Message: 'User Updated.',
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/users/' + id
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 module.exports = router;
