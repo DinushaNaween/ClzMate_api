@@ -3,7 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const multer = require('multer');
 
 const uploadController = require('../controllers/uploadController');
 
@@ -236,8 +235,8 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
-                                currentpassword: req.body.password,
-                                databasePassword: user[0].password,
+                                //currentpassword: req.body.password,
+                                //databasePassword: user[0].password,
                                 Message: 'User Logged in',
                                 Email: req.body.email,
                                 JWT_Token: token
