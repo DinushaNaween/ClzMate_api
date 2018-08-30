@@ -93,7 +93,7 @@ router.get('/:clzId', (req, res, next) => {
         });
 
 });
-
+ 
 router.patch('/:clzId', (req, res, next) => {
     const id = req.params.clzId;
     const updateOps = {};

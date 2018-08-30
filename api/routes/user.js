@@ -288,29 +288,64 @@ router.delete('/:userId', (req, res ) => {
         });
 });
 
-router.patch('/:userId', (req, res, next) => {
+router.patch("/userUpdate/:userId", (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
-    for (const ops of req.body){
-        updateOps[ops.propName] = ops.value;
+    for (const ops of req.body) {
+      updateOps[ops.propName] = ops.value;
     }
     User.update({ _id: id }, { $set: updateOps })
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                Message: 'User Updated.',
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/users/' + id
-                }
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+      .exec()
+      .then(result => {
+        console.log(result);
+        res.status(200).json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
         });
+      });
+});
+
+router.patch("/addressUpdate/:userId", (req, res, next) => {
+    const id = req.params.userId;
+    const updateOps = {};
+    for (const ops of req.body) {
+      updateOps[ops.propName] = ops.value;
+    }
+    Address.update({ _id: id }, { $set: updateOps })
+      .exec()
+      .then(result => {
+        console.log(result);
+        res.status(200).json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+});
+
+router.patch("/contactDetailsUpdate/:userId", (req, res, next) => {
+    const id = req.params.userId;
+    const updateOps = {};
+    for (const ops of req.body) {
+      updateOps[ops.propName] = ops.value;
+    }
+    ContactDetails.update({ _id: id }, { $set: updateOps })
+      .exec()
+      .then(result => {
+        console.log(result);
+        res.status(200).json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
 });
 
 module.exports = router;
