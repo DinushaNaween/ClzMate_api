@@ -101,7 +101,7 @@ router.get('/', (req, res) =>{
         });
 });
 
-router.post('/signup', uploadController.userImageUpload.single('image'), (req, res, next) => {
+router.post('/signup', uploadController.userImageUpload.single('image', '_id'), (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => { 
@@ -129,8 +129,6 @@ router.post('/signup', uploadController.userImageUpload.single('image'), (req, r
                             subject: req.body.subject,
                             birthday: req.body.birthday,
                             stream: req.body.stream,
-                            classDistrict: req.body.classDistrict,
-                            classInstitute: req.body.classInstitute
                         });
                         const address = new Address({
                             _id: user._id,
@@ -346,5 +344,55 @@ router.patch("/contactDetailsUpdate/:userId", (req, res, next) => {
         });
       });
 });
+
+router.get('/:userId', (req, res, next) => {
+    const Id = req.params.userId;
+    User
+        .findById(Id)
+        .exec()
+        .then(user => {
+            console.log(user);
+            const responce1 = {
+                user
+            }
+            Address
+                .findById(Id)
+                .exec()
+                .then(address => {
+                    console.log(address);
+                    responce2 = {
+                        address
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                })
+                ContactDetails
+                    .findById(Id)
+                    .exec()
+                    .then(contactDetails => {
+                        console.log(contactDetails);
+                        responce3 = {
+                            contactDetails
+                        }
+                        res.status(200).json([responce1,responce2,responce3]);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                            error: err
+                        });
+                    })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+})
 
 module.exports = router;
