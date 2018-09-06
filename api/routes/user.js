@@ -12,6 +12,43 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
+/////////////////////////////////////////////////////////////////
+
+// const { MongoClient } = require('mongodb');
+
+// const client = MongoClient.connect('mongodb://localhost:27017/ClzMate');
+// const db = client.db('ClzMate');
+
+// router.get('/', (req, res) => {
+//     User
+//         .find()
+//         .exec()
+//         const docs= db.collection('users').aggregate([
+//             {
+//                 $lookup: {
+//                     from: 'addresses',
+//                     localField: 'address',
+//                     foreignField: '_id',
+//                     as: 'User'
+//                 }
+//             },
+//             {
+//                 $unwind: '$User' 
+//             },
+//             {
+//                 $project: {
+//                     address: 'User._id',
+//                     email: 'User.email',
+//                     fullName: 1,
+//                     batch: 1
+//                 }
+//             }
+//         ]).toArray();
+//         console.log(docs);
+// });
+
+/////////////////////////////////////////////////////////////////
+
 router.get('/', (req, res) =>{
     User
         .find()
@@ -233,8 +270,8 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
-                                //currentpassword: req.body.password,
-                                //databasePassword: user[0].password,
+                                currentpassword: req.body.password,
+                                databasePassword: user[0].password,
                                 Message: 'User Logged in',
                                 Email: req.body.email,
                                 JWT_Token: token

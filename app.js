@@ -4,12 +4,19 @@ const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
+//const { MongoClient } = require('mongodb');
 
 const clzRoutes = require('./api/routes/clzes');
 const paperRoutes = require('./api/routes/papers');
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect('mongodb://localhost:27017/ClzMate',);
+// async function run() {
+//     const client = await MongoClient.connect('mongodb://localhost:27017/ClzMate');
+//     const db = client.db('ClzMate');
+//     console.log('database conection OK');
+// }
+
+mongoose.connect('mongodb://localhost:27017/ClzMate');
 
 mongoose.Promise = global.Promise;
 
