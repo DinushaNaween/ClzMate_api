@@ -12,43 +12,6 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
-/////////////////////////////////////////////////////////////////
-
-// const { MongoClient } = require('mongodb');
-
-// const client = MongoClient.connect('mongodb://localhost:27017/ClzMate');
-// const db = client.db('ClzMate');
-
-// router.get('/', (req, res) => {
-//     User
-//         .find()
-//         .exec()
-//         const docs= db.collection('users').aggregate([
-//             {
-//                 $lookup: {
-//                     from: 'addresses',
-//                     localField: 'address',
-//                     foreignField: '_id',
-//                     as: 'User'
-//                 }
-//             },
-//             {
-//                 $unwind: '$User' 
-//             },
-//             {
-//                 $project: {
-//                     address: 'User._id',
-//                     email: 'User.email',
-//                     fullName: 1,
-//                     batch: 1
-//                 }
-//             }
-//         ]).toArray();
-//         console.log(docs);
-// });
-
-/////////////////////////////////////////////////////////////////
-
 router.get('/', (req, res) =>{
     User
         .find()
@@ -217,28 +180,9 @@ router.post('/signup', uploadController.userImageUpload.single('image', '_id'), 
                                     Gardian_Number: req.body.gardianNumber
                                 });
                                 res.status(201).json({
-                                    Message1: ' User Signed up ',
-                                    E_mail: req.body.email,
-                                    Hashed_password: hash,
-                                    Full_Name: req.body.fullName,
-                                    Batch: req.body.batch,
-                                    Role: req.body.role,
-                                    School: req.body.school,
-                                    Subject: req.body.subject,
-                                    Birthday: req.body.birthday,
-                                    Stream: req.body.stream,
-                                    Message2: ' Address ',
-                                    No: req.body.no,
-                                    First_Street: req.body.firstStreet,
-                                    Second_Street: req.body.secondStreet,
-                                    City: req.body.city,
-                                    District: req.body.district,
-                                    Meaasge3: ' Contact Details ',
-                                    Land_Number: req.body.landNumber,
-                                    Mobile_Number: req.body.mobileNumber,
-                                    Mom_Number: req.body.momNumber,
-                                    Dad_Number: req.body.dadNumber,
-                                    Gardian_Number: req.body.gardianNumber
+                                    user,
+                                    address,
+                                    contactDetails
                                 });
                             })
                             .catch(err => {
