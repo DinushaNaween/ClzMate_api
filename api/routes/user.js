@@ -304,7 +304,7 @@ router.patch("/addressUpdate/:userId", (req, res, next) => {
           error: err
         });
       });
-});
+}); 
 
 router.patch("/contactDetailsUpdate/:userId", (req, res, next) => {
     const id = req.params.userId;
