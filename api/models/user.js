@@ -28,7 +28,11 @@ const userSchema = mongoose.Schema({
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     password: { type: String, required: true },
-    role: { type: String, required: true },
+    role: { 
+        type: String, 
+        required: true,
+        lowercase: true 
+    },
     
     fullName: { type: String, required: true },
     batch: { type: Number, required: true },
@@ -46,4 +50,4 @@ module.exports = {
     user: mongoose.model('User', userSchema),
     address: mongoose.model('Address', addressSchema),
     contactDetails: mongoose.model('ContactDetails', contactDetailsSchema)
-};
+}; 
