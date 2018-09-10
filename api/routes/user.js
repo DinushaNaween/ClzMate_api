@@ -101,7 +101,7 @@ router.get('/', (req, res) =>{
         });
 });
 
-router.post('/signup', uploadController.userImageUpload.single('image', '_id'), (req, res, next) => {
+router.post('/signup', uploadController.userImageUpload.single('image'), (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => { 
@@ -208,16 +208,16 @@ router.post('/login', (req, res) =>{
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (result){
-                    token = jwt.sign({user: user}, 'secretkey',(err, token) => {
+                    token = jwt.sign({user: user[0]}, 'secretkey',(err, token) => {
                         if(err){
                             res.json({ error: err })
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
-                                currentpassword: req.body.password,
-                                databasePassword: user[0].password,
-                                Message: 'User Logged in',
-                                Email: req.body.email,
+                                //currentpassword: req.body.password,
+                                //databasePassword: user[0].password,
+                                //Message: 'User Logged in',
+                                //Email: req.body.email,
                                 JWT_Token: token
                             })
                         }
@@ -375,5 +375,19 @@ router.get('/:userId', (req, res, next) => {
             });
         });
 })
+
+router.post('/register1', (req, res) =>{
+    var name =req.body.firstname;
+    var lastname = req.body.lastname;
+    console.log(name);
+
+    if(name !=undefined || lastname !=undefined){
+        res.status(200).json({
+            msg:'success'
+        });
+    }
+  
+});
+
 
 module.exports = router;

@@ -41,7 +41,7 @@ app.use((req, res, next)=>{
     }
     next();
 });
-
+ 
 app.use('/clzes', clzRoutes);
 app.use('/papers', paperRoutes);
 app.use('/user', userRoutes);

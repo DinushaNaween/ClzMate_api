@@ -1,5 +1,4 @@
 const multer = require('multer');
-const User = require('../routes/user');
 
 //const adminImageUploadPath = require('uploads/adminImages');
 //const studentImageUploadPath = require('uploads/studentImages');
@@ -11,7 +10,7 @@ const userImageStorage = multer.diskStorage({
         cd(null, 'uploads/studentImages');
     },
     filename: function(req, file, cd) {
-        cd(null, User._id)
+        cd(null, Date.now()+'-'+ file.originalname)
     }
 });
 
