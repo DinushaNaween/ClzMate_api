@@ -262,7 +262,7 @@ router.delete('/:userId', (req, res ) => {
         });
 });
 
-router.patch("/userUpdate/:userId", (req, res, next) => {
+router.patch('/userUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -282,7 +282,7 @@ router.patch("/userUpdate/:userId", (req, res, next) => {
       });
 });
 
-router.patch("/addressUpdate/:userId", (req, res, next) => {
+router.patch('/addressUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -302,7 +302,7 @@ router.patch("/addressUpdate/:userId", (req, res, next) => {
       });
 }); 
 
-router.patch("/contactDetailsUpdate/:userId", (req, res, next) => {
+router.patch('/contactDetailsUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -385,5 +385,55 @@ router.post('/register1', (req, res) =>{
   
 });
 
+router.get('/findByRole/:role', (req, res, next) => {
+    const role = req.params.role;
+    User
+        .find({ role: role })
+        .exec()
+        .then(user => {
+            console.log(user);
+            const id = user[0]._id;
+            const responce1 = {
+                user
+            }
+            Address
+                .findById(id)
+                .exec()
+                .then(address => {
+                    console.log(address);
+                    responce2 = {
+                        address
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                })
+                ContactDetails
+                    .findById(id)
+                    .exec()
+                    .then(contactDetails => {
+                        console.log(contactDetails);
+                        responce3 = {
+                            contactDetails
+                        }
+                        res.status(200).json([responce1,responce2,responce3]);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).json({
+                            error: err
+                        });
+                    })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+})
 
 module.exports = router;
