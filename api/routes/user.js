@@ -214,10 +214,6 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
-                                //currentpassword: req.body.password,
-                                //databasePassword: user[0].password,
-                                //Message: 'User Logged in',
-                                //Email: req.body.email,
                                 JWT_Token: token
                             })
                         }
