@@ -392,41 +392,29 @@ router.get('/findByRole/:role', (req, res, next) => {
         .exec()
         .then(user => {
             console.log(user);
-            const id = user[0]._id;
-            const responce1 = {
-                user
-            }
-            Address
-                .findById(id)
-                .exec()
-                .then(address => {
-                    console.log(address);
-                    responce2 = {
-                        address
+            const count = user.length;
+            const responce = {
+                count: count,
+                Users: user.map(doc => {
+                    return {
+                        Message: 'User Details',
+                        Id: doc._id,
+                        Email: doc.email,
+                        Role: doc.role,
+                        Full_Name: doc.fullName,
+                        Batch: doc.batch,
+                        Subject: doc.subject,
+                        School: doc.school,
+                        Birthday: doc.birthday,
+                        Stream: doc.stream,
+                        request: {
+                            type: 'get',
+                            url: 'http://localhost:3000/user/' +doc._id
+                        }
                     }
                 })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                })
-                ContactDetails
-                    .findById(id)
-                    .exec()
-                    .then(contactDetails => {
-                        console.log(contactDetails);
-                        responce3 = {
-                            contactDetails
-                        }
-                        res.status(200).json([responce1,responce2,responce3]);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        res.status(500).json({
-                            error: err
-                        });
-                    })
+            }
+            res.status(200).json(responce);
         })
         .catch(err => {
             console.log(err);
