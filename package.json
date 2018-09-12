@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
+  "engines": {
+    "node": "8.11.4"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DinushaNaween/ClzMate_api.git"
@@ -22,6 +25,7 @@
   "homepage": "https://github.com/DinushaNaween/ClzMate_api#readme",
   "dependencies": {
     "bcrypt": "^2.0.1",
+    "cool-ascii-faces": "^1.3.4",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongodb": "^3.1.4",

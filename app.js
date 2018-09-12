@@ -12,7 +12,7 @@ const userRoutes = require('./api/routes/user');
 mongoose.connect('mongodb://localhost:27017/ClzMate');
 
 mongoose.Promise = global.Promise;
-
+ 
 app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({extended:false}));
 app.use(bodyparser.json());

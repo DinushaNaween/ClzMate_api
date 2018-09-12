@@ -214,6 +214,7 @@ router.post('/login', (req, res) =>{
                         } else {
                             console.log('Token is:- '+token);
                             return res.status(200).json({
+                                state: true,
                                 JWT_Token: token
                             })
                         }
