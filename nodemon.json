@@ -1,6 +1,6 @@
 {
     "env": {
         "JWT_KEY": "secret",
-        "MONGO_ATLAS_PW": "TAG@waymouse123"
+        "MONGODB_MLAB_PW": "TAG@waymouse123"
     }
 }
