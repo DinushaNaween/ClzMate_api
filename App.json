@@ -1,8 +1,0 @@
-{
-    "name": "ClzMate_api",
-    "description": "ClzMate API",
-    "repository": "https://github.com/DinushaNaween/ClzMate_api.git",
-    "logo": "http://node-js-sample.herokuapp.com/node.svg",
-    "keywords": ["node", "express", "static"],
-    "image": "heroku/nodejs"
-}
