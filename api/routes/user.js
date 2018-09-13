@@ -230,8 +230,7 @@ router.post('/login', (req, res) =>{
         })
         .catch(err => {
             console.log(err);
-            console.log('catch block')
-            res.status(500).json({
+                res.status(500).json({
                 error: err
             }); 
         });
