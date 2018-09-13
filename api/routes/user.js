@@ -101,7 +101,7 @@ router.get('/', (req, res) =>{
         });
 });
 
-router.post('/signup', uploadController.userImageUpload.single('image'), (req, res, next) => {
+router.post('/register', uploadController.userImageUpload.single('image'), (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => { 
