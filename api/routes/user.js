@@ -34,7 +34,7 @@ router.get('/', (req, res) =>{
                         Stream: doc.stream,
                         request: {
                             type: 'get',
-                            url: 'http://localhost:3000/user/' +doc._id
+                            url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
                         }
                     }
                 })
@@ -96,7 +96,7 @@ router.get('/', (req, res) =>{
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                error: err 
             });
         });
 });
@@ -410,7 +410,7 @@ router.get('/findByRole/:role', (req, res, next) => {
                         Stream: doc.stream,
                         request: {
                             type: 'get',
-                            url: 'http://localhost:3000/user/' +doc._id
+                            url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
                         }
                     }
                 })
