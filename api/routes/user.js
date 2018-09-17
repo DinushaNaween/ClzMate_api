@@ -204,7 +204,7 @@ router.post('/login', (req, res) =>{
             if(user.length < 1){
                 return res.status(401).json({
                     message: 'Authantication failed. E-mail not exist.',
-                    JTW_Token: null
+                    JWT_Token: null
                 });
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
@@ -224,7 +224,8 @@ router.post('/login', (req, res) =>{
                 }
                 else {
                     return res.status(401).json({
-                        message: 'Authantication Failed. Password is incorrect.'
+                        message: 'Authantication Failed. Password is incorrect.',
+                        JWT_Token: null
                     })
                 }
             });
