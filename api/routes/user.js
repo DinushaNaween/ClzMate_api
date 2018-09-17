@@ -203,7 +203,8 @@ router.post('/login', (req, res) =>{
         .then(user => {
             if(user.length < 1){
                 return res.status(401).json({
-                    message: 'Authantication failed. E-mail not exist.'
+                    message: 'Authantication failed. E-mail not exist.',
+                    JTW_Token: null
                 });
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
@@ -373,14 +374,19 @@ router.get('/:userId', (req, res, next) => {
 })
 
 router.post('/register1', (req, res) =>{
-    var name =req.body.firstname;
-    var lastname = req.body.lastname;
-    console.log(name);
+    var email =req.body.email;
+    var password = req.body.password;
+    console.log(email);
+    console.log(password);
 
-    if(name !=undefined || lastname !=undefined){
+    if(email && password){
         res.status(200).json({
-            msg:'success'
+            msg:true
         });
+    } else {
+        res.status(200).json({
+            msg:false
+        })
     }
   
 });
