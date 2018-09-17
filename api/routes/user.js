@@ -202,8 +202,8 @@ router.post('/login', (req, res) =>{
         .exec()
         .then(user => {
             if(user.length < 1){
-                return res.status(401).json({
-                    message: 'Authantication failed. E-mail not exist.',
+                return res.status(200).json({
+                    //message: 'Authantication failed. E-mail not exist.',
                     JWT_Token: null
                 });
             }
@@ -223,8 +223,8 @@ router.post('/login', (req, res) =>{
                     });
                 }
                 else {
-                    return res.status(401).json({
-                        message: 'Authantication Failed. Password is incorrect.',
+                    return res.status(200).json({
+                        //message: 'Authantication Failed. Password is incorrect.',
                         JWT_Token: null
                     })
                 }
