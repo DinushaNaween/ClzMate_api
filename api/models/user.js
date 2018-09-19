@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const addressSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    no: { type: String },
-    firstStreet: { type: String },
-    secondStreet: { type: String },
+    firstLine: { type: String },
+    secondLine: { type: String },
     city: { type: String, required: true },
     district: { type: String }
 })
@@ -13,8 +12,11 @@ const contactDetailsSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     landNumber: { type: String },
     mobileNumber: { type: String },
+    motherName: { type:String },
     momNumber: { type: String },
+    fatherName: { type: String },
     dadNumber: { type: String },
+    gardianName: { type: String },
     gardianNumber: { type: String }
 })
 
@@ -34,7 +36,9 @@ const userSchema = mongoose.Schema({
         lowercase: true 
     },
     
-    fullName: { type: String, required: true },
+    fullName: {type: String , required: true},
+    firstName: { type: String },
+    lastName: { type: String },
     batch: { type: Number, required: true },
     subject: [{ 
         type: String
@@ -43,7 +47,7 @@ const userSchema = mongoose.Schema({
     birthday: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
     contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
-    stream: { type: String },
+    stream: { type: String }
 });
 
 module.exports = {

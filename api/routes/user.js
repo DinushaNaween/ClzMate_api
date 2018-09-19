@@ -32,6 +32,8 @@ router.get('/', (req, res) =>{
                         School: doc.school,
                         Birthday: doc.birthday,
                         Stream: doc.stream,
+                        First_Name: doc.firstName,
+                        Last_Name: doc.lastName,
                         request: {
                             type: 'get',
                             url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
@@ -50,9 +52,8 @@ router.get('/', (req, res) =>{
                             return {
                                 Message: 'Address',
                                 _id: doc._id,
-                                Address: doc.city,
-                                First_Street: doc.firstStreet,
-                                Second_Street: doc.secondStreet,
+                                First_Line: doc.firstLine,
+                                Second_line: doc.secondLine,
                                 city: doc.city,
                                 District: doc.district,
                             }
@@ -78,8 +79,11 @@ router.get('/', (req, res) =>{
                                 _id: doc._id,
                                 Land_Number: doc.landNumber,
                                 Mobile_Number: doc.mobileNumber,
+                                Mom_Name: doc.motherName,
                                 Mom_Number: doc.momNumber,
+                                Dad_Name: doc.fatherName,
                                 Dad_Number: doc.dadNumber,
+                                Gardian_Name: doc.gardianName,
                                 Gardian_Number: doc.gardianNumber,
                             }
                         })
@@ -127,14 +131,15 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                             role: req.body.role,
                             school: req.body.school,
                             subject: req.body.subject,
-                            birthday: req.body.birthday,
                             stream: req.body.stream,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            birthday: req.body.birthday 
                         });
                         const address = new Address({
                             _id: user._id,
-                            no: req.body.no,
-                            firstStreet: req.body.firstStreet,
-                            secondStreet: req.body.secondStreet,
+                            firstLine: req.body.firstLine,
+                            secondLine: req.body.secondLine,
                             city: req.body.city,
                             district: req.body.district
                         });
@@ -142,8 +147,11 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                             _id: user._id,
                             landNumber: req.body.landNumber,
                             mobileNumber: req.body.mobileNumber,
+                            motherName: req.body.motherName,
                             momNumber: req.body.momNumber,
+                            fatherName: req.body.fatherName, 
                             dadNumber: req.body.dadNumber,
+                            gardianName: req.body.gardianName,
                             gardianNumber: req.body.gardianNumber
                         })
 
@@ -178,7 +186,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                                     Mom_Number: req.body.momNumber,
                                     Dad_Number: req.body.dadNumber,
                                     Gardian_Number: req.body.gardianNumber
-                                });
+                                }); 
                                 res.status(201).json({
                                     user,
                                     address,
