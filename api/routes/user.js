@@ -252,8 +252,9 @@ router.delete('/:userId', (req, res ) => {
         .remove({ _id: req.params.userId })
         .then(result => {
             res.status(200).json({
-                Message: 'User Deleted',
-                Deleted_User: req.params.userId
+                state: true
+                // Message: 'User Deleted',
+                // Deleted_User: req.params.userId
             });
             console.log(result);
             
