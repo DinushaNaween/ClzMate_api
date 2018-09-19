@@ -19,87 +19,85 @@ router.get('/', (req, res) =>{
         .then(docs => { 
             console.log(docs);
             const responce1 = {
-                count: docs.length,
+                //count: docs.length,
                 Users: docs.map(doc => {
                     return {
-                        Message: 'User Details',
-                        Id: doc._id,
+                        //Message: 'User Details',
+                        //Id: doc._id,
                         Email: doc.email,
-                        Role: doc.role,
-                        Full_Name: doc.fullName,
+                        //Role: doc.role,
+                        //Full_Name: doc.fullName,
                         Batch: doc.batch,
-                        // Subject1: doc.subject[0],
-                        // Subject2: doc.subject[1],
-                        // Subject3: doc.subject[2],
-                        // Subject4: doc.subject[3],
-                        School: doc.school,
+                        //Subjects: doc.subjects,
+                        //School: doc.school,
                         Birthday: doc.birthday,
-                        Stream: doc.stream,
+                        //Stream: doc.stream,
                         First_Name: doc.firstName,
                         Last_Name: doc.lastName,
-                        request: {
-                            type: 'get',
-                            url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
-                        }
+                        //request: {
+                        //    type: 'get',
+                        //    url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
+                        //}
                     }
                 })
             }
-            Address
-                .find()
-                .exec()
-                .then(docs => {
-                    console.log(docs)
-                    responce2 = {
-                        count: docs.length,
-                        Address: docs.map(doc => {
-                            return {
-                                Message: 'Address',
-                                _id: doc._id,
-                                First_Line: doc.firstLine,
-                                Second_line: doc.secondLine,
-                                city: doc.city,
-                                District: doc.district,
-                            }
-                        })
-                    }
+            // Address
+            //     .find()
+            //     .exec()
+            //     .then(docs => {
+            //         console.log(docs)
+            //         responce2 = {
+            //             count: docs.length,
+            //             Address: docs.map(doc => {
+            //                 return {
+            //                     Message: 'Address',
+            //                     _id: doc._id,
+            //                     First_Line: doc.firstLine,
+            //                     Second_line: doc.secondLine,
+            //                     city: doc.city,
+            //                     District: doc.district,
+            //                 }
+            //             })
+            //         }
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
+            //         res.status(500).json({
+            //             error: err
+            //         });
+            //     });
+            // ContactDetails
+            //     .find()
+            //     .exec()
+            //     .then(docs => {
+            //         console.log(docs)
+            //         responce3 = {
+            //             count: docs.length,
+            //             ContactDetails: docs.map(doc => {
+            //                 return {
+            //                     Message: 'Contact Details',
+            //                     _id: doc._id,
+            //                     Land_Number: doc.landNumber,
+            //                     Mobile_Number: doc.mobileNumber,
+            //                     Mom_Name: doc.motherName,
+            //                     Mom_Number: doc.momNumber,
+            //                     Dad_Name: doc.fatherName,
+            //                     Dad_Number: doc.dadNumber,
+            //                     Gardian_Name: doc.gardianName,
+            //                     Gardian_Number: doc.gardianNumber,
+            //                 }
+            //             })
+            //         }
+                    // res.status(200).json([responce1,responce2,responce3]);
+                    res.status(200).json(responce1);
                 })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            ContactDetails
-                .find()
-                .exec()
-                .then(docs => {
-                    console.log(docs)
-                    responce3 = {
-                        count: docs.length,
-                        ContactDetails: docs.map(doc => {
-                            return {
-                                Message: 'Contact Details',
-                                _id: doc._id,
-                                Land_Number: doc.landNumber,
-                                Mobile_Number: doc.mobileNumber,
-                                Mom_Name: doc.motherName,
-                                Mom_Number: doc.momNumber,
-                                Dad_Name: doc.fatherName,
-                                Dad_Number: doc.dadNumber,
-                                Gardian_Name: doc.gardianName,
-                                Gardian_Number: doc.gardianNumber,
-                            }
-                        })
-                    }
-                    res.status(200).json([responce1,responce2,responce3]);
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-        })
+                // .catch(err => {
+                //     console.log(err);
+                //     res.status(500).json({
+                //         error: err
+                //     });
+                // });
+        //})
         .catch(err => {
             console.log(err);
             res.status(500).json({
