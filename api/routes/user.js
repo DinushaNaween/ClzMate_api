@@ -129,7 +129,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
-                            password: hash,
+                            password: hash, 
                             fullName: req.body.fullName,
                             batch: req.body.batch,
                             role: req.body.role,
