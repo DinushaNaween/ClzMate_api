@@ -4,7 +4,7 @@ const addressSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     firstLine: { type: String },
     secondLine: { type: String },
-    city: { type: String, required: true },
+    city: { type: String },
     district: { type: String }
 })
 
@@ -22,28 +22,17 @@ const contactDetailsSchema = mongoose.Schema({
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    email: { 
-        type: String, 
-        required: true, 
-        unique:true,
-        lowercase: true,
-        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-    },
-    password: { type: String, required: true },
-    role: { 
-        type: String, 
-        required: true,
-        lowercase: true 
-    },
-    
-    fullName: {type: String , required: true},
+    email: { type: String },
+    password: { type: String },
+    role: { type: String },
+    fullName: {type: String },
     firstName: { type: String },
     lastName: { type: String },
-    batch: { type: Number, required: true },
+    batch: { type: Number },
     subjects: [{
         type: String
     }],
-    school: { type: String, required: true },
+    school: { type: String },
     birthday: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
     contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
