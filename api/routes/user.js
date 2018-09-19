@@ -114,13 +114,13 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
         .then(user => { 
             if(user.length >= 1){
                 return res.status(409).json({
+                    state: false,
                     exist: true
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if(err){
-                        return res.status(500).json({
-                            error: err       
+                        return res.status(500).json({     
                         });
                     }else {
                         let subjects = [];
@@ -192,6 +192,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                                     Gardian_Number: req.body.gardianNumber
                                 }); 
                                 res.status(201).json({
+                                    state: true,
                                     exist: false
                                 });
                             })
