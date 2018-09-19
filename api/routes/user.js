@@ -248,6 +248,7 @@ router.post('/login', (req, res) =>{
 });
 
 router.delete('/:userId', (req, res ) => {
+    console.log(req.params.userId);
     User
         .remove({ _id: req.params.userId })
         .then(result => {
