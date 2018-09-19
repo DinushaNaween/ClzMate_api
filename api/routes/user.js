@@ -28,7 +28,10 @@ router.get('/', (req, res) =>{
                         Role: doc.role,
                         Full_Name: doc.fullName,
                         Batch: doc.batch,
-                        Subject: doc.subject,
+                        // Subject1: doc.subject[0],
+                        // Subject2: doc.subject[1],
+                        // Subject3: doc.subject[2],
+                        // Subject4: doc.subject[3],
                         School: doc.school,
                         Birthday: doc.birthday,
                         Stream: doc.stream,
@@ -111,7 +114,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
         .then(user => { 
             if(user.length >= 1){
                 return res.status(409).json({
-                    message: 'Mail Exists'
+                    exist: true
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -120,6 +123,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                             error: err       
                         });
                     }else {
+                        let subjects = [];
                         console.log('User Created');
                         console.log('Hashing Password : '+ hash)
                         const user = new User({
@@ -130,7 +134,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                             batch: req.body.batch,
                             role: req.body.role,
                             school: req.body.school,
-                            subject: req.body.subject,
+                            subjects: req.body.subjects,
                             stream: req.body.stream,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
@@ -188,9 +192,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                                     Gardian_Number: req.body.gardianNumber
                                 }); 
                                 res.status(201).json({
-                                    user,
-                                    address,
-                                    contactDetails
+                                    exist: false
                                 });
                             })
                             .catch(err => {

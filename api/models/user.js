@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     batch: { type: Number, required: true },
-    subject: [{ 
+    subjects: [{
         type: String
     }],
     school: { type: String, required: true },
