@@ -23,7 +23,7 @@ router.get('/', (req, res) =>{
                 Users: docs.map(doc => {
                     return {
                         //Message: 'User Details',
-                        //Id: doc._id,
+                        Id: doc._id,
                         Email: doc.email,
                         //Role: doc.role,
                         //Full_Name: doc.fullName,
