@@ -28,7 +28,7 @@ const userSchema = mongoose.Schema({
     fullName: {type: String },
     firstName: { type: String },
     lastName: { type: String },
-    batch: { type: String },
+    batch: { type: String  },
     subjects: [{
         type: String
     }],
