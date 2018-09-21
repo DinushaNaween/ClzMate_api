@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const clzSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    clzId: mongoose.Schema.Types.ObjectId,
     name: { type: String, required: true },
     hallNo: { type: Number, required: true }
 });

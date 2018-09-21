@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
                     return {
                         name: doc.name,
                         hallNo: doc.hallNo,
-                        _id: doc._id,
+                        clzId: doc.clzId,
                         request: {
                             type: 'get',
                             url: 'http://localhost:3000/clzes/' + doc._id
@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     const clz = new Clz({
-        _id: new mongoose.Types.ObjectId(),
+        clzId: new mongoose.Types.ObjectId(),
         name: req.body.name,
         hallNo: req.body.hallNo
     });
@@ -49,7 +49,7 @@ router.post('/', (req, res, next) => {
                 createdlz: {
                     name: result.name,
                     hallNo: result.hallNo,
-                    _id: result._id,
+                    clzId: result.clzId,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:3000/clzes/' + result._id
@@ -66,9 +66,9 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:clzId', (req, res, next) => {
-    const id = req.params.clzId;
-    Clz.findById(id)
-        .select('name price _id')
+    const searchId = req.params.clzId;
+    Clz.findById(searchId)
+        .select('name price clzId')
         .exec()
         .then(doc => {
             console.log("From Database", doc);
@@ -95,12 +95,12 @@ router.get('/:clzId', (req, res, next) => {
 });
  
 router.patch('/:clzId', (req, res, next) => {
-    const id = req.params.clzId;
+    const patchId = req.params.clzId;
     const updateOps = {};
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Clz.update({ _id: id }, { $set: updateOps })
+    Clz.update({ clzId: patchId }, { $set: updateOps })
         .exec()
         .then(result => {
             res.status(200).json({
@@ -120,8 +120,8 @@ router.patch('/:clzId', (req, res, next) => {
 });
 
 router.delete('/:clzId', (req, res, next) => {
-    const id = req.params.clzId;
-    Clz.remove({ _id: id })
+    const deleteId = req.params.clzId;
+    Clz.remove({ clzId: deleteId })
         .exec()
         .then(result => {
             res.status(200).json({
