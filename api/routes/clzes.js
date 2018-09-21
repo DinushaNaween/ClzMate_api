@@ -15,7 +15,7 @@ router.get('/', (req, res, next) => {
                 clzes: docs.map(doc => {
                     return {
                         name: doc.name,
-                        price: doc.price,
+                        hallNo: doc.hallNo,
                         _id: doc._id,
                         request: {
                             type: 'get',
@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        price: req.body.price
+        hallNo: req.body.hallNo
     });
     clz
         .save()
@@ -48,7 +48,7 @@ router.post('/', (req, res, next) => {
                 message: 'Handling POST request to /classes',
                 createdlz: {
                     name: result.name,
-                    price: result.price,
+                    hallNo: result.hallNo,
                     _id: result._id,
                     request: {
                         type: 'GET',
