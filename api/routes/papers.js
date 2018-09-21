@@ -6,7 +6,7 @@ const Clz = require('../models/clz');
 
 router.get('/', (req, res, next) => {
     Paper.find()
-        .select('clz quantity _id')
+        .select('clz quantity paperId')
         .populate('clz', 'name')
         .exec()
         .then(docs => {
@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
                 count: docs.length,
                 papers: docs.map(doc => {
                     return {
-                        _id: doc._id,
+                        paperId: doc.paperId,
                         clz: doc.clz,
                         quantity: doc.quantity,
                         request: {
@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
                 });
             }
             const paper = new Paper({
-                _id: new mongoose.Types.ObjectId(),
+                paperId: new mongoose.Types.ObjectId(),
                 clz: req.body.clzId,
                 quantity: req.body.quantity
             });
@@ -54,7 +54,7 @@ router.post('/', (req, res, next) => {
             res.status(201).json({
                 message: 'Paper Stored',
                 createdPaper: {
-                    _id: result._id,
+                    paperId: result.paperId,
                     clz: result.clz,
                     quantity: result.quantity
                 },
@@ -73,7 +73,8 @@ router.post('/', (req, res, next) => {
 });
 
 router.get('/:paperId', (req, res, next) => {
-    Paper.findById(req.params.paperId)
+    const searchId = req.body.paperId;
+    Paper.findById(searchId)
         .populate('clz')
         .exec()
         .then(order => {
@@ -98,7 +99,8 @@ router.get('/:paperId', (req, res, next) => {
 });
 
 router.delete('/:paperId', (req, res, next) => {
-    Paper.remove({ _id: req.params.paperId })
+    const deleteId = req.body.paperId;
+    Paper.remove({ paperId: deleteId })
         .exec()
         .then(result => {
             res.status(200).json({
