@@ -5,22 +5,25 @@ const Paper = require('../models/paper');
 const Clz = require('../models/clz');
 
 router.get('/', (req, res, next) => {
-    Paper.find()
-        .select('clz quantity paperId')
-        .populate('clz', 'name')
+    Paper
+        .find()
+        .select('clz quantity _id')
+        .populate('clz', 'name hallNo')
         .exec()
         .then(docs => {
             res.status(200).json({
-                count: docs.length,
+                //count: docs.length,
                 papers: docs.map(doc => {
                     return {
-                        paperId: doc.paperId,
-                        clz: doc.clz,
+                        paperId: doc._id,
+                        clz: doc.clz._id,
+                        className: doc.clz.name,
+                        hallNo: doc.clz.hallNo,
                         quantity: doc.quantity,
-                        request: {
-                            type: 'GET',
-                            url: 'https://localhost:3000/papers/' + doc._id
-                        }
+                        // request: {
+                        //     type: 'GET',
+                        //     url: 'https://localhost:3000/papers/' + doc._id
+                        // }
                     }
                 })
             });
@@ -33,7 +36,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    Clz.findById(req.body.clzId)
+    const Id = req.body.clzId;
+    Clz.find({ _id: Id })
         .then(clz => {
             if (!clz) {
                 return res.status(404).json({
@@ -41,7 +45,7 @@ router.post('/', (req, res, next) => {
                 });
             }
             const paper = new Paper({
-                paperId: new mongoose.Types.ObjectId(),
+                _id: new mongoose.Types.ObjectId(),
                 clz: req.body.clzId,
                 quantity: req.body.quantity
             });
@@ -53,15 +57,15 @@ router.post('/', (req, res, next) => {
             console.log(result);
             res.status(201).json({
                 message: 'Paper Stored',
-                createdPaper: {
-                    paperId: result.paperId,
-                    clz: result.clz,
-                    quantity: result.quantity
-                },
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/papers/' + result._id
-                }
+                // createdPaper: {
+                //     paperId: result.paperId,
+                //     clz: result.clz,
+                //     quantity: result.quantity
+                // },
+                // request: {
+                //     type: 'GET',
+                //     url: 'http://localhost:3000/papers/' + result._id
+                // }
             });
         })
         .catch(err => {

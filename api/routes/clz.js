@@ -6,7 +6,7 @@ const Clz = require('../models/clz');
 
 router.get('/', (req, res, next) => {
     Clz.find()
-        .select('name price clzId')
+        .select('name price _id')
         .exec() 
         .then(docs => {
             console.log(docs);
@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
                     return {
                         name: doc.name,
                         hallNo: doc.hallNo,
-                        clzId: doc.clzId,
+                        _id: doc._id,
                         request: {
                             type: 'get',
                             url: 'http://localhost:3000/clzes/' + doc._id
@@ -36,7 +36,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     const clz = new Clz({
-        clzId: new mongoose.Types.ObjectId(),
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         hallNo: req.body.hallNo
     });
@@ -45,16 +45,8 @@ router.post('/', (req, res, next) => {
         .then(result => {
             console.log(result);
             res.status(201).json({
-                message: 'Handling POST request to /classes',
-                createdlz: {
-                    name: result.name,
-                    hallNo: result.hallNo,
-                    clzId: result.clzId,
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/clzes/' + result._id
-                    }
-                }
+                state: true,
+                _id: clz._id
             });
         })
         .catch(err => {
@@ -68,7 +60,7 @@ router.post('/', (req, res, next) => {
 router.get('/:clzId', (req, res, next) => {
     const searchId = req.params.clzId;
     Clz.findById(searchId)
-        .select('name price clzId')
+        .select('name price _id')
         .exec()
         .then(doc => {
             console.log("From Database", doc);
@@ -100,7 +92,7 @@ router.patch('/:clzId', (req, res, next) => {
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Clz.update({ clzId: patchId }, { $set: updateOps })
+    Clz.update({ _id: patchId }, { $set: updateOps })
         .exec()
         .then(result => {
             res.status(200).json({
@@ -121,7 +113,7 @@ router.patch('/:clzId', (req, res, next) => {
 
 router.delete('/:clzId', (req, res, next) => {
     const deleteId = req.params.clzId;
-    Clz.remove({ clzId: deleteId })
+    Clz.remove({ _id: deleteId })
         .exec()
         .then(result => {
             res.status(200).json({
@@ -129,7 +121,7 @@ router.delete('/:clzId', (req, res, next) => {
                 request: {
                     type: 'POST',
                     url: 'https://localhost:3000/clzes',
-                    body: { name: 'String', price: 'Number' }
+                    body: { name: 'String', hallNo: 'Number' }
                 }
             });
         })
