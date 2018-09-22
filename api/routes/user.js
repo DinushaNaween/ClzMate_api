@@ -23,7 +23,11 @@ router.get('/', (req, res) =>{
             res.status(200).json({
                 user: docs.map(doc => {
                     return{
-                        user:doc
+                        First_Name: user.firstName,
+                        Last_Name: user.lastName,
+                        Email: user.email,
+                        Birthday: user.birthday,
+                        Batch: user.batch
                     }
                 })
             })
