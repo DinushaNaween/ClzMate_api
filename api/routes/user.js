@@ -31,7 +31,7 @@ router.get('/', (req, res) =>{
                         Full_Name: doc.fullName,
                         Subjects: doc.subjects,
                         School: doc.school,
-                        Address: doc.address,
+                        City: doc.address.city,
                         ContactDetails: doc.contactDetails
                     }
                 })
