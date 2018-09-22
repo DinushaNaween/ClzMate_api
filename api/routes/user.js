@@ -26,7 +26,13 @@ router.get('/', (req, res) =>{
                         Last_Name: doc.lastName,
                         Email: doc.email,
                         Birthday: doc.birthday,
-                        Batch: doc.batch
+                        Batch: doc.batch,
+                        Role: doc.role,
+                        Full_Name: doc.fullName,
+                        Subjects: doc.subjects,
+                        School: doc.school,
+                        Address: doc.address,
+                        ContactDetails: doc.contactDetails
                     }
                 })
             })
