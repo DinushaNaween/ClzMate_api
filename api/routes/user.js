@@ -19,15 +19,14 @@ router.get('/', (req, res) =>{
         .exec() 
         .then(docs => { 
             console.log(docs);
-
-            res.status(200).json({
+                res.status(200).json({
                 user: docs.map(doc => {
                     return{
-                        First_Name: user.firstName,
-                        Last_Name: user.lastName,
-                        Email: user.email,
-                        Birthday: user.birthday,
-                        Batch: user.batch
+                        First_Name: doc.firstName,
+                        Last_Name: doc.lastName,
+                        Email: doc.email,
+                        Birthday: doc.birthday,
+                        Batch: doc.batch
                     }
                 })
             })
