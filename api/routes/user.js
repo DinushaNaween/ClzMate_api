@@ -15,35 +15,19 @@ const ContactDetails = userModels.contactDetails;
 router.get('/', (req, res) =>{
     User
         .find()
+        .populate('contactDetails address')
         .exec() 
         .then(docs => { 
             console.log(docs);
-            const responce1 = {
-                //count: docs.length,
-                Users: docs.map(doc => {
-                    return {
-                        //Message: 'User Details',
-                        Id: doc._id,
-                        Email: doc.email,
-                        Role: doc.role,
-                        Full_Name: doc.fullName,
-                        Batch: doc.batch,
-                        Subjects: doc.subjects,
-                        School: doc.school,
-                        Birthday: doc.birthday,
-                        Stream: doc.stream,
-                        First_Name: doc.firstName,
-                        Last_Name: doc.lastName,
-                        //request: {
-                        //    type: 'get',
-                        //    url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
-                        //}
+
+            res.status(200).json({
+                user: docs.map(doc => {
+                    return{
+                        user:doc
                     }
                 })
-            }
-           
-                    res.status(200).json(responce1);
-                })
+            })
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({
@@ -67,9 +51,24 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                         return res.status(500).json({     
                         });
                     }else {
-                        let subjects = [];
-                        console.log('User Created');
-                        console.log('Hashing Password : '+ hash)
+                        const address = new Address({
+                            _id: new mongoose.Types.ObjectId(),
+                            firstLine: req.body.firstLine,
+                            secondLine: req.body.secondLine,
+                            city: req.body.city,
+                            district: req.body.district
+                        });
+                        const contactDetails = new ContactDetails({
+                            _id: new mongoose.Types.ObjectId(),
+                            landNumber: req.body.landNumber,
+                            mobileNumber: req.body.mobileNumber,
+                            motherName: req.body.motherName,
+                            momNumber: req.body.momNumber,
+                            fatherName: req.body.fatherName, 
+                            dadNumber: req.body.dadNumber,
+                            gardianName: req.body.gardianName,
+                            gardianNumber: req.body.gardianNumber
+                        })
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
@@ -82,26 +81,10 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
                             stream: req.body.stream,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            birthday: req.body.birthday 
+                            birthday: req.body.birthday,
+                            address: address._id,
+                            contactDetails: contactDetails._id
                         });
-                        const address = new Address({
-                            _id: user._id,
-                            firstLine: req.body.firstLine,
-                            secondLine: req.body.secondLine,
-                            city: req.body.city,
-                            district: req.body.district
-                        });
-                        const contactDetails = new ContactDetails({
-                            _id: user._id,
-                            landNumber: req.body.landNumber,
-                            mobileNumber: req.body.mobileNumber,
-                            motherName: req.body.motherName,
-                            momNumber: req.body.momNumber,
-                            fatherName: req.body.fatherName, 
-                            dadNumber: req.body.dadNumber,
-                            gardianName: req.body.gardianName,
-                            gardianNumber: req.body.gardianNumber
-                        })
 
                         contactDetails
                             .save()
