@@ -20,7 +20,7 @@ router.get('/', (req, res) =>{
         .then(docs => { 
             console.log(docs);
                 res.status(200).json({
-                User: docs.map(doc => {
+                Users: docs.map(doc => {
                     return{
                         First_Name: doc.firstName,
                         Last_Name: doc.lastName,
