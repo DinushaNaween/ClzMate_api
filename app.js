@@ -5,8 +5,8 @@ const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const clzRoutes = require('./api/routes/clzes');
-const paperRoutes = require('./api/routes/papers');
+const clzRoutes = require('./api/routes/clz');
+const paperRoutes = require('./api/routes/paper');
 const userRoutes = require('./api/routes/user');
 
 mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
@@ -34,8 +34,8 @@ app.use((req, res, next)=>{
     next();
 });
 
-app.use('/clzes', clzRoutes);
-app.use('/papers', paperRoutes);
+app.use('/clz', clzRoutes);
+app.use('/paper', paperRoutes);
 app.use('/user', userRoutes);
 
 app.use((req, res, next)=>{

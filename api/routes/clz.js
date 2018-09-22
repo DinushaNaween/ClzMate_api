@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
                             type: 'get',
                             url: 'http://localhost:3000/clzes/' + doc._id
                         }
-                    } 
+                    }
                 })
             } 
             res.status(200).json(response);
