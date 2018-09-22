@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const addressSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    user: { type: mongoose.Schema.Types.ObjectId },
     firstLine: { type: String },
     secondLine: { type: String },
     city: { type: String },
@@ -10,6 +11,7 @@ const addressSchema = mongoose.Schema({
 
 const contactDetailsSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    user: { type: mongoose.Schema.Types.ObjectId },
     landNumber: { type: String },
     mobileNumber: { type: String },
     motherName: { type:String },
@@ -34,8 +36,8 @@ const userSchema = mongoose.Schema({
     }],
     school: { type: String },
     birthday: { type: String },
-    address: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
-    contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
+    address: { type: mongoose.Schema.Types.ObjectId, ref:'Address' },
+    contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'ContactDetails' },
     stream: { type: String }
 });
 
