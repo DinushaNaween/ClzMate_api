@@ -12,7 +12,10 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
+//get all user details
 router.get('/', (req, res) =>{
+    const Ad = doc.address;
+    const Cd = doc.contactDetails;
     User
         .find()
         .populate('contactDetails address')
@@ -32,20 +35,20 @@ router.get('/', (req, res) =>{
                         Full_Name: doc.fullName,
                         Subjects: doc.subjects,
                         School: doc.school,
-                        AddressId: doc.address._id,
-                        First_Line: doc.address.firstLine,
-                        Second_Line: doc.address.secondLine,
-                        City: doc.address.city,
-                        District: doc.address.district,
-                        ContactDetailsId: doc.contactDetails._id,
-                        Land_Number: doc.contactDetails.landNumber,
-                        Mobile_Number: doc.contactDetails.mobileNumber,
-                        Mother_Name: doc.contactDetails.motherName,
-                        Mother_Number: doc.contactDetails.momNumber,
-                        Father_Name: doc.contactDetails.fatherName,
-                        Father_Number: doc. contactDetails.dadNumber,
-                        Gardian_Name: doc.contactDetails.gardianName,
-                        Gardian_Number: doc.contactDetails.gardianNumber
+                        AddressId: Ad._id,
+                        First_Line: Ad.firstLine,
+                        Second_Line: Ad.secondLine,
+                        City: Ad.city,
+                        District: Ad.district,
+                        ContactDetailsId: Cd._id,
+                        Land_Number: Cd.landNumber,
+                        Mobile_Number: Cd.mobileNumber,
+                        Mother_Name: Cd.motherName,
+                        Mother_Number: Cd.momNumber,
+                        Father_Name: Cd.fatherName,
+                        Father_Number: Cd.dadNumber,
+                        Gardian_Name: Cd.gardianName,
+                        Gardian_Number: Cd.gardianNumber
                     }
                 })
             })
@@ -58,6 +61,7 @@ router.get('/', (req, res) =>{
         });
 });
 
+//register users
 router.post('/register', uploadController.userImageUpload.single('image'), (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
@@ -157,6 +161,7 @@ router.post('/register', uploadController.userImageUpload.single('image'), (req,
         })
 });
 
+//login user
 router.post('/login', (req, res) =>{
     User.find({ email: req.body.email })
         .exec()
@@ -198,6 +203,7 @@ router.post('/login', (req, res) =>{
         });
 });
 
+//delete user by Id
 router.delete('/:userId', (req, res ) => {
     console.log(req.params.userId);
     User
@@ -226,24 +232,27 @@ router.delete('/:userId', (req, res ) => {
         });
 });
 
+//edit user by Id
 router.patch('/userUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
       updateOps[ops.propName] = ops.value;
     }
-    User.update({ _id: id }, { $set: updateOps })
-      .exec()
-      .then(result => {
-        console.log(result);
-        res.status(200).json(result);
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+    User
+        .populate('address', 'city')
+        .update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
         });
-      });
 });
 
 router.patch('/addressUpdate/:userId', (req, res, next) => {
