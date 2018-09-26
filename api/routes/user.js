@@ -240,10 +240,14 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
       updateOps[ops.propName] = ops.value;
     }
     User
-        .populate('address', 'city')
+        .findById(id)
+        .populate('address','city')
+        console.log(id)
+        console.log(User[0].email)
         .update({ _id: id }, { $set: updateOps })
         .exec()
         .then(result => {
+            console.log(address)
             console.log(result);
             res.status(200).json(result);
         })
