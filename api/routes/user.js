@@ -56,7 +56,7 @@ router.get('/', (req, res) =>{
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err 
+                error: err
             });
         });
 });
@@ -86,7 +86,7 @@ router.post('/login', (req, res) =>{
                             return res.status(200).json({
                                 state: true,
                                 JWT_Token: token
-                            })
+                            }) 
                         }
                         console.log('token genetas : '+ this.token);
                     });
