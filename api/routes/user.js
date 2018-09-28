@@ -109,32 +109,34 @@ router.post('/login', (req, res) =>{
 
 //delete user by Id
 router.delete('/:userId', (req, res ) => {
+    const Id = req.params.userId;
     console.log(req.params.userId);
     User
-        .find()
+        .findById(Id)
         .populate('address contactDetails')
-        console.log(User)
-        //.remove({ _id: req.params.userId })
         .then(result => {
-            // res.status(200).json({
-            //     state: true
-            //     // Message: 'User Deleted',
-            //     // Deleted_User: req.params.userId
-            // });
-            console.log(User[0].email)
-            console.log(result);
-            
+            if (!result){
+                res.status(200).json({
+                    state: false
+                })
+            } else {
+                console.log(result)       
                 Address
-                    .remove({ _id: User[0].address })
-                    .then()
+                    .remove({ _id: result.address._id }) 
+                    .then() 
             
                 ContactDetails  
-                    .remove({ _id: User[0].contactDetails })
+                    .remove({ _id: result.contactDetails._id })
                     .then()
                 User
                     .remove({ _id: req.params.userId })
                     .then()
-            })
+
+                res.status(200).json({
+                    state: true
+            });
+            }
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({
