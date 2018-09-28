@@ -213,43 +213,12 @@ router.get('/:userId', (req, res, next) => {
     const Id = req.params.userId;
     User
         .findById(Id)
+        .populate('contactDetails address')
         .exec()
-        .then(user => {
-            console.log(user);
-            const responce1 = {
-                user
-            }
-            Address
-                .findById(Id)
-                .exec()
-                .then(address => {
-                    console.log(address);
-                    responce2 = {
-                        address
-                    }
-                })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({
-                        error: err
-                    });
-                })
-                ContactDetails
-                    .findById(Id)
-                    .exec()
-                    .then(contactDetails => {
-                        console.log(contactDetails);
-                        responce3 = {
-                            contactDetails
-                        }
-                        res.status(200).json([responce1,responce2,responce3]);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        res.status(500).json({
-                            error: err
-                        });
-                    })
+        .then(result => {
+            res.status(200).json({
+                User: result
+            })
         })
         .catch(err => {
             console.log(err);
