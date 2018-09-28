@@ -9,23 +9,10 @@ router.get('/', (req, res, next) => {
         .find()
         .populate('clz')
         .exec()
-        .then(docs => {
-            res.status(200).json({
-                //count: docs.length,
-                papers: docs.map(doc => {
-                    return {
-                        paperId: doc._id,
-                        clz: doc.clz._id,
-                        className: doc.clz.name,
-                        hallNo: doc.clz.hallNo,
-                        quantity: doc.quantity,
-                        // request: {
-                        //     type: 'GET',
-                        //     url: 'https://localhost:3000/papers/' + doc._id
-                        // }
-                    }
-                })
-            });
+        .then(result => {
+            res.status(200).json(
+                result
+            );
         })
         .catch(err => {
             res.status(500).json({
