@@ -81,17 +81,13 @@ router.patch('/:clzId', (req, res, next) => {
         .exec()
         .then(result => {
             res.status(200).json({
-                message: 'Class Updated',
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/clzes/' + id
-                }
+                state: true
             });
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                state: false
             });
         });
 });

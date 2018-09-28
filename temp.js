@@ -92,3 +92,14 @@
 // 	"gardianName": "new name3",
 // 	"gardianNumber": "0772345688"
 // }
+
+// {
+// 	"subjectName": "combined maths",
+// 	"hallNo": "34",
+// 	"grade": "",
+// 	"day": "monday",
+// 	"batch": "16",
+// 	"time": "10.00AM to 01.00PM",
+// 	"teacher": "5bae6b7e66a0dc236c26f66b",
+// 	"cardMarker": "5bae6b9866a0dc236c26f66e"
+// }
