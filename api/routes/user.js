@@ -23,7 +23,8 @@ router.get('/', (req, res) =>{
         .then(result => { 
             console.log(result);
                 res.status(200).json({
-                    User: result
+                    User: result,
+                    Address: result.address
             })
         })
         .catch(err => {
