@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Paper = require('../models/paper');
 const Clz = require('../models/clz');
 
+//get all papers details
 router.get('/', (req, res, next) => {
     Paper
         .find()
@@ -21,6 +22,7 @@ router.get('/', (req, res, next) => {
         });
 });
 
+//create a paper
 router.post('/', (req, res, next) => {
     const clzId = req.body.clzId;
     Clz
