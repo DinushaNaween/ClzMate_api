@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const Clz = require('../models/clz');
 
+//get all clz details
 router.get('/', (req, res, next) => {
     Clz
         .find()
@@ -20,6 +21,7 @@ router.get('/', (req, res, next) => {
         });
 });
 
+//create a new clz
 router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
@@ -51,6 +53,7 @@ router.post('/', (req, res, next) => {
         });
 });
 
+//get clz details by Id
 router.get('/:clzId', (req, res, next) => {
     const searchId = req.params.clzId;
     Clz
@@ -71,6 +74,7 @@ router.get('/:clzId', (req, res, next) => {
 
 });
  
+//edit clz by Id
 router.patch('/:clzId', (req, res, next) => {
     const patchId = req.params.clzId;
     const updateOps = {};
@@ -92,6 +96,7 @@ router.patch('/:clzId', (req, res, next) => {
         });
 });
 
+//delete clz by Id
 router.delete('/:clzId', (req, res, next) => {
     const deleteId = req.params.clzId;
     Clz
