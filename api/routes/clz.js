@@ -53,29 +53,20 @@ router.post('/', (req, res, next) => {
 
 router.get('/:clzId', (req, res, next) => {
     const searchId = req.params.clzId;
-    Clz.findById(searchId)
-        .select('name price _id')
+    Clz
+        .findById(searchId)
+        .populate('teacher cardMarker')
         .exec()
-        .then(doc => {
-            console.log("From Database", doc);
-            if (doc) {
-                res.status(200).json({
-                    clz: doc,
-                    request: {
-                        type: 'GET',
-                        description: 'Get all classes details.',
-                        url: 'http://localhost:3000/clzes'
-                    }
-                });
-            } else {
-                res.status(404).json({
-                    message: 'No valid entry found for this clzId'
-                });
-            }
+        .then(result => {
+            res.status(200).json({
+                Clz: result
+            })
         })
         .catch(err => {
             console.log(err);
-            res.status(500).json({ error: err });
+            res.status(500).json({ 
+                state: false 
+            });
         });
 
 });

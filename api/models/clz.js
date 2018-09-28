@@ -9,7 +9,7 @@ const clzSchema = mongoose.Schema({
     batch: { type: String },
     time: { type: String },
     teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    cardMarker: { type: mongoose.Schema.Types.ObjectId, ref: 'user' }
+    cardMarker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },{
         timestamps: true
 });
