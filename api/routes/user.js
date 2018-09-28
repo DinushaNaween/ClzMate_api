@@ -53,7 +53,12 @@ router.get('/', (req, res) =>{
         //         })
         //     })
         // })
-        
+        .then(result => { 
+            console.log(result);
+                res.status(200).json({
+                    User: result
+            })
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json({
