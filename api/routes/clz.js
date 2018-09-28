@@ -94,22 +94,27 @@ router.patch('/:clzId', (req, res, next) => {
 
 router.delete('/:clzId', (req, res, next) => {
     const deleteId = req.params.clzId;
-    Clz.remove({ _id: deleteId })
-        .exec()
+    Clz
+        .findById(deleteId)
         .then(result => {
-            res.status(200).json({
-                message: 'Class Deleted.',
-                request: {
-                    type: 'POST',
-                    url: 'https://localhost:3000/clzes',
-                    body: { name: 'String', hallNo: 'Number' }
-                }
-            });
+            if (result){
+                Clz
+                    .remove({ _id: deleteId })
+                    .then()
+
+                    res.status(200).json({
+                        state: true
+                    });
+            } else {
+                res.status(200).json({
+                    state: false
+                });
+            }
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                error: err
+                state: false
             });
         });
 });

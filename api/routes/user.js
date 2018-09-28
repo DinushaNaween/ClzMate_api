@@ -83,7 +83,6 @@ router.post('/login', (req, res) =>{
 //delete user by Id
 router.delete('/:userId', (req, res ) => {
     const Id = req.params.userId;
-    console.log(req.params.userId);
     User
         .findById(Id)
         .populate('address contactDetails')
