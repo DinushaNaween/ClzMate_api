@@ -9,22 +9,8 @@ router.get('/', (req, res, next) => {
         .find()
         .exec() 
         .then(docs => {
-            console.log(docs);
-            const response = {
-                count: docs.length,
-                clzes: docs.map(doc => {
-                    return {
-                        name: doc.name,
-                        hallNo: doc.hallNo,
-                        _id: doc._id,
-                        request: {
-                            type: 'get',
-                            url: 'http://localhost:3000/clzes/' + doc._id
-                        }
-                    }
-                }) 
-            } 
-            res.status(200).json(response);
+            console.log(docs); 
+            res.status(200).json(docs);
         })
         .catch(err => {
             console.log(err);
