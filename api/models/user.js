@@ -7,7 +7,9 @@ const addressSchema = mongoose.Schema({
     secondLine: { type: String },
     city: { type: String },
     district: { type: String }
-})
+    },{
+        timestamps: true
+});
 
 const contactDetailsSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -20,7 +22,9 @@ const contactDetailsSchema = mongoose.Schema({
     dadNumber: { type: String },
     gardianName: { type: String },
     gardianNumber: { type: String }
-})
+    },{
+        timestamps: true
+});
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -37,8 +41,9 @@ const userSchema = mongoose.Schema({
     school: { type: String },
     birthday: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'Address' },
-    contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'ContactDetails' },
-    stream: { type: String }
+    contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'ContactDetails' }
+    },{
+    timestamps: true
 });
 
 module.exports = {

@@ -5,8 +5,8 @@ const mongoose = require('mongoose');
 const Clz = require('../models/clz');
 
 router.get('/', (req, res, next) => {
-    Clz.find()
-        .select('name price _id')
+    Clz
+        .find()
         .exec() 
         .then(docs => {
             console.log(docs);
@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
                             url: 'http://localhost:3000/clzes/' + doc._id
                         }
                     }
-                })
+                }) 
             } 
             res.status(200).json(response);
         })
@@ -37,8 +37,14 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        hallNo: req.body.hallNo
+        subjectName: req.body.name,
+        hallNo: req.body.hallNo,
+        grade: req.body.grade,
+        day: req.body.day,
+        batch: req.body.batch,
+        time: req.body.time,
+        teacher: req.body.teacher,
+        cardMarker: req.body.cardMarker
     });
     clz
         .save()
@@ -46,7 +52,9 @@ router.post('/', (req, res, next) => {
             console.log(result);
             res.status(201).json({
                 state: true,
-                _id: clz._id
+                clzId: clz._id,
+                teacher: req.body.teacher,
+                Card_Marker: req.body.cardMarker
             });
         })
         .catch(err => {
