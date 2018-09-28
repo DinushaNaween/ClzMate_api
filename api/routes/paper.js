@@ -7,8 +7,7 @@ const Clz = require('../models/clz');
 router.get('/', (req, res, next) => {
     Paper
         .find()
-        .select('clz quantity _id')
-        .populate('clz', 'name hallNo')
+        .populate('clz')
         .exec()
         .then(docs => {
             res.status(200).json({
@@ -36,42 +35,32 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    const Id = req.body.clzId;
-    Clz.find({ _id: Id })
+    const clzId = req.body.clzId;
+    Clz
+        .find({ _id: clzId })
         .then(clz => {
             if (!clz) {
                 return res.status(404).json({
-                    message: 'Class not found'
+                    state: false
                 });
             }
             const paper = new Paper({
                 _id: new mongoose.Types.ObjectId(),
-                clz: req.body.clzId,
-                quantity: req.body.quantity
+                clz: req.body.clzId
             });
             return paper
                 .save()
-
-        })
-        .then(result => {
-            console.log(result);
-            res.status(201).json({
-                message: 'Paper Stored',
-                // createdPaper: {
-                //     paperId: result.paperId,
-                //     clz: result.clz,
-                //     quantity: result.quantity
-                // },
-                // request: {
-                //     type: 'GET',
-                //     url: 'http://localhost:3000/papers/' + result._id
-                // }
-            });
+                .then(result => {
+                    console.log(result);
+                    res.status(201).json({
+                        state: true
+                    });
+                })
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                message: 'clz not found.',
+                state: false
             });
         })
 });
