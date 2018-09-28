@@ -20,10 +20,37 @@ router.get('/', (req, res) =>{
         .find()
         .populate('contactDetails address')
         .exec() 
-        .then(result => { 
-            console.log(result);
+        .then(docs => { 
+            console.log(docs);
                 res.status(200).json({
-                    result
+                Users: docs.map(doc => {
+                    return{
+                        UserId: doc._id,
+                        First_Name: doc.firstName,
+                        Last_Name: doc.lastName,
+                        Email: doc.email,
+                        Birthday: doc.birthday,
+                        Batch: doc.batch,
+                        Role: doc.role,
+                        Full_Name: doc.fullName,
+                        Subjects: doc.subjects,
+                        School: doc.school,
+                        AddressId: doc.address._id,
+                        First_Line: doc.address.firstLine,
+                        Second_Line: doc.address.secondLine,
+                        City: doc.address.city,
+                        District: doc.address.district,
+                        ContactDetailsId: doc.contactDetails._id,
+                        Land_Number: doc.contactDetails.landNumber,
+                        Mobile_Number: doc.contactDetails.mobileNumber,
+                        Mother_Name: doc.contactDetails.motherName,
+                        Mother_Number: doc.contactDetails.momNumber,
+                        Father_Name: doc.contactDetails.fatherName,
+                        Father_Number: doc.contactDetails.dadNumber,
+                        Gardian_Name: doc.contactDetails.gardianName,
+                        Gardian_Number: doc.contactDetails.gardianNumber
+                    }
+                })
             })
         })
         .catch(err => {
@@ -140,6 +167,7 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
       });
 }); 
 
+//edit user address by Id
 router.patch('/addressUpdate/:addressId', (req, res, next) => {
     const id = req.params.addressId;
     const updateOps = {};
@@ -161,6 +189,7 @@ router.patch('/addressUpdate/:addressId', (req, res, next) => {
       });
 }); 
 
+//edit user contactDetails by Id
 router.patch('/contactDetailsUpdate/:contactDetailsId', (req, res, next) => {
     const id = req.params.contactDetailsId;
     const updateOps = {};
@@ -182,6 +211,7 @@ router.patch('/contactDetailsUpdate/:contactDetailsId', (req, res, next) => {
       });
 });
 
+//get user details by Id
 router.get('/:userId', (req, res, next) => {
     const Id = req.params.userId;
     User
@@ -201,6 +231,7 @@ router.get('/:userId', (req, res, next) => {
         });
 })
 
+//get users by role
 router.get('/findByRole/:role', (req, res, next) => {
     const role = req.params.role;
     User
