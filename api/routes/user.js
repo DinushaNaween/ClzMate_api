@@ -228,24 +228,6 @@ router.get('/:userId', (req, res, next) => {
         });
 })
 
-router.post('/register1', (req, res) =>{
-    var email =req.body.email;
-    var password = req.body.password;
-    console.log(email);
-    console.log(password);
-
-    if(email && password){
-        res.status(200).json({
-            msg:true
-        });
-    } else {
-        res.status(200).json({
-            msg:false
-        })
-    }
-  
-});
-
 router.get('/findByRole/:role', (req, res, next) => {
     const role = req.params.role;
     User
