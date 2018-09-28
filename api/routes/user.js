@@ -147,45 +147,25 @@ router.delete('/:userId', (req, res ) => {
 
 //edit user by Id
 router.patch('/userUpdate/:userId', (req, res, next) => {
-    const Id = req.params.userId;
+    const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
-        console.log(ops.propName)
         updateOps[ops.propName] = ops.value;
     }
-    console.log(req.body[2].propName)
-    console.log(updateOps.propName)
-    console.log(req.body)
     User
-        .findById(Id)
-        .populate('address contactDetails')
-        // .update({ _id: Id }, { $set: updateOps })
-        // .exec()
-        .then(result => { 
-            console.log(result.address._id)
-            console.log(result.contactDetails._id)
-            if (req.body[2].propName === "/address/"){
-                console.log("true one")
-            }
-            User
-                .update({ _id: Id }, { $set: updateOps })
-                .then()
-            Address
-                .update({ _id: result.address._id }, { $set: updateOps })
-                .then()
-            console.log(updateOps);
-            res.status(200).json({
-                firstone: updateOps[1],  
-                Props: updateOps
-            });
+        .update({ _id: id }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json(result);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({
                 error: err
             });
-        });
-});
+      });
+}); 
 
 router.patch('/addressUpdate/:addressId', (req, res, next) => {
     const id = req.params.addressId;
