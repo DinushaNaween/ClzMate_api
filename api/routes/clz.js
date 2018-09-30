@@ -81,7 +81,8 @@ router.patch('/:clzId', (req, res, next) => {
     for (const ops of req.body) {
         updateOps[ops.propName] = ops.value;
     }
-    Clz.update({ _id: patchId }, { $set: updateOps })
+    Clz
+        .update({ _id: patchId }, { $set: updateOps })
         .exec()
         .then(result => {
             res.status(200).json({

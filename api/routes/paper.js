@@ -106,4 +106,27 @@ router.delete('/:paperId', (req, res, next) => {
         });;
 });
 
+//paper edit bu Id
+router.patch('/:paperId', (req, res, next) => {
+    const patchId = req.params.paperId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Paper
+        .update({ _id: patchId }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                state: true
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(200).json({
+                state: false
+            });
+        });
+});
+
 module.exports = router;
