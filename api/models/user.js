@@ -31,7 +31,7 @@ const userSchema = mongoose.Schema({
     email: { type: String },
     password: { type: String },
     role: { type: String },
-    fullName: {type: String },
+    fullName: { type: String },
     firstName: { type: String },
     lastName: { type: String },
     batch: { type: String  },
@@ -50,4 +50,4 @@ module.exports = {
     user: mongoose.model('User', userSchema),
     address: mongoose.model('Address', addressSchema),
     contactDetails: mongoose.model('ContactDetails', contactDetailsSchema)
-}; 
+};
