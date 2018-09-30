@@ -15,7 +15,7 @@ const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
 //get all user details
-router.get('/', (req, res) =>{
+router.get('/', checkAuth.checkIfSuperUser, (req, res) =>{
     console.log('get route')
     User
         .find()
@@ -36,7 +36,8 @@ router.get('/', (req, res) =>{
 });
 
 //register users
-router.post('/register', uploadController.userImageUpload.single('image'), userController.registerUser);
+router.post('/register', checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
+                 userController.registerUser);
 
 //login user
 router.post('/login', checkAuth.authenticate, (req, res) =>{
@@ -82,7 +83,7 @@ router.post('/login', checkAuth.authenticate, (req, res) =>{
 });
 
 //delete user by Id
-router.delete('/:userId', (req, res ) => {
+router.delete('/:userId', checkAuth.checkIfAdmin, (req, res ) => {
     const Id = req.params.userId;
     User
         .findById(Id)
@@ -185,7 +186,7 @@ router.patch('/contactDetailsUpdate/:contactDetailsId', checkAuth.authenticate, 
 });
 
 //get user details by Id
-router.get('/:userId', (req, res, next) => {
+router.get('/:userId', checkAuth.checkIfSuperUser, (req, res, next) => {
     const Id = req.params.userId;
     User
         .findById(Id)
@@ -205,7 +206,7 @@ router.get('/:userId', (req, res, next) => {
 })
 
 //get users by role
-router.get('/findByRole/:role', (req, res, next) => {
+router.get('/findByRole/:role', checkAuth.checkIfSuperUser, (req, res, next) => {
     const role = req.params.role;
     User
         .find({ role: role })

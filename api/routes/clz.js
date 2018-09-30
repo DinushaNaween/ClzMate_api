@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 
 const Clz = require('../models/clz');
 
+const checkAuth = require('../middlewares/check-auth');
+
 //get all clz details
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth.checkIfSuperUser, (req, res, next) => {
     Clz
         .find()
         .exec() 
@@ -22,7 +24,7 @@ router.get('/', (req, res, next) => {
 });
 
 //create a new clz
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth.checkIfAdmin, (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
         subjectName: req.body.name,
@@ -54,7 +56,7 @@ router.post('/', (req, res, next) => {
 });
 
 //get clz details by Id
-router.get('/:clzId', (req, res, next) => {
+router.get('/:clzId', checkAuth.checkIfSuperUser, (req, res, next) => {
     const searchId = req.params.clzId;
     Clz
         .findById(searchId)
@@ -75,7 +77,7 @@ router.get('/:clzId', (req, res, next) => {
 });
  
 //edit clz by Id
-router.patch('/:clzId', (req, res, next) => {
+router.patch('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
     const patchId = req.params.clzId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -98,7 +100,7 @@ router.patch('/:clzId', (req, res, next) => {
 });
 
 //delete clz by Id
-router.delete('/:clzId', (req, res, next) => {
+router.delete('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
     const deleteId = req.params.clzId;
     Clz
         .findById(deleteId)

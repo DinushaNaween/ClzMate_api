@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const Paper = require('../models/paper');
 const Clz = require('../models/clz');
 
+const checkAuth = require('../middlewares/check-auth');
+
 //get all papers details
-router.get('/', (req, res, next) => {
+router.get('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
     Paper
         .find()
         .populate('clz')
@@ -23,7 +25,7 @@ router.get('/', (req, res, next) => {
 });
 
 //create a paper
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
     const clzId = req.body.clzId;
     Clz
         .find({ _id: clzId })
@@ -55,7 +57,7 @@ router.post('/', (req, res, next) => {
 });
 
 //get paper by Id
-router.get('/:paperId', (req, res, next) => {
+router.get('/:paperId', checkAuth.checkIfSuperUser, (req, res, next) => {
     const searchId = req.params.paperId;
     Paper
         .findById(searchId)
@@ -79,7 +81,7 @@ router.get('/:paperId', (req, res, next) => {
 });
 
 //delete paper by Id
-router.delete('/:paperId', (req, res, next) => {
+router.delete('/:paperId', checkAuth.checkIfSpecialUser, (req, res, next) => {
     const deleteId = req.params.paperId;
     Paper
         .findById(deleteId)
@@ -107,7 +109,7 @@ router.delete('/:paperId', (req, res, next) => {
 });
 
 //paper edit bu Id
-router.patch('/:paperId', (req, res, next) => {
+router.patch('/:paperId', checkAuth.checkIfSpecialUser, (req, res, next) => {
     const patchId = req.params.paperId;
     const updateOps = {};
     for (const ops of req.body) {

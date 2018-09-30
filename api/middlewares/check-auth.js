@@ -75,8 +75,46 @@ function checkIfSuperUser(req, res, next) {
     }
 }
 
+function checkIfAdmin(req, res, next) {
+    try {
+        const decodeJWT = decode(req, res, next);
+        req.userData = decodeJWT;
+        if (decodeJWT.user.role === 'admin'){
+            next()
+        } else{
+            return res.status(200).json({
+                Message: 'Oops!.... Not Enough Permissions'
+            });
+        }
+    } catch (error) {
+        res.status(401).json({
+            state: false
+        })
+    }
+}
+
+function checkIfPaperMarker(req, res, next) {
+    try {
+        const decodeJWT = decode(req, res, next);
+        req.userData = decodeJWT;
+        if (decodeJWT.user.role === 'papermarker'){
+            next()
+        } else{
+            return res.status(200).json({
+                Message: 'Oops!.... Not Enough Permissions'
+            });
+        }
+    } catch (error) {
+        res.status(401).json({
+            state: false
+        })
+    }
+}
+
 module.exports = {
     authenticate: authenticate,
+    checkIfAdmin: checkIfAdmin,
+    checkIfPaperMarker: checkIfPaperMarker,
     checkIfSuperUser: checkIfSuperUser,
     checkIfSpecialUser: checkIfSpecialUser,
     checkIfGeneralUser: checkIfGeneralUser
