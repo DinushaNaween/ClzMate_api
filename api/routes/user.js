@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const uploadController = require('../controllers/uploadController');
 const userController = require('../controllers/userController');
+const checkAuth = require('../middlewares/check-auth');
 
 const userModels = require('../models/user');
 
@@ -51,7 +52,7 @@ router.post('/login', (req, res) =>{
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (result){
-                    token = jwt.sign({user: user[0]}, 'secretkey',(err, token) => {
+                    token = jwt.sign({user: user[0]}, process.env.JWT_KEY,(err, token) => {
                         if(err){
                             res.json({ error: err })
                         } else {
