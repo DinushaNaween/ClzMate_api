@@ -54,28 +54,26 @@ router.post('/', (req, res, next) => {
         })
 });
 
+//get paper by Id
 router.get('/:paperId', (req, res, next) => {
-    const searchId = req.body.paperId;
-    Paper.findById(searchId)
+    const searchId = req.params.paperId;
+    Paper
+        .findById(searchId)
         .populate('clz')
-        .exec()
-        .then(order => {
-            if (!paper) {
+        .then(result => {
+            if (!result) {
                 return res.status(404).json({
-                    message: "Paper Not Found."
+                    state: false
+                });
+            } else {
+                res.status(200).json({
+                    result
                 });
             }
-            res.status(200).json({
-                paper: paper,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/papers'
-                }
-            });
         })
         .catch(err => {
             res.status(500).json({
-                erreo: err
+                state: false
             })
         })
 });
