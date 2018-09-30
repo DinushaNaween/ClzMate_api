@@ -106,4 +106,26 @@ router.delete('/:markId', (req, res, next) => {
         })
 });
 
+//edit mark by Id
+router.patch('/:markId', (req, res, next) => {
+    const patchId = req.params.markId;
+    const updateOps = {};
+    for (const ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+    Mark
+        .update({ _id: patchId }, { $set: updateOps })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                state: true
+            })
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        })
+});
+
 module.exports = router;
