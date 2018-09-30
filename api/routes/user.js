@@ -39,7 +39,7 @@ router.get('/', (req, res) =>{
 router.post('/register', uploadController.userImageUpload.single('image'), userController.registerUser);
 
 //login user
-router.post('/login', (req, res) =>{
+router.post('/login', checkAuth.authenticate, (req, res) =>{
     User
         .find({ email: req.body.email })
         .exec()
@@ -119,7 +119,7 @@ router.delete('/:userId', (req, res ) => {
 });
 
 //edit user by Id
-router.patch('/userUpdate/:userId', (req, res, next) => {
+router.patch('/userUpdate/:userId', checkAuth.authenticate, (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -141,7 +141,7 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
 }); 
 
 //edit user address by Id
-router.patch('/addressUpdate/:addressId', (req, res, next) => {
+router.patch('/addressUpdate/:addressId', checkAuth.authenticate, (req, res, next) => {
     const id = req.params.addressId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -163,7 +163,7 @@ router.patch('/addressUpdate/:addressId', (req, res, next) => {
 }); 
 
 //edit user contactDetails by Id
-router.patch('/contactDetailsUpdate/:contactDetailsId', (req, res, next) => {
+router.patch('/contactDetailsUpdate/:contactDetailsId', checkAuth.authenticate, (req, res, next) => {
     const id = req.params.contactDetailsId;
     const updateOps = {};
     for (const ops of req.body) {

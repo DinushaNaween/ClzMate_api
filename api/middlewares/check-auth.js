@@ -56,8 +56,28 @@ function checkIfGeneralUser(req, res, next) {
     }
 }
 
+function checkIfSuperUser(req, res, next) {
+    try {
+        const decodeJWT = decode(req, res, next)
+        req.userData = decodeJWT;
+        if (decodeJWT.user.role === 'parent' || decodeJWT.user.role === 'student' ||
+            decodeJWT.user.role === 'admin' || decodeJWT.user.role === 'teacher'){
+            next()
+        } else{
+            return res.status(200).json({
+                Message: 'Oops!.... Not Enough Permissions'
+            });
+        }
+    } catch (error) {
+        res.status(401).json({
+            state: false
+        })
+    }
+}
+
 module.exports = {
     authenticate: authenticate,
+    checkIfSuperUser: checkIfSuperUser,
     checkIfSpecialUser: checkIfSpecialUser,
     checkIfGeneralUser: checkIfGeneralUser
 };
