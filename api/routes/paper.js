@@ -78,23 +78,30 @@ router.get('/:paperId', (req, res, next) => {
         })
 });
 
+//delete paper by Id
 router.delete('/:paperId', (req, res, next) => {
-    const deleteId = req.body.paperId;
-    Paper.remove({ paperId: deleteId })
+    const deleteId = req.params.paperId;
+    Paper
+        .findById(deleteId)
         .exec()
         .then(result => {
-            res.status(200).json({
-                message: "Paper Deleted",
-                request: {
-                    type: "POST",
-                    url: "http://localhost:3000/papers",
-                    body: { clzId: "ID", quantity: "Number" }
-                }
-            });
+            if (!result){
+                res.status(200).json({
+                    state: false
+                })
+            } else {
+                Paper
+                    .remove({ _id: deleteId })
+                    .then()
+
+                    res.status(200).json({
+                        state: true
+                    })
+            }
         })
         .catch(err => {
             res.status(500).json({
-                error: err
+                state: false
             });
         });;
 });
