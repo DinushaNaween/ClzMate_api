@@ -78,4 +78,32 @@ router.get('/:markId', (req, res, next) => {
         });
 });
 
+//delete mark by Id
+router.delete('/:markId', (req, res, next) => {
+    const deleteId = req.params.markId;
+    Mark
+        .findById(deleteId)
+        .exec()
+        .then(mark => {
+            if(!mark){
+                res.status(200).json({
+                    state: false
+                })
+            } else{
+                Mark
+                    .remove({ _id: deleteId })
+                    .then()
+
+                    res.status(200).json({
+                        state: true
+                    });
+            }
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        })
+});
+
 module.exports = router;
