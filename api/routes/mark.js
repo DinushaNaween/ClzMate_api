@@ -5,12 +5,25 @@ const mongoose = require('mongoose');
 const Mark = require('../models/mark');
 const Paper = require('../models/paper');
 
+//get all marks
 router.get('/', (req, res, next) => {
-    res.status(200).json({
-        state: true
-    });
+    Mark
+        .find()
+        .populate('student paper paperMarker')
+        .exec()
+        .then(mark => {
+            res.status(200).json({
+                mark
+            })
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        })
 });
 
+//add mark (with student, paper, paperMarker)
 router.post('/addMark', (req, res, next) => {
     const paperId = req.body.paper;
     Paper
