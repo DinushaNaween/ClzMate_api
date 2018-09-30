@@ -59,4 +59,23 @@ router.post('/addMark', (req, res, next) => {
         });
 });
 
+//get single mark details by Id
+router.get('/:markId', (req, res, next) => {
+    const searchId = req.params.markId;
+    Mark
+        .findById(searchId)
+        .populate('student paper paperMarker')
+        .exec()
+        .then(mark => {
+            res.status(200).json({
+                mark
+            })
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        });
+});
+
 module.exports = router;
