@@ -16,7 +16,7 @@ mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
 mongoose.Promise = global.Promise;
  
 app.use(morgan('dev'));
-app.use(bodyparser.urlencoded({extended:false}));
+app.use(bodyparser.urlencoded({extended:false})); 
 app.use(bodyparser.json());
 
 app.use(passport.initialize());
