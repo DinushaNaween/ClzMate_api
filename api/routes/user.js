@@ -37,10 +37,10 @@ router.get('/', checkAuth.checkIfSuperUser, (req, res) =>{
 
 //register users
 router.post('/register', checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
-                 userController.registerUser);
+            userController.registerUser);
 
 //login user
-router.post('/login', checkAuth.authenticate, (req, res) =>{
+router.post('/login', (req, res) =>{
     User
         .find({ email: req.body.email })
         .exec()
