@@ -15,7 +15,7 @@ const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
 //get all user details
-router.get('/', checkAuth.checkIfSuperUser, (req, res) =>{
+router.get('/', (req, res) =>{
     console.log('get route')
     User
         .find()
@@ -36,7 +36,7 @@ router.get('/', checkAuth.checkIfSuperUser, (req, res) =>{
 });
 
 //register users
-router.post('/register', checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
+router.post('/register', uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
 //login user
@@ -83,7 +83,7 @@ router.post('/login', (req, res) =>{
 });
 
 //delete user by Id
-router.delete('/:userId', checkAuth.checkIfAdmin, (req, res ) => {
+router.delete('/:userId', (req, res ) => {
     const Id = req.params.userId;
     User
         .findById(Id)
@@ -186,7 +186,7 @@ router.patch('/contactDetailsUpdate/:contactDetailsId', checkAuth.authenticate, 
 });
 
 //get user details by Id
-router.get('/:userId', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/:userId', (req, res, next) => {
     const Id = req.params.userId;
     User
         .findById(Id)
