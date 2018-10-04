@@ -5,6 +5,7 @@ const attendanceSchema = mongoose.Schema({
     attendance: [{
         type: Boolean
     }],
+    clz: { typ: mongoose.Schema.Types.ObjectId, ref: 'Clz' },
     student: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     cardMarker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
     },{

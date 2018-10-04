@@ -87,6 +87,14 @@ function saveUser(req, hash){
     return user.save();
 }
 
+function findStudentById(req, res, next){
+    const studentId = req.body.student;
+    User
+        .findById(studentId)
+        .exec()
+        
+}
+
 module.exports = {
     registerUser: registerUser
 };
