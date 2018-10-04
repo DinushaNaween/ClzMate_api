@@ -92,9 +92,23 @@ function findStudentById(req, res, next){
     User
         .findById(studentId)
         .exec()
-        
+        .then(user => {
+            if(!user){
+                res.status(200).json({
+                    state: false
+                })
+            } else {
+                next()
+            }
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        })
 }
 
 module.exports = {
-    registerUser: registerUser
+    registerUser: registerUser,
+    findStudentById: findStudentById
 };
