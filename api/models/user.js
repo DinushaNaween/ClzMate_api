@@ -35,9 +35,12 @@ const userSchema = mongoose.Schema({
     firstName: { type: String },
     lastName: { type: String },
     batch: { type: String  },
-    subjects: [{
-        type: String
-    }],
+    subjects: {
+        type: [{
+            type: String
+        }],
+        validate: [ arrayLimit, '{PATH} exceeds the limit of 3' ]
+    },
     school: { type: String },
     birthday: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'Address' },
@@ -45,6 +48,10 @@ const userSchema = mongoose.Schema({
     },{
     timestamps: true
 });
+
+function arrayLimit(val){
+    return val.length <= 3;
+}
 
 module.exports = {
     user: mongoose.model('User', userSchema),
