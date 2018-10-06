@@ -10,17 +10,17 @@ const Attendance = require('../models/attendance');
 router.post('/newMonthAttendance', userController.findStudentById, clzController.findClzById, (req, res, next) => {
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
-        attendance: req.body.attendance,
         clz: req.body.clz,
         student: req.body.student,
         cardMarker: req.body.cardMarker
     });
-    console.log(attendance)
     attendance
         .save()
         .then(attendance => {
+            console.log(attendance)
             res.status(200).json({
                 state: true,
+                date: attendance.time.toDateString(),
                 attendance
             })
         })
@@ -31,6 +31,8 @@ router.post('/newMonthAttendance', userController.findStudentById, clzController
         });
 });
 
-router.post('/addAttendance', )
+// router.post('/addAttendance', userController.findStudentById, clzController.findClzById, (req, res, next) => {
+//     const 
+// });
 
 module.exports = router;
