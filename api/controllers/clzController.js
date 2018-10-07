@@ -11,6 +11,7 @@ function findClzById(req, res, next){
                     state: false
                 })
             } else {
+                console.log('find Clz OK')
                 next()
             }
         })

@@ -11,7 +11,6 @@ router.post('/newMonthAttendance', userController.findStudentById, clzController
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
         clz: req.body.clz,
-        student: req.body.student,
         cardMarker: req.body.cardMarker
     });
     attendance
@@ -20,19 +19,48 @@ router.post('/newMonthAttendance', userController.findStudentById, clzController
             console.log(attendance)
             res.status(200).json({
                 state: true,
-                date: attendance.time.toDateString(),
+                date: attendance.day.toDateString(),
                 attendance
             })
         })
         .catch(err => {
-            res.status(200).json({
+            console.log(err)
+            res.status(500).json({
                 state: false
             })
         });
 });
 
-// router.post('/addAttendance', userController.findStudentById, clzController.findClzById, (req, res, next) => {
-//     const 
-// });
+router.patch('/addAttendance/:attendanceId', userController.findStudentById, (req, res, next) => {
+    const attendanceId = req.params.attendanceId
+    const newStudent = req.body.student;
+    Attendance
+        .findById(attendanceId)
+        .then(attendance => {
+            if(!attendance){
+                res.status(500).json({
+                    state: false
+                })
+            } else {
+                console.log(newStudent)
+                attendance.student
+                    .push(newStudent)
+                attendance
+                    .save()
+                    // .then(result => {
+                    //     console.log(result)
+                    // })
+                    res.status(200).json({
+                        state: true
+                    })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                err
+            })
+        })
+});
 
 module.exports = router;

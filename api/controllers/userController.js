@@ -98,6 +98,7 @@ function findStudentById(req, res, next){
                     state: false
                 })
             } else {
+                console.log('find student OK')
                 next()
             }
         })

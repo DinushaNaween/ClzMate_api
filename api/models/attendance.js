@@ -12,7 +12,7 @@ const attendanceSchema = mongoose.Schema({
     },{
         timestamps: true
 });
-
+ 
 function arrayLimit(val){
     return val.length <= 10;
 }
