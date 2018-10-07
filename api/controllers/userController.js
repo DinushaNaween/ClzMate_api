@@ -98,12 +98,11 @@ function findStudentById(req, res, next){
                     state: false
                 })
             } else {
-                console.log('find student OK')
                 next()
             }
         })
         .catch(err => {
-            res.status(200).json({
+            res.status(500).json({
                 state: false
             })
         })

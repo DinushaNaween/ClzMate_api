@@ -7,6 +7,7 @@ const clzController = require('../controllers/clzController');
 
 const Attendance = require('../models/attendance');
 
+//create new attendance tuple for new month
 router.post('/newMonthAttendance', userController.findStudentById, clzController.findClzById, (req, res, next) => {
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
@@ -31,6 +32,7 @@ router.post('/newMonthAttendance', userController.findStudentById, clzController
         });
 });
 
+//add attendance for a week in existing table
 router.patch('/addAttendance/:attendanceId', userController.findStudentById, (req, res, next) => {
     const attendanceId = req.params.attendanceId
     const newStudent = req.body.student;
@@ -47,9 +49,9 @@ router.patch('/addAttendance/:attendanceId', userController.findStudentById, (re
                     .push(newStudent)
                 attendance
                     .save()
-                    // .then(result => {
-                    //     console.log(result)
-                    // })
+                    .then(result => {
+                        console.log(result)
+                    })
                     res.status(200).json({
                         state: true
                     })
