@@ -16,7 +16,6 @@ const ContactDetails = userModels.contactDetails;
 
 //get all user details
 router.get('/', (req, res) =>{
-    console.log('get route')
     User
         .find()
         .populate('contactDetails address')

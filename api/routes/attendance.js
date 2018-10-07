@@ -7,8 +7,24 @@ const clzController = require('../controllers/clzController');
 
 const Attendance = require('../models/attendance');
 
-//create new attendance tuple for new month
-router.post('/newMonthAttendance', userController.findStudentById, clzController.findClzById, (req, res, next) => {
+router.get('/weekAttendance', (req, res, next) => {
+    Attendance
+        .find()
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                Attendance: result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                err
+            })
+        })
+});
+
+//create new attendance tuple for new week
+router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) => {
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
         clz: req.body.clz,
