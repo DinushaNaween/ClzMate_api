@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const attendanceSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    date: Date,
     day : { type : Date, default: Date.now },
     clz: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },
     student: [{ 

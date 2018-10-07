@@ -7,11 +7,13 @@ const clzController = require('../controllers/clzController');
 
 const Attendance = require('../models/attendance');
 
-router.get('/weekAttendance', (req, res, next) => {
+// get all attendance 
+router.get('/allAttendance', (req, res, next) => {
     Attendance
         .find()
         .exec()
         .then(result => {
+            console.log(result.day)
             res.status(200).json({
                 Attendance: result
             })
@@ -28,7 +30,8 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
         clz: req.body.clz,
-        cardMarker: req.body.cardMarker
+        cardMarker: req.body.cardMarker,
+        date: req.body.date
     });
     attendance
         .save()
@@ -75,6 +78,25 @@ router.patch('/addAttendance/:attendanceId', userController.findStudentById, (re
         })
         .catch(err => {
             console.log(err)
+            res.status(500).json({
+                err
+            })
+        })
+});
+
+//get attendance by week
+router.get('/weekAttendance/:day', (req, res, next) => {
+    const week = req.params.day;
+    Attendance
+        .find({ date: week })
+        .exec()
+        .then(attendance => {
+            console.log(attendance)
+            res.status(200).json({
+                attendance
+            })
+        })
+        .catch(err => {
             res.status(500).json({
                 err
             })
