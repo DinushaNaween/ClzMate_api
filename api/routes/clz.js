@@ -127,4 +127,10 @@ router.delete('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
         });
 });
 
+router.get('/getClzByCardMarkerId', (req, res, next) => {
+    res.status(200).json({
+        state: true
+    })
+})
+
 module.exports = router;
