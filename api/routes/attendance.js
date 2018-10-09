@@ -91,6 +91,8 @@ router.get('/weekAttendance/:day', (req, res, next) => {
         .find({ date: week })
         .exec()
         .then(attendance => {
+            const month = attendance[0].date.toDateString()
+            console.log(month)
             console.log(attendance)
             res.status(200).json({
                 attendance
@@ -103,4 +105,56 @@ router.get('/weekAttendance/:day', (req, res, next) => {
         })
 });
 
+router.get('/:attendanceId', (req, res, next) => {
+    const attendanceId = req.params.attendanceId;
+    console.log(attendanceId)
+    Attendance
+        .findById(attendanceId)
+        .exec()
+        // .then(result => {
+            
+
+
+        //     // const length = result.student.length
+        //     // const students = result.student[0]
+        //     // console.log(length-1)
+        //     // console.log(students)
+        //     // // console.log(result)
+        //     // res.status(200).json({
+        //     //     result
+        //     // })
+        // })
+        .then(result => {
+            for(const item in result.student){
+                console.log(item.valueOf());
+            }
+        })
+});
+
+router.get('/studentAttendance/:studentId', (req, res, next) => {
+    const student = req.params.studentId;
+    console.log(req.params.studentId)
+    Attendance
+        .find({'attendance.student': { $elemMatch: { id: student }}}, function(err, attendance){
+            if (err){
+                return (err)
+            }
+            if (attendance){
+                console.log('one')
+                res.status(200).json({
+                    attendance
+                })
+            } else{
+                console.log('second')
+            }
+        })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                result
+            })
+        })
+}); 
+
 module.exports = router;
+
