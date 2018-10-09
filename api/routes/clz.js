@@ -128,8 +128,9 @@ router.delete('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
 });
 
 router.get('/getClzByCardMarkerId', (req, res, next) => {
+    console.log("getClzByCardMarkerId")
     res.status(200).json({
-        state: true
+        message: 'this one'
     })
 })
 
