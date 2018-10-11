@@ -119,7 +119,7 @@ router.delete('/:userId', (req, res ) => {
 });
 
 //edit user by Id
-router.patch('/userUpdate/:userId', checkAuth.authenticate, (req, res, next) => {
+router.patch('/userUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -141,7 +141,7 @@ router.patch('/userUpdate/:userId', checkAuth.authenticate, (req, res, next) => 
 }); 
 
 //edit user address by Id
-router.patch('/addressUpdate/:addressId', checkAuth.authenticate, (req, res, next) => {
+router.patch('/addressUpdate/:addressId', (req, res, next) => {
     const id = req.params.addressId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -163,7 +163,7 @@ router.patch('/addressUpdate/:addressId', checkAuth.authenticate, (req, res, nex
 }); 
 
 //edit user contactDetails by Id
-router.patch('/contactDetailsUpdate/:contactDetailsId', checkAuth.authenticate, (req, res, next) => {
+router.patch('/contactDetailsUpdate/:contactDetailsId', (req, res, next) => {
     const id = req.params.contactDetailsId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -205,7 +205,7 @@ router.get('/:userId', (req, res, next) => {
 })
 
 //get users by role
-router.get('/findByRole/:role', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/findByRole/:role', (req, res, next) => {
     const role = req.params.role;
     User
         .find({ role: role })
@@ -243,5 +243,31 @@ router.get('/findByRole/:role', checkAuth.checkIfSuperUser, (req, res, next) => 
             });
         });
 })
+
+router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
+    const cardMarker = req.params.cardMarkerId;
+    console.log(cardMarker)
+    User
+        .find({ _id: cardMarker })
+        .then(user => {
+            console.log(user)
+            res.status(200).json({
+
+                state: true
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+});
+
+router.post('/fogotPassword/:userId', (req, res, next) => {
+    const userId = req.params.userId;
+    res.status(200).json({
+        state: true
+    })
+});
 
 module.exports = router;

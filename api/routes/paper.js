@@ -7,7 +7,7 @@ const Clz = require('../models/clz');
 const checkAuth = require('../middlewares/check-auth');
 
 //get all papers details
-router.get('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Paper
         .find()
         .populate('clz')
@@ -25,7 +25,7 @@ router.get('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
 });
 
 //create a paper
-router.post('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
+router.post('/', (req, res, next) => {
     const clzId = req.body.clzId;
     Clz
         .find({ _id: clzId })
@@ -57,7 +57,7 @@ router.post('/', checkAuth.checkIfSpecialUser, (req, res, next) => {
 });
 
 //get paper by Id
-router.get('/:paperId', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/:paperId', (req, res, next) => {
     const searchId = req.params.paperId;
     Paper
         .findById(searchId)
@@ -81,7 +81,7 @@ router.get('/:paperId', checkAuth.checkIfSuperUser, (req, res, next) => {
 });
 
 //delete paper by Id
-router.delete('/:paperId', checkAuth.checkIfSpecialUser, (req, res, next) => {
+router.delete('/:paperId', (req, res, next) => {
     const deleteId = req.params.paperId;
     Paper
         .findById(deleteId)
@@ -109,7 +109,7 @@ router.delete('/:paperId', checkAuth.checkIfSpecialUser, (req, res, next) => {
 });
 
 //paper edit bu Id
-router.patch('/:paperId', checkAuth.checkIfSpecialUser, (req, res, next) => {
+router.patch('/:paperId', (req, res, next) => {
     const patchId = req.params.paperId;
     const updateOps = {};
     for (const ops of req.body) {

@@ -8,7 +8,7 @@ const Paper = require('../models/paper');
 const checkAuth = require('../middlewares/check-auth');
 
 //get all marks
-router.get('/', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Mark
         .find()
         .populate('student paper paperMarker')
@@ -26,7 +26,7 @@ router.get('/', checkAuth.checkIfSuperUser, (req, res, next) => {
 });
 
 //add mark (with student, paper, paperMarker)
-router.post('/addMark', checkAuth.checkIfPaperMarker, (req, res, next) => {
+router.post('/addMark', (req, res, next) => {
     const paperId = req.body.paper;
     Paper
         .findById(paperId)
@@ -62,7 +62,7 @@ router.post('/addMark', checkAuth.checkIfPaperMarker, (req, res, next) => {
 });
 
 //get single mark details by Id
-router.get('/:markId', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/:markId', (req, res, next) => {
     const searchId = req.params.markId;
     Mark
         .findById(searchId)
@@ -81,7 +81,7 @@ router.get('/:markId', checkAuth.checkIfSuperUser, (req, res, next) => {
 });
 
 //delete mark by Id
-router.delete('/:markId', checkAuth.checkIfPaperMarker, (req, res, next) => {
+router.delete('/:markId', (req, res, next) => {
     const deleteId = req.params.markId;
     Mark
         .findById(deleteId)
@@ -109,7 +109,7 @@ router.delete('/:markId', checkAuth.checkIfPaperMarker, (req, res, next) => {
 });
 
 //edit mark by Id
-router.patch('/:markId', checkAuth.checkIfPaperMarker, (req, res, next) => {
+router.patch('/:markId', (req, res, next) => {
     const patchId = req.params.markId;
     const updateOps = {};
     for (const ops of req.body) {

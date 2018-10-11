@@ -3,11 +3,12 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Clz = require('../models/clz');
+const User = require('../models/user');
 
 const checkAuth = require('../middlewares/check-auth');
 
 //get all clz details
-router.get('/', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/', (req, res, next) => {
     Clz
         .find()
         .exec() 
@@ -24,7 +25,7 @@ router.get('/', checkAuth.checkIfSuperUser, (req, res, next) => {
 });
 
 //create a new clz
-router.post('/', checkAuth.checkIfAdmin, (req, res, next) => {
+router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
         subjectName: req.body.name,
@@ -56,7 +57,7 @@ router.post('/', checkAuth.checkIfAdmin, (req, res, next) => {
 });
 
 //get clz details by Id
-router.get('/:clzId', checkAuth.checkIfSuperUser, (req, res, next) => {
+router.get('/:clzId', (req, res, next) => {
     const searchId = req.params.clzId;
     Clz
         .findById(searchId)
@@ -77,7 +78,7 @@ router.get('/:clzId', checkAuth.checkIfSuperUser, (req, res, next) => {
 });
  
 //edit clz by Id
-router.patch('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
+router.patch('/:clzId', (req, res, next) => {
     const patchId = req.params.clzId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -100,7 +101,7 @@ router.patch('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
 });
 
 //delete clz by Id
-router.delete('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
+router.delete('/:clzId', (req, res, next) => {
     const deleteId = req.params.clzId;
     Clz
         .findById(deleteId)
@@ -127,11 +128,22 @@ router.delete('/:clzId', checkAuth.checkIfAdmin, (req, res, next) => {
         });
 });
 
-router.get('/getClzByCardMarkerId', (req, res, next) => {
-    console.log("getClzByCardMarkerId")
-    res.status(200).json({
-        message: 'this one'
-    })
-})
+router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
+    const cardMarker = req.params.cardMarkerId;
+    console.log(cardMarker)
+    User
+        .find({ _id: cardMarker })
+        .then(result => {
+            console.log(result)
+            res.status(200).json({
+                state: true
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+});
 
 module.exports = router;
