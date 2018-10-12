@@ -28,7 +28,7 @@ function registerUser(req, res){
                         saveUser(req, hash)
                             .then(result => {
                                 console.log("User signed up"); 
-                                emailController.sendEmail('sender', req.body.email, 'You Signed Up', result)
+                                //emailController.sendEmail('sender', req.body.email, 'You Signed Up', result)
                                 res.status(201).json({
                                     state: true,
                                     exist: false
