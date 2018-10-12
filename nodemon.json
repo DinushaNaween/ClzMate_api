@@ -1,6 +1,6 @@
 {
     "env": {
         "JWT_KEY": "secret",
-        "MONGODB_MLAB_PW": "databaseadmin1"
+        "MONGODB_MLAB_PW": "clzmatepassword12345"
     }
 }
