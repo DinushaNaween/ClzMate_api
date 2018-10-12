@@ -1,112 +1,39 @@
+// 'use strict';
+// const nodemailer = require('nodemailer');
 
-//                  this file is for temparary codings
+// // Generate test SMTP service account from ethereal.email
+// // Only needed if you don't have a real mail account for testing
+// nodemailer.createTestAccount((err, account) => {
+//     // create reusable transporter object using the default SMTP transport
+//     let transporter = nodemailer.createTransport({
+//         host: 'smtp.ethereal.email',
+//         port: 587,
+//         secure: false, // true for 465, false for other ports
+//         auth: {
+//             user: account.user, // generated ethereal user
+//             pass: account.pass // generated ethereal password
+//         }
+//     });
 
+//     // setup email data with unicode symbols
+//     let mailOptions = {
+//         from: '"Fred Foo 👻" <foo@example.com>', // sender address
+//         to: 'bar@example.com, baz@example.com', // list of receivers
+//         subject: 'Hello ✔', // Subject line
+//         text: 'Hello world?', // plain text body
+//         html: '<b>Hello world?</b>' // html body
+//     };
 
+//     // send mail with defined transport object
+//     transporter.sendMail(mailOptions, (error, info) => {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         console.log('Message sent: %s', info.messageId);
+//         // Preview only available when sending through an Ethereal account
+//         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-
-
-// router.delete('/:userId', (req, res ) => {
-//     const Id = req.params.userId;
-//     console.log(req.params.userId);
-//     User
-//         .findById(Id)
-//         .populate('address contactDetails')
-//         .then(result => {
-//             if (result.length < 1){
-//                 res.status(200).json({
-//                     state: false
-//                 })
-//             } else {
-//                 console.log(result)       
-//                 Address
-//                     .remove({ _id: result.address._id }) 
-//                     .then() 
-            
-//                 ContactDetails  
-//                     .remove({ _id: result.contactDetails._id })
-//                     .then()
-//                 User
-//                     .remove({ _id: req.params.userId })
-//                     .then()
-
-//                 res.status(200).json({
-//                     state: true
-//             });
-//             }
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({
-//                 error: err
-//             });
-//         });
+//         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+//         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+//     });
 // });
-
-
-// router.delete('/:userId', (req, res ) => {
-//     const Id = req.params.userId;
-//     console.log(req.params.userId);
-//     User
-//         .findById(Id)
-//         .populate('address contactDetails')
-//         .then(result => {
-//             console.log(result)       
-//             Address
-//                 .remove({ _id: result.address._id }) 
-//                 .then() 
-        
-//             ContactDetails  
-//                 .remove({ _id: result.contactDetails._id })
-//                 .then()
-//             User
-//                 .remove({ _id: req.params.userId })
-//                 .then()
-
-//             res.status(200).json({
-//                 state: true
-//             });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({
-//                 error: err
-//             });
-//         });
-// });
-
-// {
-// 	"email": "test132@gmail.com",
-// 	"password": "12345",
-// 	"role": "student",
-// 	"fullName": "Test full name",
-// 	"firstName": "Test first name",
-// 	"lastName": "Test last name",
-// 	"batch": "2020 A/L",
-// 	"subjects": ["Maths","Physics","Chemistry"],
-// 	"school": "College",
-// 	"birthday": "1995/4/12",
-// 	"stream": "English",
-// 	"firstLine": "67",
-// 	"secondLine": "New Town Road",
-// 	"city": "new city",
-// 	"district": "test district",
-// 	"landNumber": "0453434654",
-// 	"mobileNumber": "0772397343",
-// 	"motherName": "test name1",
-// 	"momNumber": "0713834444",
-// 	"fatherName": "test name2",
-// 	"dadNumber": "0772345688",
-// 	"gardianName": "new name3",
-// 	"gardianNumber": "0772345688"
-// }
-
-// {
-// 	"subjectName": "combined maths",
-// 	"hallNo": "34",
-// 	"grade": "",
-// 	"day": "monday",
-// 	"batch": "16",
-// 	"time": "10.00AM to 01.00PM",
-// 	"teacher": "5bae6b7e66a0dc236c26f66b",
-// 	"cardMarker": "5bae6b9866a0dc236c26f66e"
-// }

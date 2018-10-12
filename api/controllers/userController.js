@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 
 const userModels = require('../models/user');
 
+const emailController = require('../controllers/emailController');
+
 const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
@@ -26,6 +28,7 @@ function registerUser(req, res){
                         saveUser(req, hash)
                             .then(result => {
                                 console.log("User signed up"); 
+                                emailController.sendEmail('sender', req.body.email, 'You Signed Up', result)
                                 res.status(201).json({
                                     state: true,
                                     exist: false

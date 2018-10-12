@@ -265,9 +265,10 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
 
 router.post('/fogotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
-    res.status(200).json({
-        state: true
-    })
+    User
+        .findById(userId)
+        .exec()
+        .then()
 });
 
 module.exports = router;
