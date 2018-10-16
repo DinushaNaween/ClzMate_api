@@ -20,12 +20,11 @@ function registerUser(req, res){
                     exist: true
                 });
             } else {
-                hashPassword(req.body.password)
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if(err){
                         return res.status(500).json({     
                         });
-                    }
-                    if(hash) {
+                    }else {
                         saveUser(req, hash)
                             .then(result => {
                                 console.log("User signed up"); 
@@ -42,7 +41,8 @@ function registerUser(req, res){
                                 });
                             });
                     }
-                           }
+                });
+            }
         })
 }
 
@@ -92,7 +92,8 @@ function saveUser(req, hash){
 function hashPassword(password){
     bcrypt.hash(password, 10, (err, hash) => {
         if(err){
-            return err;
+            return res.status(500).json({
+            });
         }else {
             return hash;
         }
