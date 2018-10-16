@@ -89,12 +89,15 @@ function saveUser(req, hash){
     return user.save();
 }
 
-function hashPassword(password){
-    bcrypt.hash(password, 10, (err, hash) => {
+function hashPassword(req, res, next){
+    // const password = req.body.password;
+    console.log('hashPassword')
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
-            return res.status(500).json({
-            });
+            console.log(err)
+            return err;
         }else {
+            console.log(hash)
             return hash;
         }
     });

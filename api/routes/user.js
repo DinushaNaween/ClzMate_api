@@ -124,6 +124,9 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
+        // if (ops.propName == password){
+        //     userController.hashPassword(ops.value)
+        // }
         updateOps[ops.propName] = ops.value;
     }
     User
@@ -284,4 +287,15 @@ router.get('/fogotPassword/:userId', (req, res, next) => {
         })
 });
 
-module.exports = router;
+router.post('/test', (req, res, next) => {
+    // const password = req.body.password;
+    const hash = userController.hashPassword
+    console.log()
+    if(hash.length > 0) {
+        res.status(200).json({
+            state: true
+        })
+    }
+});
+
+module.exports = router; 
