@@ -274,13 +274,14 @@ router.get('/fogotPassword/:userId', (req, res, next) => {
         .exec()
         .then(user => {
             const receiver = user.email;
+            console.log(receiver)
             emailController.sendEmail(receiver);
             res.status(200).json({
                 state: true
             })
         }) 
         .catch(err => {
-            console.log(err); 
+            console.log(err);  
             res.status(500).json({
                 state: false
             })

@@ -13,7 +13,6 @@ router.get('/allAttendance', (req, res, next) => {
         .find()
         .exec()
         .then(result => {
-            console.log(result.day)
             res.status(200).json({
                 Attendance: result
             })
@@ -137,11 +136,10 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
         })
         .exec()
         .then(result => {
-            res.status(200).json({
+            res.status(200).json({ 
                 result
             })
         })
 }); 
 
 module.exports = router;
-

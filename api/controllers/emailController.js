@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 function sendEmail(receiver) {
     const sender = 'projectclzmate@gmail.com';
     const subject = 'Reset ClzMate Password';
-    const message = 'Click on this link to reset your password.';
+    const message = '<html><body><h1>This is h1 tag</h1></body></html>';
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
