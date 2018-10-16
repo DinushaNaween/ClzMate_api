@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const uploadController = require('../controllers/uploadController');
 const userController = require('../controllers/userController');
 const checkAuth = require('../middlewares/check-auth');
+const emailController = require('../controllers/emailController');
 
 const userModels = require('../models/user');
 
@@ -263,12 +264,24 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
         })
 });
 
-router.post('/fogotPassword/:userId', (req, res, next) => {
+router.get('/fogotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
     User
         .findById(userId)
         .exec()
-        .then()
+        .then(user => {
+            const receiver = user.email;
+            emailController.sendEmail(receiver);
+            res.status(200).json({
+                state: true
+            })
+        }) 
+        .catch(err => {
+            console.log(err); 
+            res.status(500).json({
+                state: false
+            })
+        })
 });
 
 module.exports = router;

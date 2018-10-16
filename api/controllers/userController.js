@@ -20,15 +20,15 @@ function registerUser(req, res){
                     exist: true
                 });
             } else {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                hashPassword(req.body.password)
                     if(err){
                         return res.status(500).json({     
                         });
-                    }else {
+                    }
+                    if(hash) {
                         saveUser(req, hash)
                             .then(result => {
                                 console.log("User signed up"); 
-                                emailController.sendEmail('sender', 'dldndasanayaka@gmail.com', 'You Signed Up', 'result')
                                 res.status(201).json({
                                     state: true,
                                     exist: false
@@ -42,8 +42,7 @@ function registerUser(req, res){
                                 });
                             });
                     }
-                });
-            }
+                           }
         })
 }
 
@@ -90,6 +89,16 @@ function saveUser(req, hash){
     return user.save();
 }
 
+function hashPassword(password){
+    bcrypt.hash(password, 10, (err, hash) => {
+        if(err){
+            return err;
+        }else {
+            return hash;
+        }
+    });
+}
+
 function findStudentById(req, res, next){
     const studentId = req.body.student;
     User
@@ -113,5 +122,6 @@ function findStudentById(req, res, next){
 
 module.exports = {
     registerUser: registerUser,
-    findStudentById: findStudentById
+    findStudentById: findStudentById,
+    hashPassword: hashPassword
 };

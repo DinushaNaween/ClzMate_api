@@ -1,13 +1,15 @@
 const nodemailer = require('nodemailer');
 
-function sendEmail(sender, receiver, subject, message) {
+function sendEmail(receiver) {
+    const sender = 'projectclzmate@gmail.com';
+    const subject = 'Reset ClzMate Password';
+    const message = 'Click on this link to reset your password.';
+
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.email',
-        port: 465,
-        secure: false, // true for 465, false for other ports
+        service: 'gmail',
         auth: {
-            user: 'projectclzmate@gmail.com', // generated ethereal user
-            pass: 'clzmatepassword12345' // generated ethereal password
+            user: 'projectclzmate@gmail.com',
+            pass: 'clzmatepassword12345'
         }
     });
 
@@ -25,7 +27,9 @@ function sendEmail(sender, receiver, subject, message) {
             throw new Error('email sending failed');
             
         } else {
-            return { 'status': 'succsess' };
+            res.status(200).json({
+                state: true
+            })
         }
     });
 
