@@ -121,25 +121,36 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
     const student = req.params.studentId;
     console.log(req.params.studentId)
     Attendance
-        .find({'attendance.student': { $elemMatch: { id: student }}}, function(err, attendance){ 
-            if (err){
-                return (err)
-            } 
-            if (attendance){
-                console.log('one')
-                res.status(200).json({
-                    attendance
-                })
-            } else{
-                console.log('second')
-            }
-        })
+        .find({ student: searchstudent })
         .exec()
         .then(result => {
-            res.status(200).json({ 
-                result
+            console.log(result);
+            console.log(result[0].date); 
+            res.status(200).json({
+                date: result[0].date
             })
+        })
+        .catch(err => {
+            console.log(err);
         })
 }); 
 
-module.exports = router;
+router.get('/testget/:studentId', (req, res, next) => {
+    const searchstudent = req.params.studentId;
+    console.log(req.params.studentId)
+    Attendance
+        .find({ student: searchstudent })
+        .exec()
+        .then(result => {
+            console.log(result);
+            console.log(result[0].date); 
+            res.status(200).json({
+                date: result[0].date
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+});
+
+module.exports = router; 

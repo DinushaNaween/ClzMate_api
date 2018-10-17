@@ -267,6 +267,7 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
         })
 });
 
+//reset password email send to user
 router.get('/fogotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
     User
@@ -288,6 +289,7 @@ router.get('/fogotPassword/:userId', (req, res, next) => {
         })
 });
 
+//test route
 router.post('/test', (req, res, next) => {
     // const password = req.body.password;
     const hash = userController.hashPassword
