@@ -248,27 +248,8 @@ router.get('/findByRole/:role', (req, res, next) => {
         });
 })
 
-router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
-    const cardMarker = req.params.cardMarkerId;
-    console.log(cardMarker)
-    User
-        .find({ _id: cardMarker })
-        .then(user => {
-            console.log(user)
-            res.status(200).json({
-
-                state: true
-            })
-        })
-        .catch(err => {
-            res.status(500).json({
-                state: false
-            })
-        })
-});
-
 //reset password email send to user
-router.get('/fogotPassword/:userId', (req, res, next) => {
+router.get('/forgotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
     User
         .findById(userId)

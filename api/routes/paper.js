@@ -108,7 +108,7 @@ router.delete('/:paperId', (req, res, next) => {
         });;
 });
 
-//paper edit bu Id
+//paper edit by Id
 router.patch('/:paperId', (req, res, next) => {
     const patchId = req.params.paperId;
     const updateOps = {};

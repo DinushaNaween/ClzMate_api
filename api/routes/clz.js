@@ -128,6 +128,7 @@ router.delete('/:clzId', (req, res, next) => {
         });
 });
 
+//search clz by cardmarker id
 router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
     const cardMarker = req.params.cardMarkerId;
     console.log(cardMarker)

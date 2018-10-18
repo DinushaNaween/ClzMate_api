@@ -117,6 +117,7 @@ router.get('/:attendanceId', (req, res, next) => {
         })
 });
 
+//get student attendance by studentId
 router.get('/studentAttendance/:studentId', (req, res, next) => {
     const student = req.params.studentId;
     console.log(req.params.studentId)
@@ -130,7 +131,7 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
             console.log(dateIs)
             const attendedDates = [{ date: Date, clz: mongoose.Schema.ObjectId}];
             for (i=0 ; i<length ; i++ ){
-                attendedDates[i] = result[i].date.toDateString()
+                attendedDates[i].date = result[i].date.toDateString()
             }
             res.status(200).json({
                 // date: result[0].date
@@ -142,6 +143,7 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
         })
 }); 
 
+//test one
 router.get('/testget/:studentId', (req, res, next) => {
     const searchstudent = req.params.studentId;
     console.log(req.params.studentId)
