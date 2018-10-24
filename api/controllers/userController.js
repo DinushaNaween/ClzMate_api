@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 
 const userModels = require('../models/user');
 
-const emailController = require('../controllers/emailController');
-
 const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
