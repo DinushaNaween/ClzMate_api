@@ -124,10 +124,11 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
-        // if (ops.propName == password){
-        //     userController.hashPassword(ops.value)
-        // }
-        updateOps[ops.propName] = ops.value;
+        if (ops.propName == 'clzes'){
+            userController.addClz(id, ops.value)
+        } else{
+            updateOps[ops.propName] = ops.value;
+        }
     }
     User
         .update({ _id: id }, { $set: updateOps })
@@ -281,5 +282,54 @@ router.post('/test', (req, res, next) => {
         })
     }
 });
+
+router.delete('/special/deleteAllUsers', (req, res, next) => {
+    User
+        .find()
+        .populate('address contactDetails')
+        .then(result => {
+            if (!result){
+                res.status(200).json({
+                    state: false
+                })
+            } else {
+                // console.log(result)       
+                Address
+                    .find()
+                    .remove() 
+                    .then() 
+            
+                ContactDetails
+                    .find()  
+                    .remove()
+                    .then()
+                User
+                    .find()
+                    .remove()
+                    .then()
+
+                res.status(200).json({
+                    state: true
+            });
+            }
+        })
+})
+
+// router.get('/getClzByStudent/:studentId', (req, res, next) => {
+//     const studentId = req.params.studentId;
+//     User
+//         .find({ _id: studentId })
+//         .populate('clz')
+//         .exec()
+//         .then(result => {
+//             console.log("OK")
+//             res.status(200).json({
+//                 clzes: result[0].clzes
+//             })
+//         })
+//         .catch(err => {
+//             console.log("NOT OK")
+//         })
+// })
 
 module.exports = router; 

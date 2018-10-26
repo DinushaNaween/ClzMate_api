@@ -36,7 +36,8 @@ const userSchema = mongoose.Schema({
     lastName: { type: String },
     batch: { type: String  },
     clzes:[{
-            type: mongoose.Schema.Types.ObjectId
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Clz'
     }],
     school: { type: String },
     birthday: { type: String },

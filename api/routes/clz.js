@@ -14,7 +14,10 @@ router.get('/', (req, res, next) => {
         .exec() 
         .then(docs => {
             console.log(docs); 
-            res.status(200).json(docs);
+            res.status(200).json(
+                docs.length,
+                docs
+            );
         })
         .catch(err => {
             console.log(err);
@@ -76,6 +79,19 @@ router.get('/:clzId', (req, res, next) => {
         });
 
 });
+
+router.get('/getClzByStudent/:studentId', (req, res, next) => {
+    const studentId = req.params.studentId;
+    User
+        .find({ _id: studentId })
+        .exec()
+        .then(result => {
+            console.log("OK")
+        })
+        .catch(err => {
+            console.log("NOT OK")
+        })
+})
  
 //edit clz by Id
 router.patch('/:clzId', (req, res, next) => {

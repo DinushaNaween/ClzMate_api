@@ -122,8 +122,22 @@ function findStudentById(req, res, next){
         })
 }
 
+function addClz(user, value){
+    User
+        .findById(user)
+        .exec()
+        .then(User => {
+            User.clzes
+                .push(value)
+            User
+                .save()
+                .then()
+        })
+}
+
 module.exports = {
     registerUser: registerUser,
     findStudentById: findStudentById,
-    hashPassword: hashPassword
+    hashPassword: hashPassword,
+    addClz: addClz
 };

@@ -131,7 +131,7 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
             console.log(dateIs)
             const attendedDates = [{ date: Date, clz: mongoose.Schema.ObjectId}];
             for (i=0 ; i<length ; i++ ){
-                attendedDates[i].date = result[i].date.toDateString()
+                attendedDates[i] = result[i].date.toDateString()
             }
             res.status(200).json({
                 // date: result[0].date
