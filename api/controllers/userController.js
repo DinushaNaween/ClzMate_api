@@ -7,6 +7,7 @@ const User = userModels.user;
 const Address = userModels.address;
 const ContactDetails = userModels.contactDetails;
 
+//user registration function
 function registerUser(req, res){
     User.find({ email: req.body.email })
         .exec()
@@ -44,6 +45,7 @@ function registerUser(req, res){
         })
 }
 
+//save user
 function saveUser(req, hash){
     const address = new Address({
         _id: new mongoose.Types.ObjectId(),
@@ -87,8 +89,8 @@ function saveUser(req, hash){
     return user.save();
 }
 
+//hash password
 function hashPassword(req, res, next){
-    // const password = req.body.password;
     console.log('hashPassword')
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if(err){
@@ -101,6 +103,7 @@ function hashPassword(req, res, next){
     });
 }
 
+//find student by id
 function findStudentById(req, res, next){
     const studentId = req.body.student;
     User
@@ -122,6 +125,7 @@ function findStudentById(req, res, next){
         })
 }
 
+//add clz to existing student
 function addClz(user, value){
     User
         .findById(user)
