@@ -14,10 +14,9 @@ router.get('/', (req, res, next) => {
         .exec() 
         .then(docs => {
             console.log(docs); 
-            res.status(200).json(
-                // docs.length,
-                docs
-            );
+            res.status(200).json({
+                Clz: docs
+            });
         })
         .catch(err => {
             console.log(err);
