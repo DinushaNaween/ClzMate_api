@@ -73,7 +73,7 @@ function saveUser(req, hash){
         batch: req.body.batch,
         role: req.body.role,
         school: req.body.school,
-        subjects: req.body.subjects,
+        clzes: req.body.clzes,
         stream: req.body.stream,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
