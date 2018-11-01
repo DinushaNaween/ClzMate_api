@@ -9,4 +9,4 @@ const subjectSchema = mongoose.Schema({
         timestamps: true
 });
 
-module.exports = mongoose.model('Mark', subjectSchema);
+module.exports = mongoose.model('Subject', subjectSchema);
