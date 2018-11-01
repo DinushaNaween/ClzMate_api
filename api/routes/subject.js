@@ -36,7 +36,7 @@ router.post('/addSubject', (req, res, next) => {
         })
 });
 
-router.get('/subjectId', (req, res, next) => {
+router.get('/:subjectId', (req, res, next) => {
     const subjectId = req.params.subjectId;
     Subject
         .find({ _id: subjectId })
