@@ -10,6 +10,7 @@ const paperRoutes = require('./api/routes/paper');
 const userRoutes = require('./api/routes/user');
 const markRoutes = require('./api/routes/mark');
 const attendanceRoutes = require('./api/routes/attendance');
+const subjectRoutes = require('./api/routes/subject');
 
 mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
 // mongoose.connect('mongodb://databaseAdmin:databaseadmin1@ds129823.mlab.com:29823/clzmate_database');
@@ -42,6 +43,7 @@ app.use('/paper', paperRoutes);
 app.use('/user', userRoutes);
 app.use('/mark', markRoutes);
 app.use('/attendance', attendanceRoutes);
+app.use('/subject', subjectRoutes);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');

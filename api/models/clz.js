@@ -7,6 +7,7 @@ const clzSchema = mongoose.Schema({
     grade: { type: String },
     day: { type: String },
     batch: { type: String },
+    stream: { type: String },
     time: { type: String },
     teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     cardMarker: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }

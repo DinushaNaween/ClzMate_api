@@ -78,6 +78,7 @@ function saveUser(req, hash){
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         birthday: req.body.birthday,
+        gender: req.body.gender,
         address: address._id,
         contactDetails: contactDetails._id
     });

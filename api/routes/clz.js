@@ -35,6 +35,7 @@ router.post('/', (req, res, next) => {
         grade: req.body.grade,
         day: req.body.day,
         batch: req.body.batch,
+        stream: req.body.stream,
         time: req.body.time,
         teacher: req.body.teacher,
         cardMarker: req.body.cardMarker

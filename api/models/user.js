@@ -41,6 +41,7 @@ const userSchema = mongoose.Schema({
     }],
     school: { type: String },
     birthday: { type: String },
+    gender: { type: String },
     address: { type: mongoose.Schema.Types.ObjectId, ref:'Address' },
     contactDetails: { type: mongoose.Schema.Types.ObjectId, ref:'ContactDetails' }
     },{
