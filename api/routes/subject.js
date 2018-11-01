@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
         .exec()
         .then(subjects => {
             res.status(200).json({
-                subjects: Subject
+                subjects: subjects
             });
         })
         .catch(err => {
@@ -32,6 +32,23 @@ router.post('/addSubject', (req, res, next) => {
         .then(result => {
             res.status(200).json({
                 state: true
+            })
+        })
+});
+
+router.get('/subjectId', (req, res, next) => {
+    const subjectId = req.params.subjectId;
+    Subject
+        .findById(subjectId)
+        .exec()
+        .then(subject => {
+            res.status(200).json({
+                Subject: subject
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
             })
         })
 });
