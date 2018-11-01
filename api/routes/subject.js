@@ -39,7 +39,7 @@ router.post('/addSubject', (req, res, next) => {
 router.get('/subjectId', (req, res, next) => {
     const subjectId = req.params.subjectId;
     Subject
-        .findById(subjectId)
+        .find({ _id: subjectId })
         .exec()
         .then(subject => {
             res.status(200).json({
