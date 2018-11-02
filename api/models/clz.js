@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const clzSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    subjectName: { type: String },
+    subjectName: { type: mongoose.Schema.Types.ObjectId, ref: 'Subject' },
     hallNo: { type: Number },
     grade: { type: String },
     day: { type: String },

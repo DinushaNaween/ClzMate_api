@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const Subject = require('../models/subject');
 
+//get all details of all subjects
 router.get('/', (req, res, next) => {
     Subject
         .find()
@@ -20,6 +21,7 @@ router.get('/', (req, res, next) => {
         })
 });
 
+//add new subject
 router.post('/addSubject', (req, res, next) => {
     const subject = new Subject({
         _id: new mongoose.Types.ObjectId(),
@@ -36,6 +38,7 @@ router.post('/addSubject', (req, res, next) => {
         })
 });
 
+//get one subject details by ID
 router.get('/:subjectId', (req, res, next) => {
     const subjectId = req.params.subjectId;
     Subject

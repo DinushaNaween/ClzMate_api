@@ -318,21 +318,12 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
         })
 })
 
-// router.get('/getClzByStudent/:studentId', (req, res, next) => {
-//     const studentId = req.params.studentId;
-//     User
-//         .find({ _id: studentId })
-//         .populate('clz')
-//         .exec()
-//         .then(result => {
-//             console.log("OK")
-//             res.status(200).json({
-//                 clzes: result[0].clzes
-//             })
-//         })
-//         .catch(err => {
-//             console.log("NOT OK")
-//         })
-// })
+router.get('/test', (req, res, next) => {
+    User
+        .count({ role: "student" })
+        .then(result => {
+            console.log(result) 
+        })
+})
 
 module.exports = router; 
