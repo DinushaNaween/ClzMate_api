@@ -318,12 +318,23 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
         })
 })
 
-router.get('/test', (req, res, next) => {
+router.get('/test', (req, res) =>{
     User
-        .count({ role: "student" })
-        .then(result => {
-            console.log(result) 
+        .find()
+        .populate('contactDetails address')
+        .exec() 
+        .then(result => { 
+            console.log(result);
+                res.status(200).json({
+                    User: result
+            })
         })
-})
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
 
 module.exports = router; 
