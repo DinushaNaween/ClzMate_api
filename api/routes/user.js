@@ -187,25 +187,31 @@ router.patch('/addressUpdate/:userId', (req, res, next) => {
 }); 
 
 //edit user contactDetails by Id
-router.patch('/contactDetailsUpdate/:contactDetailsId', (req, res, next) => {
-    const id = req.params.contactDetailsId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    ContactDetails
-        .update({ _id: id }, { $set: updateOps })
+router.patch('/contactDetailsUpdate/:userId', (req, res, next) => {
+    const userId = req.params.userId;
+    User
+        .find({ _id: userId })
         .exec()
-        .then(result => {
-            console.log(result);
-            res.status(200).json(result);
-        })
-        .catch(err => {
-            console.log(err);
-                res.status(500).json({
-                error: err
+        .then(user => {
+            const contactDetailsId = user[0].contactDetails
+            const updateOps = {};
+            for (const ops of req.body) {
+                updateOps[ops.propName] = ops.value;
+            }
+            ContactDetails
+                .update({ _id: contactDetailsId }, { $set: updateOps })
+                .exec()
+                .then(result => {
+                    console.log(result);
+                    res.status(200).json(result);
+                })
+                .catch(err => {
+                    console.log(err);
+                        res.status(500).json({
+                        error: err
+                    });
             });
-      });
+        })
 });
 
 //get user details by Id
