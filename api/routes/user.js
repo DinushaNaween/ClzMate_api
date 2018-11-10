@@ -253,6 +253,7 @@ router.get('/findByRole/:role', (req, res, next) => {
         });
 })
 
+//check password of a loged user before edit his profile
 router.post('/checkPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
     const currentPassword = req.body.password;
@@ -279,6 +280,7 @@ router.post('/checkPassword/:userId', (req, res, next) => {
 //send reset password email to user
 router.get('/forgotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
+    console.log(userId)
     User
         .findById(userId)
         .exec()
@@ -299,8 +301,12 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
 });
 
 //reset password
-router.patch('/resetPassword/:userId', (req, res, next) => {
-
+router.get('/resetPassword/:userId', (req, res, next) => {
+    const number = userController.generateRandomNumber()
+    console.log(number)
+    res.status(200).json({
+        state: true
+    })
 })
 
 /*special route for delete all users in database

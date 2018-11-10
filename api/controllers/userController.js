@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const userModels = require('../models/user');
 
@@ -145,9 +146,19 @@ function addClz(user, value){
         })
 }
 
+//generate random hexadecimal number for verifications
+function generateRandomNumber(req, res, next) {
+    const len = 7;
+    return crypto
+      .randomBytes(Math.ceil(len / 2))
+      .toString('hex') // convert to hexadecimal format
+      .slice(0, len) // return required number of characters
+  }  
+
 module.exports = {
     registerUser: registerUser,
     findStudentById: findStudentById,
     resetPassword: resetPassword,
-    addClz: addClz
+    addClz: addClz,
+    generateRandomNumber: generateRandomNumber
 };
