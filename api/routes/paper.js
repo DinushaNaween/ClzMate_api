@@ -108,7 +108,7 @@ router.delete('/:paperId', (req, res, next) => {
         });;
 });
 
-//paper edit by Id
+//paper edit by paperId
 router.patch('/:paperId', (req, res, next) => {
     const patchId = req.params.paperId;
     const updateOps = {};
@@ -130,5 +130,29 @@ router.patch('/:paperId', (req, res, next) => {
             });
         });
 });
+
+/*special route for delete all users in database
+this is use for developing perposes
+Super admins only*/
+
+router.delete('/special/deleteAllPapers', (req, res, next) => {
+    Paper
+        .find()
+        .then(papers => {
+            if(!papers){
+                res.status(200).json({
+                    state: false
+                })
+            } else{
+                Paper
+                    .remove()
+                    .then()
+                res.status(200).json({
+                    state: true
+                })
+            }
+        })
+})
+
 
 module.exports = router;
