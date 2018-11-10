@@ -203,12 +203,14 @@ router.patch('/contactDetailsUpdate/:userId', (req, res, next) => {
                 .exec()
                 .then(result => {
                     console.log(result);
-                    res.status(200).json(result);
+                    res.status(200).json({
+                        state: true
+                    });
                 })
                 .catch(err => {
                     console.log(err);
                         res.status(500).json({
-                        error: err
+                        state: false
                     });
             });
         })
