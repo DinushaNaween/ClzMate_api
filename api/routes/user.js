@@ -126,7 +126,11 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
     for (const ops of req.body) {
         if (ops.propName == 'clzes'){
             userController.addClz(id, ops.value)
-        } else{
+        }
+        if (ops.propName == 'password'){
+            userController.resetPassword(id, ops.value)
+        } 
+        else {
             updateOps[ops.propName] = ops.value;
         }
     }
@@ -249,7 +253,7 @@ router.get('/findByRole/:role', (req, res, next) => {
         });
 })
 
-//reset password email send to user
+//send reset password email to user
 router.get('/forgotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
     User
@@ -270,6 +274,11 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
             })
         })
 });
+
+//reset password
+router.patch('/resetPassword/:userId', (req, res, next) => {
+
+})
 
 /*special route for delete all users in database
 this is use for developing perposes
@@ -306,6 +315,7 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
         })
 })
 
+//test aggregate framework
 router.get('/aggregateTest/:studentId', (req, res) =>{
     console.log(req.params.studentId);
     User
@@ -323,5 +333,17 @@ router.get('/aggregateTest/:studentId', (req, res) =>{
             console.log(result);
         })    
 });
+
+//test hash password
+router.post('/hashpassword',  (req, res, next) => {
+    // const password = hash;
+    const hash = userController.hashPassword
+    // const hash = userController.hashPassword(password);
+    // console.log(password);
+    console.log(hash);
+    res.status(200).json({
+        password: hash
+    })
+})
 
 module.exports = router; 

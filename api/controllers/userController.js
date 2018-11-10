@@ -90,16 +90,21 @@ function saveUser(req, hash){
     return user.save();
 }
 
-//hash password
-function hashPassword(req, res, next){
-    console.log('hashPassword')
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
+//change password
+function resetPassword(userId, newPassword){
+    bcrypt.hash(newPassword, 10, (err, hash) => {
         if(err){
             console.log(err)
             return err;
         }else {
             console.log(hash)
-            return hash;
+            User
+                // .find({ _id: userId })
+                .update({ _id: userId },{$set: { password: hash }})
+                .then(result => {
+                    console.log(result)
+                })
+
         }
     });
 }
@@ -143,6 +148,6 @@ function addClz(user, value){
 module.exports = {
     registerUser: registerUser,
     findStudentById: findStudentById,
-    hashPassword: hashPassword,
+    resetPassword: resetPassword,
     addClz: addClz
 };
