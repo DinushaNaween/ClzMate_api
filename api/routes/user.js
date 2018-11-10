@@ -325,18 +325,11 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
         })
 });
 
-//reset password
-router.get('/resetPassword/:userId', (req, res, next) => {
-    const number = userController.generateRandomNumber()
-    console.log(number)
-    res.status(200).json({
-        state: true
-    })
-})
-
 /*special route for delete all users in database
 this is use for developing perposes
-Super admins only */
+Super admins only 
+
+
 router.delete('/special/deleteAllUsers', (req, res, next) => {
     User
         .find()
@@ -368,6 +361,7 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
             }
         })
 })
+*/
 
 //test aggregate framework
 router.get('/aggregateTest/:studentId', (req, res) =>{
