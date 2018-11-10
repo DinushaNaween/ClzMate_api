@@ -152,25 +152,38 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
 }); 
 
 //edit user address by Id
-router.patch('/addressUpdate/:addressId', (req, res, next) => {
-    const id = req.params.addressId;
-    const updateOps = {};
-    for (const ops of req.body) {
-        updateOps[ops.propName] = ops.value;
-    }
-    Address
-        .update({ _id: id }, { $set: updateOps })
+router.patch('/addressUpdate/:userId', (req, res, next) => {
+    const userId = req.params.userId;
+    User
+        .find({ _id: userId })
         .exec()
-        .then(result => {
-            console.log(result);
-            res.status(200).json(result);
+        .then(user => {
+            const addressId = user[0].address;
+            const updateOps = {};
+            for (const ops of req.body) {
+                updateOps[ops.propName] = ops.value;
+            }
+            Address
+                .update({ _id: addressId }, { $set: updateOps })
+                .exec()
+                .then(result => {
+                    console.log(result);
+                    res.status(200).json({
+                        state: true
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        state: false
+                    });
+            });
         })
         .catch(err => {
-            console.log(err);
             res.status(500).json({
-                error: err
-            });
-      });
+                state: false
+            })
+        })
 }); 
 
 //edit user contactDetails by Id
