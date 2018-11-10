@@ -253,6 +253,29 @@ router.get('/findByRole/:role', (req, res, next) => {
         });
 })
 
+router.post('/checkPassword/:userId', (req, res, next) => {
+    const userId = req.params.userId;
+    const currentPassword = req.body.password;
+    // const thispassword;
+    User
+        .findById(userId)
+        .exec()
+        .then(user => {
+            savedPassword = user.password;
+            bcrypt.compare(currentPassword, savedPassword, (err, result) => {
+                if(result){
+                    res.status(200).json({
+                        state: true
+                    })
+                } else {
+                    res.status(500).json({
+                        state: false
+                    })
+                }
+            })
+        })
+})
+
 //send reset password email to user
 router.get('/forgotPassword/:userId', (req, res, next) => {
     const userId = req.params.userId;
@@ -333,17 +356,5 @@ router.get('/aggregateTest/:studentId', (req, res) =>{
             console.log(result);
         })    
 });
-
-//test hash password
-router.post('/hashpassword',  (req, res, next) => {
-    // const password = hash;
-    const hash = userController.hashPassword
-    // const hash = userController.hashPassword(password);
-    // console.log(password);
-    console.log(hash);
-    res.status(200).json({
-        password: hash
-    })
-})
 
 module.exports = router; 
