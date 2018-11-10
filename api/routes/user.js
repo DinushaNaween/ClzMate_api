@@ -382,4 +382,28 @@ router.get('/aggregateTest/:studentId', (req, res) =>{
         })    
 });
 
+//get clzes by cardmarker Id
+router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
+    const userId = req.params.cardMarkerId;
+    console.log(userId)
+    User
+        .find({ _id: userId })
+        .then(user => {
+            if(user[0].role == 'cardmarker'){
+                res.status(200).json({
+                    clzes: user[0].clzes
+                })
+            } else{
+                res.status(500).json({
+                    state: false
+                })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+});
+
 module.exports = router; 

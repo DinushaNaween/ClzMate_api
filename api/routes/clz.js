@@ -131,23 +131,4 @@ router.delete('/:clzId', (req, res, next) => {
         });
 });
 
-//search clz by cardmarker id
-router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
-    const cardMarker = req.params.cardMarkerId;
-    console.log(cardMarker)
-    User
-        .find({ _id: cardMarker })
-        .then(result => {
-            console.log(result)
-            res.status(200).json({
-                state: true
-            })
-        })
-        .catch(err => {
-            res.status(500).json({
-                state: false
-            })
-        })
-});
-
 module.exports = router;
