@@ -271,18 +271,6 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
         })
 });
 
-//test route
-router.post('/test', (req, res, next) => {
-    // const password = req.body.password;
-    const hash = userController.hashPassword
-    console.log()
-    if(hash.length > 0) {
-        res.status(200).json({
-            state: true
-        })
-    }
-});
-
 /*special route for delete all users in database
 this is use for developing perposes
 Super admins only */
@@ -318,23 +306,22 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
         })
 })
 
-router.get('/test', (req, res) =>{
+router.get('/aggregateTest/:studentId', (req, res) =>{
+    console.log(req.params.studentId);
     User
-        .find()
-        .populate('contactDetails address')
-        .exec() 
-        .then(result => { 
+        .aggregate([
+            { $match: { role: "Student" } },
+            { $group: {
+                    _id: null, 
+                    count: {
+                        $sum: 2
+                    }
+                }
+            } 
+        ])
+        .then(result => {
             console.log(result);
-                res.status(200).json({
-                    User: result
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
-        });
+        })    
 });
 
 module.exports = router; 
