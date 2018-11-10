@@ -287,9 +287,11 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
         .then(user => {
             const receiver = user.email;
             console.log(receiver)
-            emailController.sendEmail(receiver);
+            const verificationCode = userController.generateRandomNumber()
+            emailController.sendEmail(receiver, verificationCode);
             res.status(200).json({
-                state: true
+                state: true,
+                code: verificationCode
             })
         }) 
         .catch(err => {
