@@ -133,7 +133,7 @@ router.patch('/:paperId', (req, res, next) => {
 
 /*special route for delete all users in database
 this is use for developing perposes
-Super admins only*/
+Super admins only
 
 router.delete('/special/deleteAllPapers', (req, res, next) => {
     Paper
@@ -153,6 +153,6 @@ router.delete('/special/deleteAllPapers', (req, res, next) => {
             }
         })
 })
-
+*/
 
 module.exports = router;

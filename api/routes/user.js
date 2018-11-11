@@ -10,6 +10,7 @@ const checkAuth = require('../middlewares/check-auth');
 const emailController = require('../controllers/emailController');
 
 const userModels = require('../models/user');
+const Clz = require('../models/clz');
 
 const User = userModels.user;
 const Address = userModels.address;
@@ -363,25 +364,6 @@ router.delete('/special/deleteAllUsers', (req, res, next) => {
 })
 */
 
-//test aggregate framework
-router.get('/aggregateTest/:studentId', (req, res) =>{
-    console.log(req.params.studentId);
-    User
-        .aggregate([
-            { $match: { role: "Student" } },
-            { $group: {
-                    _id: null, 
-                    count: {
-                        $sum: 2
-                    }
-                }
-            } 
-        ])
-        .then(result => {
-            console.log(result);
-        })    
-});
-
 //get clzes by cardmarker Id
 router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
     const userId = req.params.cardMarkerId;
@@ -404,6 +386,39 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
                 state: false
             })
         })
+});
+
+router.get('/getStudentByClz/:clzId', (req, res, next) => {
+    const clzId = req.params.clzId;
+    User
+        .aggregate([
+            { $match: { clzes: clzId } }
+        ])
+        .then(list => {
+            console.log(list);
+            res.status(200).json({
+                list
+            })
+        })
+})
+
+//test aggregate framework
+router.get('/aggregateTest/:studentId', (req, res) =>{
+    console.log(req.params.studentId);
+    User
+        .aggregate([
+            { $match: { role: "Student" } },
+            { $group: {
+                    _id: null, 
+                    count: {
+                        $sum: 2
+                    }
+                }
+            } 
+        ])
+        .then(result => {
+            console.log(result);
+        })    
 });
 
 module.exports = router; 
