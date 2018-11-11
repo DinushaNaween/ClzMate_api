@@ -395,7 +395,7 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
         .then(list => {
             console.log(list);
             res.status(200).json({
-                list
+                students: list._id
             })
         })
 })
