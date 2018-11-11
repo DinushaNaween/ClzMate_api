@@ -392,7 +392,7 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
     const clzId = req.params.clzId;
     User
         .aggregate([
-            { $match: { clzes: clzId } }
+            { $elemMatch: { clzes: clzId } }
         ])
         .then(list => {
             console.log(list);
