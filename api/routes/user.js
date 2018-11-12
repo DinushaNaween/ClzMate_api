@@ -388,6 +388,7 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
         })
 });
 
+//get students of any clz
 router.get('/getStudentByClz/:clzId', (req, res, next) => {
     const clzId = req.params.clzId;
     User
@@ -396,6 +397,11 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
             console.log(list);
             res.status(200).json({
                 list
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
             })
         })
 })
