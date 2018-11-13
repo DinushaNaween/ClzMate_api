@@ -70,6 +70,7 @@ router.post('/login', (req, res) =>{
                 else {
                     return res.status(200).json({
                         //message: 'Authantication Failed. Password is incorrect.',
+                        state: false,
                         JWT_Token: null
                     })
                 }
