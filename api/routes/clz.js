@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
-        subjectName: req.body.name,
+        subjectName: req.body.subjectName,
         hallNo: req.body.hallNo,
         grade: req.body.grade,
         day: req.body.day,
@@ -130,5 +130,31 @@ router.delete('/:clzId', (req, res, next) => {
             });
         });
 });
+
+//delete all classes route is for special uses, only usein development purpose.
+router.delete('/specialRoute/deleteAllClasses', (req, res, next) => {
+    Clz
+        .find()
+        .exec()
+        .then(result => {
+            if(!result){
+                res.status(200).json({
+                    state: false
+                })
+            } else {
+                Clz
+                    .remove()
+                    .then()
+                    res.status(200).json({
+                        state: true
+                    })
+            }
+        })
+        .catch(err => {
+            res.status(200).json({
+                state: false
+            })
+        })
+})
 
 module.exports = router;
