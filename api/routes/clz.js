@@ -134,8 +134,21 @@ router.delete('/:clzId', (req, res, next) => {
 router.get('/search/:searchKey/:searchValue', (req, res, next) => {
     searchKey = req.params.searchKey;
     searchValue = req.params.searchValue;
-    console.log(searchKey);
-    console.log(searchValue);
+    Clz
+        .find({ searchKey: searchValue })
+        .exec()
+        .then(result => {
+            console.log(result);
+            res.status(200).json({
+                state: true,
+                result: result
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
 })
 
 //delete all classes route is for special uses, only for useing development purpose.
