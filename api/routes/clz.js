@@ -131,6 +131,13 @@ router.delete('/:clzId', (req, res, next) => {
         });
 });
 
+router.get('/search/:searchKey/:searchValue', (req, res, next) => {
+    searchKey = req.params.searchKey;
+    searchValue = req.params.searchValue;
+    console.log(searchKey);
+    console.log(searchValue);
+})
+
 //delete all classes route is for special uses, only for useing development purpose.
 router.delete('/specialRoute/deleteAllClasses', (req, res, next) => {
     Clz
