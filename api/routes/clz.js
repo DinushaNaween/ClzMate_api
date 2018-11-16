@@ -131,7 +131,7 @@ router.delete('/:clzId', (req, res, next) => {
         });
 });
 
-//delete all classes route is for special uses, only usein development purpose.
+//delete all classes route is for special uses, only for useing development purpose.
 router.delete('/specialRoute/deleteAllClasses', (req, res, next) => {
     Clz
         .find()
