@@ -131,12 +131,12 @@ router.delete('/:clzId', (req, res, next) => {
         });
 });
 
-router.get('/search/:searchKey/:searchValue', (req, res, next) => {
+//get clzes by subject name
+router.get('/searchBySubject/:searchValue', (req, res, next) => {
     searchKey = req.params.searchKey;
     searchValue = req.params.searchValue;
     Clz
-        .find({ searchKey: searchValue })
-        .exec()
+        .find({ subjectName: searchValue })
         .then(result => {
             console.log(result);
             res.status(200).json({

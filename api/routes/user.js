@@ -408,22 +408,23 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
 })
 
 //test aggregate framework
-router.get('/aggregateTest/:studentId', (req, res) =>{
-    console.log(req.params.studentId);
-    User
-        .aggregate([
-            { $match: { role: "Student" } },
-            { $group: {
-                    _id: null, 
-                    count: {
-                        $sum: 2
-                    }
-                }
-            } 
-        ])
-        .then(result => {
-            console.log(result);
-        })    
-});
+// router.get('/aggregateTest/:studentId', (req, res) =>{
+//     console.log(req.params.studentId);
+//     const search = req.params.studentId;
+//     User
+//         .aggregate([
+//             { $match: { role: "English" } },
+//             // { $group: {
+//             //         _id: null, 
+//             //         count: {
+//             //             $sum: 2
+//             //         }
+//             //     }
+//             // } 
+//         ])
+//         .then(result => {
+//             console.log(result);
+//         })    
+// });
 
 module.exports = router; 
