@@ -331,10 +331,10 @@ router.get('/forgotPassword/:userId', (req, res, next) => {
 this is use for developing perposes
 Super admins only 
 
-
+ 
 router.delete('/special/deleteAllUsers', (req, res, next) => {
     User
-        .find()
+        .find() 
         .populate('address contactDetails')
         .then(result => {
             if (!result){
@@ -407,23 +407,11 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
         })
 })
 
-router.get('/test/:role',userController.countByRole, (req, res) =>{
-    console.log(req.params.role);
-    const search = req.params.role;
-    User
-        .aggregate([
-            { $match: { role: "English" } },
-            // { $group: {
-            //         _id: null, 
-            //         count: {
-            //             $sum: 2
-            //         }
-            //     }
-            // } 
-        ])
-        .then(result => {
-            console.log(result);
-        })    
+router.get('/test/:role', (req, res) =>{
+    userController.countByRole(req.params.role);
+    res.status(200).json({
+        Message: true
+    })    
 });
 
 module.exports = router; 
