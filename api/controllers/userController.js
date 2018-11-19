@@ -151,14 +151,27 @@ function generateRandomNumber(req, res, next) {
     const len = 7;
     return crypto
       .randomBytes(Math.ceil(len / 2))
-      .toString('hex') // convert to hexadecimal format
-      .slice(0, len) // return required number of characters
-  }  
+      .toString('hex')
+      .slice(0, len) 
+}  
+
+function countByRole(searchRole){
+    User
+        .find({ role: searchRole })
+        .exec()
+        .then(result => {
+            console.log(result.length);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
 
 module.exports = {
     registerUser: registerUser,
     findStudentById: findStudentById,
     resetPassword: resetPassword,
     addClz: addClz,
-    generateRandomNumber: generateRandomNumber
+    generateRandomNumber: generateRandomNumber,
+    countByRole: countByRole
 };
