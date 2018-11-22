@@ -43,7 +43,7 @@ router.post('/register', uploadController.userImageUpload.single('image'),
 //login user
 router.post('/login', (req, res) =>{
     User
-        .find({ email: req.body.email })
+        .find({ indexNo: req.body.indexNo })
         .exec()
         .then(user => {
             if(user.length < 1){
