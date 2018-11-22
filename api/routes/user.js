@@ -408,7 +408,10 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
 })
 
 router.get('/test/:role', (req, res) =>{
-    userController.countByRole(req.params.role);
+    // .then(result => {
+        userController.countByRole(req.params.role, count)
+        console.log(count);
+    // })
     res.status(200).json({
         Message: true
     })    

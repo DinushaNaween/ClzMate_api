@@ -28,6 +28,7 @@ const contactDetailsSchema = mongoose.Schema({
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    indexNo: { type: String },
     email: { type: String },
     password: { type: String },
     role: { type: String },

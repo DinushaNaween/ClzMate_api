@@ -10,7 +10,8 @@ const ContactDetails = userModels.contactDetails;
 
 //user registration function
 function registerUser(req, res){
-    User.find({ email: req.body.email })
+    countByRole(req.body.role, function(IndexNo){
+        User.find({ email: req.body.email })
         .exec()
         .then(user => { 
             if(user.length >= 1){
@@ -25,12 +26,15 @@ function registerUser(req, res){
                         return res.status(500).json({     
                         });
                     }else {
-                        saveUser(req, hash)
+                        saveUser(req, hash, IndexNo)
                             .then(result => {
                                 console.log("User signed up"); 
+                                
+                                // console.log(result);
                                 res.status(201).json({
                                     state: true,
-                                    exist: false
+                                    exist: false,
+                                    indexNo: IndexNo
                                 });
                             })
                             .catch(err => {
@@ -44,10 +48,11 @@ function registerUser(req, res){
                 });
             }
         })
+    })
 }
 
 //save user
-function saveUser(req, hash){
+function saveUser(req, hash, IndexNo){
     const address = new Address({
         _id: new mongoose.Types.ObjectId(),
         firstLine: req.body.firstLine,
@@ -68,6 +73,7 @@ function saveUser(req, hash){
     })
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
+        indexNo: IndexNo,
         email: req.body.email,
         password: hash, 
         fullName: req.body.fullName,
@@ -155,12 +161,29 @@ function generateRandomNumber(req, res, next) {
       .slice(0, len) 
 }  
 
-function countByRole(searchRole){
+function countByRole(searchRole, cb){
+    // console.log(searchRole)
     User
         .find({ role: searchRole })
         .exec()
         .then(result => {
-            console.log(result.length);
+            const count = result.length
+            // console.log(count);
+            if(searchRole == 'student'){
+                return cb('S'+count);
+            }
+            if(searchRole == 'teacher'){
+                return cb('T'+count);
+            }
+            if(searchRole == 'cardMarker'){
+                return cb('C'+count);
+            }
+            if(searchRole == 'paperMarker'){
+                return cb('P'+count);
+            }
+            if(searchRole == 'admin'){
+                return cb('A'+count);
+            } 
         })
         .catch(err => {
             console.log(err);
