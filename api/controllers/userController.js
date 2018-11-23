@@ -74,6 +74,7 @@ function saveUser(req, hash, IndexNo){
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         indexNo: IndexNo,
+        nicNo: req.body.nicNo,
         email: req.body.email,
         password: hash, 
         fullName: req.body.fullName,
@@ -170,20 +171,8 @@ function countByRole(searchRole, cb){
             const count = result.length
             // console.log(count);
             if(searchRole == 'student'){
-                return cb('S'+count);
+                return cb('S'+count+1);
             }
-            if(searchRole == 'teacher'){
-                return cb('T'+count);
-            }
-            if(searchRole == 'cardMarker'){
-                return cb('C'+count);
-            }
-            if(searchRole == 'paperMarker'){
-                return cb('P'+count);
-            }
-            if(searchRole == 'admin'){
-                return cb('A'+count);
-            } 
         })
         .catch(err => {
             console.log(err);
