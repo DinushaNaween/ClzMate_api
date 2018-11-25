@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
         .exec()
         .then(subjects => {
             res.status(200).json({
-                subjects: subjects
+                Subject: subjects
             });
         })
         .catch(err => {
