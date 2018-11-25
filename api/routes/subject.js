@@ -27,7 +27,7 @@ router.post('/addSubject', (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         level: req.body.level,
-        subjectStream: req.body.stream
+        subjectStream: req.body.subjectStream
     });
     subject
         .save()
