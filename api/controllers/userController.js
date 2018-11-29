@@ -10,9 +10,7 @@ const ContactDetails = userModels.contactDetails;
 
 //user registration function
 function registerUser(req, res){
-    console.log("register user");
     countByRole(req.body.role, function(IndexNo){
-        console.log(IndexNo);
         User.find({ email: req.body.email })
         .exec()
         .then(user => { 
@@ -165,14 +163,11 @@ function generateRandomNumber(req, res, next) {
 }  
 
 function countByRole(searchRole, cb){
-    console.log("count by role");
-    console.log(searchRole);
     User
         .find({ role: searchRole })
         .exec()
         .then(result => {
             const count = result.length
-            // console.log(count);
             if(searchRole == 'student'){
                 return cb('S'+count);
             } else{
