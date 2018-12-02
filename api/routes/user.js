@@ -243,32 +243,13 @@ router.get('/findByRole/:role', (req, res, next) => {
     const role = req.params.role;
     User
         .find({ role: role })
-        .exec()
-        .then(user => {
-            console.log(user);
-            const count = user.length;
-            const responce = {
-                count: count,
-                Users: user.map(doc => {
-                    return {
-                        Message: 'User Details',
-                        Id: doc._id,
-                        Email: doc.email,
-                        Role: doc.role,
-                        Full_Name: doc.fullName,
-                        Batch: doc.batch,
-                        Subject: doc.subject,
-                        School: doc.school,
-                        Birthday: doc.birthday,
-                        Stream: doc.stream,
-                        request: {
-                            type: 'get',
-                            url: 'https://polar-meadow-28819.herokuapp.com/user/' +doc._id
-                        }
-                    }
-                })
-            }
-            res.status(200).json(responce);
+        .populate('contactDetails address')
+        .exec() 
+        .then(result => { 
+            console.log(result);
+                res.status(200).json({
+                    User: result
+            })
         })
         .catch(err => {
             console.log(err);
