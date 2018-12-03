@@ -284,14 +284,13 @@ router.post('/checkPassword/:userId', (req, res, next) => {
 })
 
 //send reset password email to user
-router.get('/forgotPassword/:userId', (req, res, next) => {
-    const userId = req.params.userId;
-    console.log(userId)
+router.get('/forgotPassword/:userEmail', (req, res, next) => {
+    const userEmail = req.params.userEmail;
     User
-        .findById(userId)
+        .find({ email: userEmail })
         .exec()
         .then(user => {
-            const receiver = user.email;
+            const receiver = userEmail;
             console.log(receiver)
             const verificationCode = userController.generateRandomNumber()
             emailController.sendEmail(receiver, verificationCode);
