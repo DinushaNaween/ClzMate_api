@@ -8,7 +8,7 @@ function sendEmail(receiver, verificationCode) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'projectclzmate@gmail.com',
+            user: 'clzmatetool@gmail.com',
             pass: 'clzmatepassword12345'
         }
     });
@@ -24,7 +24,7 @@ function sendEmail(receiver, verificationCode) {
         if (error) {
             console.log('error');
             console.log(error);
-            throw new Error('email sending failed');
+            throw new Error('email sending failed'); 
             
         } else {
             res.status(200).json({
