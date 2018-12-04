@@ -1,15 +1,15 @@
 const nodemailer = require('nodemailer');
-const userController = require('./userController');
 
-function sendEmail(receiver, verificationCode) {
-    const sender = 'clzmatetool@gmail.com';
+function sendEmail(receiver) {
+    const sender = 'projectclzmate@gmail.com';
     const subject = 'Reset ClzMate Password';
-    
-    const smtptransporter = nodemailer.createTransport({
+    const message = '<html><body><h1>This is h1 tag</h1></body></html>';
+
+    const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'dldndasanayaka@gmail.com',
-            pass: '123tagwaymouse123tagwaymouse'
+            user: 'projectclzmate@gmail.com',
+            pass: 'clzmatepassword12345'
         }
     });
 
@@ -17,14 +17,14 @@ function sendEmail(receiver, verificationCode) {
         from: sender,
         to: receiver,
         subject: subject,
-        html: '<h1>Welcome to ClzMate, </h1><p>Your verification code for reset password is </p>' + verificationCode
+        text: message
     };
 
-    smtptransporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log('error');
             console.log(error);
-            throw new Error('email sending failed'); 
+            throw new Error('email sending failed');
             
         } else {
             res.status(200).json({
@@ -34,6 +34,6 @@ function sendEmail(receiver, verificationCode) {
     });
 
 }
-module.exports = { 
+module.exports = {
     sendEmail: sendEmail
 };
