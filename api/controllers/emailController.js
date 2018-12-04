@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const userController = require('./userController');
 
 function sendEmail(receiver, verificationCode) {
-    const sender = 'projectclzmate@gmail.com';
+    const sender = 'clzmatetool@gmail.com';
     const subject = 'Reset ClzMate Password';
     
     const transporter = nodemailer.createTransport({

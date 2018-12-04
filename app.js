@@ -12,9 +12,9 @@ const markRoutes = require('./api/routes/mark');
 const attendanceRoutes = require('./api/routes/attendance');
 const subjectRoutes = require('./api/routes/subject');
 
-mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
+// mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
 // mongoose.connect('mongodb://databaseAdmin:databaseadmin1@ds129823.mlab.com:29823/clzmate_database');
-// mongoose.connect('mongodb://localhost:27017/ClzMate');
+mongoose.connect('mongodb://localhost:27017/ClzMate');
 
 mongoose.Promise = global.Promise;
  
@@ -22,7 +22,7 @@ app.use(morgan('dev'));
 app.use(bodyparser.urlencoded({extended:false})); 
 app.use(bodyparser.json());  
 
-app.use(passport.initialize());
+app.use(passport.initialize()); 
 app.use(passport.session());
 
 app.use((req, res, next)=>{
@@ -31,7 +31,7 @@ app.use((req, res, next)=>{
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
-    if(req.method === 'OPTIONS'){
+    if(req.method === 'OPTIONS'){ 
         res.header('Access-Control-Allow-Methods','PUT, POST, PATCH, DELETE')
         return res.status(200).json({});
     }
