@@ -5,11 +5,11 @@ function sendEmail(receiver, verificationCode) {
     const sender = 'clzmatetool@gmail.com';
     const subject = 'Reset ClzMate Password';
     
-    const transporter = nodemailer.createTransport({
+    const smtptransporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'clzmatetool@gmail.com',
-            pass: 'clzmatepassword12345'
+            user: 'dldndasanayaka@gmail.com',
+            pass: '123tagwaymouse123tagwaymouse'
         }
     });
 
@@ -20,7 +20,7 @@ function sendEmail(receiver, verificationCode) {
         html: '<h1>Welcome to ClzMate, </h1><p>Your verification code for reset password is </p>' + verificationCode
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
+    smtptransporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log('error');
             console.log(error);

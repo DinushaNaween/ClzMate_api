@@ -293,9 +293,10 @@ router.get('/forgotPassword/:userEmail', (req, res, next) => {
         .then(user => {
             if(user){
                 const verificationCode = userController.generateRandomNumber()
+                console.log(verificationCode);
                 emailController.sendEmail(userEmail, verificationCode);
                 res.status(200).json({
-                    state: true,
+                    state: true, 
                     code: verificationCode
                 })
             } else {
