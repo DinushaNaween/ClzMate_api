@@ -286,21 +286,26 @@ router.post('/checkPassword/:userId', (req, res, next) => {
 //send reset password email to user
 router.get('/forgotPassword/:userEmail', (req, res, next) => {
     const userEmail = req.params.userEmail;
+    console.log(userEmail);
     User
         .find({ email: userEmail })
         .exec()
         .then(user => {
-            const receiver = userEmail;
-            console.log(receiver)
-            const verificationCode = userController.generateRandomNumber()
-            emailController.sendEmail(receiver, verificationCode);
-            res.status(200).json({
-                state: true,
-                code: verificationCode
-            })
+            if(user){
+                const verificationCode = userController.generateRandomNumber()
+                emailController.sendEmail(userEmail, verificationCode);
+                res.status(200).json({
+                    state: true,
+                    code: verificationCode
+                })
+            } else {
+                res.status(500).json({
+                    state: false
+                })
+            }
         }) 
         .catch(err => {
-            console.log(err);  
+            console.log(err);    
             res.status(500).json({
                 state: false
             })

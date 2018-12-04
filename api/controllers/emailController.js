@@ -34,6 +34,6 @@ function sendEmail(receiver, verificationCode) {
     });
 
 }
-module.exports = {
+module.exports = { 
     sendEmail: sendEmail
 };
