@@ -1,15 +1,15 @@
 const nodemailer = require('nodemailer');
+const userController = require('./userController');
 
-function sendEmail(receiver) {
+function sendEmail(receiver, verificationCode) {
     const sender = 'projectclzmate@gmail.com';
     const subject = 'Reset ClzMate Password';
-    const message = '<html><body><h1>This is h1 tag</h1></body></html>';
-
+    
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             user: 'projectclzmate@gmail.com',
-            pass: 'clzmatepassword12345'
+            pass: 'clzmate12345pass'
         }
     });
 
@@ -17,7 +17,7 @@ function sendEmail(receiver) {
         from: sender,
         to: receiver,
         subject: subject,
-        text: message
+        html: '<h1>Welcome to ClzMate, </h1><p>Your verification code for reset password is </p>' + verificationCode
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
