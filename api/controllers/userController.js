@@ -170,7 +170,13 @@ function countByRole(searchRole, cb){
             const count = result.length+1
             if(searchRole == 'Student'){
                 return cb('S'+count);
-            } else{
+            }else if(searchRole == 'Teacher'){
+                return cb('T'+count);
+            }else if(searchRole == 'Card Marker'){
+                return cb('C'+count);
+            }else if(searchRole == 'Paper Marker'){
+                return cb('P'+count);
+            }else{
                 return cb();
             }
         })
