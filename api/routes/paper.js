@@ -31,16 +31,16 @@ router.post('/', (req, res, next) => {
         .find({ _id: clzId })
         .then(clz => {
             if (!clz) {
-                res.status(404).json({
+                return res.status(404).json({
                     state: false
                 });
             }
-            const Paper = new Paper({
+            const paper = new Paper({
                 _id: new mongoose.Types.ObjectId(),
                 clz: req.body.clzId,
                 date: req.body.date
             });
-            Paper
+            return paper
                 .save()
                 .then(result => {
                     console.log(result);
@@ -52,7 +52,6 @@ router.post('/', (req, res, next) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({
-                message: "error",
                 state: false
             });
         })
