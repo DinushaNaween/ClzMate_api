@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const paperSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    clz: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' }
+    clz: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },
+    date: Date
     },{
         timestamps: true
 });

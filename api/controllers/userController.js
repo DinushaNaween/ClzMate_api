@@ -29,9 +29,7 @@ function registerUser(req, res){
                         saveUser(req, hash, IndexNo)
                             .then(result => {
                                 console.log("User signed up"); 
-                                
-                                // console.log(result);
-                                res.status(201).json({
+                                    res.status(201).json({
                                     state: true,
                                     exist: false,
                                     indexNo: IndexNo

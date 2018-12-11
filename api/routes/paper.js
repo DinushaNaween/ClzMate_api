@@ -31,15 +31,16 @@ router.post('/', (req, res, next) => {
         .find({ _id: clzId })
         .then(clz => {
             if (!clz) {
-                return res.status(404).json({
+                res.status(404).json({
                     state: false
                 });
             }
-            const paper = new Paper({
+            const Paper = new Paper({
                 _id: new mongoose.Types.ObjectId(),
-                clz: req.body.clzId
+                clz: req.body.clzId,
+                date: req.body.date
             });
-            return paper
+            Paper
                 .save()
                 .then(result => {
                     console.log(result);

@@ -315,7 +315,7 @@ router.get('/forgotPassword/:userEmail', (req, res, next) => {
 
 // special route for delete all users in database
 // this is use for developing perposes
-// Super admins only 
+// developers only 
 
  
 router.delete('/special/deleteAllUsers', (req, res, next) => {
