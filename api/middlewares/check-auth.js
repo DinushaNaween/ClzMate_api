@@ -24,7 +24,7 @@ function checkIfSpecialUser(req, res, next) {
     try {
         const decodeJWT = decode(req, res, next);
         req.userData = decodeJWT;
-        if (decodeJWT.user.role === 'admin' || decodeJWT.user.role === 'teacher'){
+        if (decodeJWT.user.role === 'Admin' || decodeJWT.user.role === 'Teacher'){
             next()
         } else{
             return res.status(200).json({
@@ -42,7 +42,7 @@ function checkIfGeneralUser(req, res, next) {
     try {
         const decodeJWT = decode(req, res, next)
         req.userData = decodeJWT;
-        if (decodeJWT.user.role === 'parent' || decodeJWT.user.role === 'student'){
+        if (decodeJWT.user.role === 'Parent' || decodeJWT.user.role === 'Student'){
             next()
         } else{
             return res.status(200).json({
@@ -60,8 +60,8 @@ function checkIfSuperUser(req, res, next) {
     try {
         const decodeJWT = decode(req, res, next)
         req.userData = decodeJWT;
-        if (decodeJWT.user.role === 'parent' || decodeJWT.user.role === 'student' ||
-            decodeJWT.user.role === 'admin' || decodeJWT.user.role === 'teacher'){
+        if (decodeJWT.user.role === 'Parent' || decodeJWT.user.role === 'Student' ||
+            decodeJWT.user.role === 'Admin' || decodeJWT.user.role === 'Teacher'){
             next()
         } else{
             return res.status(200).json({
@@ -79,7 +79,7 @@ function checkIfAdmin(req, res, next) {
     try {
         const decodeJWT = decode(req, res, next);
         req.userData = decodeJWT;
-        if (decodeJWT.user.role === 'admin'){
+        if (decodeJWT.user.role === 'Admin'){
             next()
         } else{
             return res.status(200).json({
