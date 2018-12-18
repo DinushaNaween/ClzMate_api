@@ -22,6 +22,21 @@ function findClzById(req, res, next){
         })
 }
 
+function count(cb){
+    Clz
+        .find()
+        .exec()
+        .then(result => {
+            const count = result.length+101
+            console.log(count);
+            return cb(count);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
 module.exports = {
-    findClzById: findClzById
+    findClzById: findClzById,
+    count: count
 }

@@ -3,9 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Clz = require('../models/clz');
-const User = require('../models/user');
-
-const checkAuth = require('../middlewares/check-auth');
+const clzController = require('../controllers/clzController');
 
 //get all clz details
 router.get('/', (req, res, next) => {
@@ -28,6 +26,7 @@ router.get('/', (req, res, next) => {
 
 //create a new clz
 router.post('/', (req, res, next) => {
+    clzController.count
     const clz = new Clz({
         _id: new mongoose.Types.ObjectId(),
         subjectName: req.body.subjectName,
