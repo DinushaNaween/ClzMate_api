@@ -49,7 +49,7 @@ router.post('/', (req, res, next) => {
                     clzId: clz._id,
                     teacher: req.body.teacher,
                     Card_Marker: req.body.cardMarker,
-                    count:count
+                    ClzNo:count
                 });
             })
             .catch(err => {
