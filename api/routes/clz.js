@@ -29,6 +29,7 @@ router.post('/', (req, res, next) => {
     clzController.count(function(count){
         const clz = new Clz({
             _id: new mongoose.Types.ObjectId(),
+            clzNo: count,
             subjectName: req.body.subjectName,
             hallNo: req.body.hallNo,
             grade: req.body.grade,

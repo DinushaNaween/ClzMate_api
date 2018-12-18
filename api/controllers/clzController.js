@@ -29,7 +29,7 @@ function count(cb){
         .then(result => {
             const count = result.length+101
             console.log(count);
-            return cb(count);
+            return cb('Class'+count);
         })
         .catch(err => {
             console.log(err);
