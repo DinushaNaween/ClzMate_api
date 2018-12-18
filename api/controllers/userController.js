@@ -173,6 +173,8 @@ function countByRole(searchRole, cb){
                 return cb('T'+count);
             }else if(searchRole == 'Card Marker'){
                 return cb('C'+count);
+            }else if(searchRole == 'Admin'){
+                return cb('A'+count);
             }else if(searchRole == 'Paper Marker'){
                 return cb('P'+count);
             }else{
