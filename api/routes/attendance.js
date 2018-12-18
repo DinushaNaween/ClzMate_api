@@ -63,6 +63,7 @@ router.patch('/addAttendance/:attendanceId', userController.findStudentById, (re
                     state: false
                 })
             } else {
+                userController.findStudentById
                 console.log(newStudent)
                 attendance.student
                     .push(newStudent)
