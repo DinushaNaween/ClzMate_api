@@ -26,36 +26,38 @@ router.get('/', (req, res, next) => {
 
 //create a new clz
 router.post('/', (req, res, next) => {
-    clzController.count
-    const clz = new Clz({
-        _id: new mongoose.Types.ObjectId(),
-        subjectName: req.body.subjectName,
-        hallNo: req.body.hallNo,
-        grade: req.body.grade,
-        day: req.body.day,
-        batch: req.body.batch,
-        stream: req.body.stream,
-        time: req.body.time,
-        teacher: req.body.teacher,
-        cardMarker: req.body.cardMarker
-    });
-    clz
-        .save()
-        .then(result => {
-            console.log(result);
-            res.status(201).json({
-                state: true,
-                clzId: clz._id,
-                teacher: req.body.teacher,
-                Card_Marker: req.body.cardMarker
-            });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+    clzController.count(function(count){
+        const clz = new Clz({
+            _id: new mongoose.Types.ObjectId(),
+            subjectName: req.body.subjectName,
+            hallNo: req.body.hallNo,
+            grade: req.body.grade,
+            day: req.body.day,
+            batch: req.body.batch,
+            stream: req.body.stream,
+            time: req.body.time,
+            teacher: req.body.teacher,
+            cardMarker: req.body.cardMarker
         });
+        clz
+            .save()
+            .then(result => {
+                console.log(result);
+                res.status(201).json({
+                    state: true,
+                    clzId: clz._id,
+                    teacher: req.body.teacher,
+                    Card_Marker: req.body.cardMarker,
+                    count:count
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+    })
 });
 
 //get clz details by Id
