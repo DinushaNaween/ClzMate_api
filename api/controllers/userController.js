@@ -165,9 +165,9 @@ function countByRole(searchRole, cb){
         .find({ role: searchRole })
         .exec()
         .then(result => {
-            const count = result.length+1
+            const count = result.length+101
             if(searchRole == 'Student'){
-                return cb('S'+count+100);
+                return cb('S'+count);
             }else if(searchRole == 'Teacher'){
                 return cb('T'+count);
             }else if(searchRole == 'Card Marker'){
