@@ -32,8 +32,7 @@ function registerUser(req, res){
                                     res.status(201).json({
                                     state: true,
                                     exist: false,
-                                    indexNo: IndexNo,
-                                    Regidtered_User: user
+                                    indexNo: IndexNo
                                 });
                             })
                             .catch(err => {
