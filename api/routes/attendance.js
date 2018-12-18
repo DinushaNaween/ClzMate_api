@@ -38,6 +38,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
             console.log(attendance)
             res.status(200).json({
                 state: true,
+                Id: attendance._id,
                 date: attendance.day.toDateString(),
                 clz: attendance.clz,
                 cardMarker: attendance.cardMarker
