@@ -38,7 +38,7 @@ router.get('/', (req, res) =>{
 });
 
 //register users
-router.post('/register', checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
+router.post('/register', checkToken.checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
 //login user
