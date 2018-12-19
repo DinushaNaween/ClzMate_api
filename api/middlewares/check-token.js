@@ -8,7 +8,8 @@ function checkToken(req, res, next){
         next();
     } catch(err) {
         return res.status(401).json({
-            state: false
+            state: false,
+            message: "error in check token"
         });
     }
 }
