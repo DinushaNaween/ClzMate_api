@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
+
+
 function decode(req, res, next){
     const token = req.headers.token;
     const decodeJWT = jwt.verify(token, process.env.JWT_KEY);

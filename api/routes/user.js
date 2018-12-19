@@ -54,7 +54,7 @@ router.post('/login', (req, res) =>{
             }
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (result){
-                    token = jwt.sign({user: user[0]}, process.env.JWT_KEY,(err, token) => {
+                    token = jwt.sign({user: user[0]}, process.env.JWT_KEY, {expiresIn: "1h"}, (err, token) => {
                         if(err){
                             res.json({ error: err })
                         } else {
