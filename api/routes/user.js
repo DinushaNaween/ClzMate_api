@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const uploadController = require('../controllers/uploadController');
 const userController = require('../controllers/userController');
 const checkAuth = require('../middlewares/check-auth');
+const checkToken = require('../middlewares/check-token');
 const emailController = require('../controllers/emailController');
 
 const userModels = require('../models/user');
@@ -37,7 +38,7 @@ router.get('/', (req, res) =>{
 });
 
 //register users
-router.post('/register', checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
+router.post('/register', checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
 //login user
