@@ -59,7 +59,7 @@ router.post('/login', (req, res) =>{
                         if(err){
                             res.json({ error: err })
                         } else {
-                            console.log('Token is:- '+token);
+                            // console.log('Token is:- '+token);
                             return res.status(200).json({
                                 state: true,
                                 JWT_Token: token

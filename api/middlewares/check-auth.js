@@ -1,7 +1,4 @@
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-
-
 
 function decode(req, res, next){
     const token = req.headers.authorization.split(" ")[1];
