@@ -302,7 +302,8 @@ router.get('/forgotPassword', (req, res, next) => {
                 })
             } else {
                 res.status(500).json({
-                    state: false
+                    state: false,
+                    Message: "Not Registered User"
                 })
             }
         }) 
