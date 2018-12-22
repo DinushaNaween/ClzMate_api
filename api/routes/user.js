@@ -286,7 +286,7 @@ router.post('/checkPassword/:userId', (req, res, next) => {
 
 //send reset password email to user
 router.get('/forgotPassword/:userEmail', (req, res, next) => {
-    const userEmail = req.params.userEmail;
+    const userEmail = req.body.email;
     console.log(userEmail);
     User
         .find({ email: userEmail })

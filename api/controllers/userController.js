@@ -39,7 +39,7 @@ function registerUser(req, res){
                                 console.log(err);
                                 res.status(500).json({
                                     state: false,
-                                    Message: 'Some Validation Errors'
+                                    Message: "Some Validation Errors"
                                 });
                             });
                     }
