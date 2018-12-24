@@ -329,7 +329,13 @@ router.get('/newPassword/:email', (req, res, next) => {
         .exec
         .then(user => {
             if(user){
-
+                const newPassword = userController.generateRandomPassword()
+                console.log(newPassword);
+                emailController.sendNewPassword(userEmail, newPassword);
+                    res.status(200).json({
+                        state: true,
+                        password: newPassword
+                    })
             }
         })
 })
