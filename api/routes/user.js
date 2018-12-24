@@ -298,6 +298,7 @@ router.get('/forgotPassword/:email', (req, res, next) => {
             .exec()
             .then(user => {
                 if(user){
+                    console.log(user[0]._id);
                     const verificationCode = userController.generateRandomNumber()
                     console.log(verificationCode);
                     emailController.sendVerificationCode(userEmail, verificationCode);
@@ -326,11 +327,13 @@ router.get('/newPassword/:email', (req, res, next) => {
     userEmail = req.params.email;
     User
         .find({ email: userEmail })
-        .exec
+        .exec()
         .then(user => {
             if(user){
+                console.log(user[0]._id)
                 const newPassword = userController.generateRandomPassword()
                 console.log(newPassword);
+                userController.resetPassword(user[0]._id, newPassword)
                 emailController.sendNewPassword(userEmail, newPassword);
                     res.status(200).json({
                         state: true,
