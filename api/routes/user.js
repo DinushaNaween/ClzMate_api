@@ -286,34 +286,40 @@ router.post('/checkPassword/:userId', (req, res, next) => {
 
 //send reset password email to user
 router.get('/forgotPassword/:email', (req, res, next) => {
-    const userEmail = req.params.email;
-    console.log(userEmail);
-    User
-        .find({ email: userEmail })
-        .exec()
-        .then(user => {
-            if(user){
-                const verificationCode = userController.generateRandomNumber()
-                console.log(verificationCode);
-                emailController.sendEmail(userEmail, verificationCode);
-                res.status(200).json({
-                    state: true, 
-                    userId: user._id,
-                    code: verificationCode
-                })
-            } else {
-                res.status(500).json({
-                    state: false,
-                    Message: "Not Registered User"
-                })
-            }
-        }) 
-        .catch(err => {
-            console.log(err);    
-            res.status(500).json({
-                state: false
-            })
+    if(!req.params.email){
+        res.status(401).json({
+            state: false
         })
+    } else {
+        const userEmail = req.params.email;
+        console.log(userEmail);
+        User
+            .find({ email: userEmail })
+            .exec()
+            .then(user => {
+                if(user){
+                    const verificationCode = userController.generateRandomNumber()
+                    console.log(verificationCode);
+                    emailController.sendEmail(userEmail, verificationCode);
+                    res.status(200).json({
+                        state: true, 
+                        userId: user._id,
+                        code: verificationCode
+                    })
+                } else {
+                    res.status(500).json({
+                        state: false,
+                        Message: "Not Registered User"
+                    })
+                }
+            }) 
+            .catch(err => {
+                console.log(err);    
+                res.status(500).json({
+                    state: false
+                })
+            })
+    }
 });
 
 // special route for delete all users in database
