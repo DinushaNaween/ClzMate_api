@@ -300,7 +300,7 @@ router.get('/forgotPassword/:email', (req, res, next) => {
                 if(user){
                     const verificationCode = userController.generateRandomNumber()
                     console.log(verificationCode);
-                    emailController.sendEmail(userEmail, verificationCode);
+                    emailController.sendVerificationCode(userEmail, verificationCode);
                     res.status(200).json({
                         state: true, 
                         userId: user._id,
@@ -324,7 +324,14 @@ router.get('/forgotPassword/:email', (req, res, next) => {
 
 router.get('/newPassword/:email', (req, res, next) => {
     userEmail = req.params.email;
-    
+    User
+        .find({ email: userEmail })
+        .exec
+        .then(user => {
+            if(user){
+
+            }
+        })
 })
 
 // special route for delete all users in database

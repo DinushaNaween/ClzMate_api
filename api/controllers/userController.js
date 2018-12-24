@@ -160,6 +160,14 @@ function generateRandomNumber(req, res, next) {
       .slice(0, len) 
 }  
 
+function generateRandomPassword(req, res, next) {
+    const len = 10;
+    return crypto
+        .randomBytes(math.ceil(len / 2))
+        .toString('hex')
+        .slice(0, len)
+}
+
 function countByRole(searchRole, cb){
     User
         .find({ role: searchRole })
@@ -191,5 +199,6 @@ module.exports = {
     resetPassword: resetPassword,
     addClz: addClz,
     generateRandomNumber: generateRandomNumber,
+    generateRandomPassword: generateRandomPassword,
     countByRole: countByRole
 };
