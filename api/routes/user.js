@@ -290,10 +290,10 @@ router.get('/forgotPassword/:email', (req, res, next) => {
         res.status(401).json({
             state: false
         })
-    } else {
+    } else {  
         const userEmail = req.params.email;
         console.log(userEmail);
-        User
+        User 
             .find({ email: userEmail })
             .exec()
             .then(user => {
@@ -321,6 +321,11 @@ router.get('/forgotPassword/:email', (req, res, next) => {
             })
     }
 });
+
+router.get('/newPassword/:email', (req, res, next) => {
+    userEmail = req.params.email;
+    
+})
 
 // special route for delete all users in database
 // this is use for developing perposes

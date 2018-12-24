@@ -17,7 +17,7 @@ function sendEmail(receiver, verificationCode) {
         from: sender,
         to: receiver,
         subject: subject,
-        html: '<h1>Welcome to ClzMate, </h1><p>Your verification code for reset password is </p>' + verificationCode
+        html: '<h1>Welcome to ClzMate The Password Reset, </h1><p>Your verification code for reset password is </p>' + verificationCode
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
