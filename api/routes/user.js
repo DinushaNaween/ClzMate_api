@@ -343,6 +343,7 @@ router.get('/newPassword/:email', (req, res, next) => {
         })
         .catch(err => {
             res.status(401).json({
+                error: err,
                 state: false
             })
         })
