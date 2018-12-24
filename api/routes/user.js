@@ -341,6 +341,11 @@ router.get('/newPassword/:email', (req, res, next) => {
                     })
             }
         })
+        .catch(err => {
+            res.status(401).json({
+                state: false
+            })
+        })
 })
 
 // special route for delete all users in database
