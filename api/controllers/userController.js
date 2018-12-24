@@ -163,7 +163,7 @@ function generateRandomNumber(req, res, next) {
 function generateRandomPassword(req, res, next) {
     const len = 10;
     return crypto
-        .randomBytes(math.ceil(len / 2))
+        .randomBytes(Math.ceil(len / 2))
         .toString('hex')
         .slice(0, len)
 }
