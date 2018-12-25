@@ -39,14 +39,30 @@ router.get('/', (req, res) =>{
 });
 
 //register users
-router.post('/register', checkToken.checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
+router.post('/register', uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
-router.post('/uploadUserImage', uploadController.userImageUpload.single('image'), (req, res, next) => {
-    cloudinary.uploader.upload(req.file.path, function(result) {
-        req.body.imageURL = result.secure_url;
-        console.log(result.secure_url);
-    });
+router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single('image'), (req, res, next) => {
+    console.log("uploadUserImage")
+    const userId = req.params.userId;
+    User
+        .find({ _id: userId })
+        .exec()
+        .then(user => {
+            console.log("user found")
+            cloudinary.uploader.upload(req.file.path, function(result) {
+                imageSecureURL = result.secure_url;
+                console.log(imageSecureURL)
+                user[0].imageURL = imageSecureURL;
+                user[0]
+                    .save()
+            });
+        })
+        .catch(err => {
+            res.status(401).json({
+                state: false
+            })
+        })
 })
 
 //login user
