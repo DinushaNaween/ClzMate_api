@@ -39,9 +39,10 @@ router.get('/', (req, res) =>{
 });
 
 //register users
-router.post('/register', uploadController.userImageUpload.single('image'),
+router.post('/register', checkToken.checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
+//upload user image for profile
 router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single('image'), (req, res, next) => {
     console.log("uploadUserImage")
     const userId = req.params.userId;
