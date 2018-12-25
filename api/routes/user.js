@@ -56,6 +56,11 @@ router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single(
                 user[0].imageURL = imageSecureURL;
                 user[0]
                     .save()
+                    .then(result => {
+                        res.status(200).json({
+                            state: true
+                        })
+                    })
             });
         })
         .catch(err => {
