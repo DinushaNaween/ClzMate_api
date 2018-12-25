@@ -41,6 +41,13 @@ router.get('/', (req, res) =>{
 router.post('/register', checkToken.checkToken, checkAuth.checkIfAdmin, uploadController.userImageUpload.single('image'),
             userController.registerUser);
 
+router.post('/uploadUserImage', uploadController.userImageUpload.single('image'), (req, res, next) => {
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        req.body.imageURL = result.secure_url;
+        console.log(result.secure_url);
+    });
+})
+
 //login user
 router.post('/login', (req, res) =>{
     User
@@ -323,6 +330,7 @@ router.get('/forgotPassword/:email', (req, res, next) => {
     }
 });
 
+//after verify the email this can save new password for password foggoten person
 router.get('/newPassword/:email', (req, res, next) => {
     userEmail = req.params.email;
     User

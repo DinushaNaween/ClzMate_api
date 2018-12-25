@@ -38,3 +38,10 @@
         
 //     })
 // }
+
+// router.post("/", middleware.isLoggedIn, upload.single('image'), function(req, res) {
+//     cloudinary.uploader.upload(req.file.path, function(result) {
+//       req.body.imageURL = result.secure_url;
+//       console.log(result.secure_url);
+//     });
+// });
