@@ -12,7 +12,6 @@ const checkToken = require('../middlewares/check-token');
 const emailController = require('../controllers/emailController');
 
 const userModels = require('../models/user');
-const Clz = require('../models/clz');
 
 const User = userModels.user;
 const Address = userModels.address;
