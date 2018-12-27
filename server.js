@@ -1,13 +1,14 @@
 const dotenv = require('dotenv');
-
-require('dotenv').config()
 const result = dotenv.config()
  
 if (result.error) {
   throw result.error
 }
 
-const http = require('http');
+console.log(process.env.JWT_KEY);
+console.log(process.env.CLOUDINARY_API_KEY);
+
+const http = require('http'); 
 const app = require('./app')
 
 const port = process.env.PORT || 3000;

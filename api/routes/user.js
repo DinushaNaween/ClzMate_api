@@ -72,11 +72,13 @@ router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single(
 
 //login user
 router.post('/login', (req, res) =>{
+    console.log("login")
     User
         .find({ email: req.body.email })
         .exec()
         .then(user => {
             if(user.length < 1){
+                console.log("user found")
                 return res.status(200).json({
                     //message: 'Authantication failed. E-mail not exist.',
                     JWT_Token: null
@@ -98,6 +100,7 @@ router.post('/login', (req, res) =>{
                     });
                 }
                 else {
+                    console.log("else")
                     return res.status(200).json({
                         //message: 'Authantication Failed. Password is incorrect.',
                         state: false,
