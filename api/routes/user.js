@@ -59,7 +59,7 @@ router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single(
                     .then(result => {
                         res.status(200).json({
                             state: true
-                        })
+                        }) 
                     })
             });
         })
@@ -72,18 +72,19 @@ router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single(
 
 //login user
 router.post('/login', (req, res) =>{
+    console.log(process.env.JWT_KEY)
     console.log("login")
     User
         .find({ email: req.body.email })
         .exec()
         .then(user => {
             if(user.length < 1){
-                console.log("user found")
                 return res.status(200).json({
                     //message: 'Authantication failed. E-mail not exist.',
                     JWT_Token: null
                 });
             }
+            console.log("user found");
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (result){
                     token = jwt.sign({user: user[0]}, process.env.JWT_KEY, {expiresIn: "1h"}, (err, token) => {
@@ -93,16 +94,15 @@ router.post('/login', (req, res) =>{
                             // console.log('Token is:- '+token);
                             return res.status(200).json({
                                 state: true,
-                                JWT_Token: token
+                                JWT_Token: token 
                             }) 
                         }
                         console.log('token genetas : '+ this.token);
-                    });
+                    });  
                 }
                 else {
-                    console.log("else")
                     return res.status(200).json({
-                        //message: 'Authantication Failed. Password is incorrect.',
+                        // message: 'Authantication Failed. Password is incorrect.',
                         state: false,
                         JWT_Token: null
                     })
@@ -361,7 +361,7 @@ router.get('/newPassword/:email', (req, res, next) => {
     User
         .find({ email: userEmail })
         .exec()
-        .then(user => {
+        .then(user => {  
             if(user){
                 console.log(user[0]._id)
                 const newPassword = userController.generateRandomPassword()

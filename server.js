@@ -5,9 +5,6 @@ if (result.error) {
   throw result.error
 }
 
-console.log(process.env.JWT_KEY);
-console.log(process.env.CLOUDINARY_API_KEY);
-
 const http = require('http'); 
 const app = require('./app')
 
