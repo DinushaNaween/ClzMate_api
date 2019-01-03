@@ -5,8 +5,6 @@
 // //   throw result.error
 // // }
 
-// console.log(process.env.JWT_KEY);
-
 const http = require('http'); 
 const app = require('./app')
 
