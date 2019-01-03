@@ -3,6 +3,8 @@
         "JWT_KEY": "secret",
         "MONGODB_MLAB_PW": "clzmatepassword12345",
         "API_KEY_NAME": "clzmate",
-        "API_KEY": "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"
+        "API_KEY": "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",
+        "CLOUDINARY_API_KEY": "732738551639581",
+        "CLOUDINARY_API_SECRET": "80yPFXFmKrkizPY-5oahFNyV8Is"
     }
 }
