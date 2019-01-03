@@ -72,26 +72,21 @@ router.post('/uploadUserImage/:userId', uploadController.userImageUpload.single(
 
 //login user
 router.post('/login', (req, res) =>{
-    console.log(process.env.JWT_KEY)
-    console.log("login")
     User
         .find({ email: req.body.email })
         .exec()
         .then(user => {
             if(user.length < 1){
                 return res.status(200).json({
-                    //message: 'Authantication failed. E-mail not exist.',
                     JWT_Token: null
                 });
             }
-            console.log("user found");
             bcrypt.compare(req.body.password, user[0].password, (err, result) => {
                 if (result){
                     token = jwt.sign({user: user[0]}, process.env.JWT_KEY, {expiresIn: "1h"}, (err, token) => {
                         if(err){
                             res.json({ error: err })
                         } else {
-                            // console.log('Token is:- '+token);
                             return res.status(200).json({
                                 state: true,
                                 JWT_Token: token 
@@ -102,7 +97,6 @@ router.post('/login', (req, res) =>{
                 }
                 else {
                     return res.status(200).json({
-                        // message: 'Authantication Failed. Password is incorrect.',
                         state: false,
                         JWT_Token: null
                     })

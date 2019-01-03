@@ -1,5 +1,4 @@
 const nodemailer = require('nodemailer');
-const userController = require('./userController');
 
 function sendVerificationCode(receiver, verificationCode) {
     const sender = 'projectclzmate@gmail.com';
