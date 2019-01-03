@@ -1,11 +1,11 @@
-const dotenv = require('dotenv');
-const result = dotenv.config()
+// const dotenv = require('dotenv');
+// const result = dotenv.config()
  
-if (result.error) {
-  throw result.error
-}
+// // if (result.error) {
+// //   throw result.error
+// // }
 
-console.log(process.env.JWT_KEY);
+// console.log(process.env.JWT_KEY);
 
 const http = require('http'); 
 const app = require('./app')
