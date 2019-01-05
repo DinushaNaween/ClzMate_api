@@ -112,7 +112,7 @@ router.post('/login', (req, res) =>{
 });
 
 //delete user by Id
-router.delete('/:userId', (req, res ) => {
+router.delete('/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res ) => {
     const Id = req.params.userId;
     User
         .findById(Id)
@@ -149,7 +149,7 @@ router.delete('/:userId', (req, res ) => {
 });
 
 //edit user by Id
-router.patch('/userUpdate/:userId', (req, res, next) => {
+router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
@@ -181,7 +181,7 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
 }); 
 
 //edit user address by Id
-router.patch('/addressUpdate/:userId', (req, res, next) => {
+router.patch('/addressUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
     const userId = req.params.userId;
     User
         .find({ _id: userId })
@@ -216,7 +216,7 @@ router.patch('/addressUpdate/:userId', (req, res, next) => {
 }); 
 
 //edit user contactDetails by Id
-router.patch('/contactDetailsUpdate/:userId', (req, res, next) => {
+router.patch('/contactDetailsUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
     const userId = req.params.userId;
     User
         .find({ _id: userId })
