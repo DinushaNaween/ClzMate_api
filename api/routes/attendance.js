@@ -122,6 +122,12 @@ router.get('/:attendanceId', (req, res, next) => {
 
 //get student attendance by studentId
 router.get('/studentAttendance/:studentId', (req, res, next) => {
+    if(!req.params.studentId){
+        res.status(400).json({
+            state: false,
+            Message: 'studentId missing'
+        })
+    }
     const student = req.params.studentId;
     console.log(req.params.studentId)
     Attendance
