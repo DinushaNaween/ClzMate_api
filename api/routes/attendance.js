@@ -122,7 +122,7 @@ router.get('/:attendanceId', (req, res, next) => {
 
 //get student attendance by studentId
 router.get('/studentAttendance/:studentId', (req, res, next) => {
-    if(!req.params.studentId){
+    if(req.params.studentId == null){
         res.status(400).json({
             state: false,
             Message: 'studentId missing'
@@ -152,23 +152,13 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
         })
 }); 
 
-//test one
-router.get('/testget/:studentId', (req, res, next) => {
-    const searchstudent = req.params.studentId;
-    console.log(req.params.studentId)
-    Attendance
-        .find({ student: searchstudent })
-        .exec()
-        .then(result => {
-            console.log(result);
-            console.log(result[0].date); 
-            res.status(200).json({
-                date: result[0].date
-            })
-        })
-        .catch(err => {
-            console.log(err);
-        })
-});
+router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
+    const year = req.params.year;
+    const month = req.params.month;
+    const clzId = req.params.clzId;
+    console.log(year);
+    console.log(month);
+    console.log(clzId)
+})
 
 module.exports = router; 
