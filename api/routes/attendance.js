@@ -46,7 +46,9 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
                 Id: attendance._id,
                 date: attendance.day.toDateString(),
                 clz: attendance.clz,
-                cardMarker: attendance.cardMarker
+                cardMarker: attendance.cardMarker,
+                year: attendance.year,
+                month: attendance.month
             })
         })
         .catch(err => {
