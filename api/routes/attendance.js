@@ -34,8 +34,8 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
         clz: req.body.clz,
         cardMarker: req.body.cardMarker,
         date: date,
-        year: date.getFullYear(),
-        month: date.getFullMonth()
+        year: date.split("-")[0],
+        month: date.split("-")[1]
     });
     attendance
         .save()
@@ -44,7 +44,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
             res.status(200).json({
                 state: true,
                 Id: attendance._id,
-                date: attendance.day.toDateString(),
+                date: attendance.date.toDateString(),
                 clz: attendance.clz,
                 cardMarker: attendance.cardMarker,
                 year: attendance.year,
@@ -159,9 +159,10 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
         })
 }); 
 
+//get attendance by clzId, year, month 
 router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
-    const year = req.params.year;
-    const month = req.params.month;
+    const reqYear = req.params.year;
+    const reqMonth = req.params.month;
     const clzId = req.params.clzId;
     Clz
         .find()
@@ -174,9 +175,24 @@ router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
             } else{
                 Attendance
                     .aggregate([
-                        { $match: { $and: [ { date } ] } }
+                        { $match: { $and: [ { year: reqYear }, { month: reqMonth } ] } }
                     ])
+                    .then(result => {
+                        res.status(200).json({
+                            Attendance: result
+                        })
+                    })
+                    .catch(err => {
+                        res.status(500).json({
+                            state: false
+                        })
+                    })
             }
+        })  
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
         })
 })
 
