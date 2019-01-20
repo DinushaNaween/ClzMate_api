@@ -6,6 +6,7 @@ const userController = require('../controllers/userController');
 const clzController = require('../controllers/clzController');
 
 const Attendance = require('../models/attendance');
+const Clz = require('../models/clz');
 
 // get all attendance 
 router.get('/allAttendance', (req, res, next) => {
@@ -13,6 +14,7 @@ router.get('/allAttendance', (req, res, next) => {
         .find()
         .exec()
         .then(result => {
+            console.log(result[0].date.getFullYear())
             res.status(200).json({
                 Attendance: result
             })
@@ -26,11 +28,14 @@ router.get('/allAttendance', (req, res, next) => {
 
 //create new attendance tuple for new week
 router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) => {
+    const date = req.body.date;
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
         clz: req.body.clz,
         cardMarker: req.body.cardMarker,
-        date: req.body.date
+        date: date,
+        year: date.getFullYear(),
+        month: date.getFullMonth()
     });
     attendance
         .save()
@@ -156,9 +161,21 @@ router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
     const year = req.params.year;
     const month = req.params.month;
     const clzId = req.params.clzId;
-    console.log(year);
-    console.log(month);
-    console.log(clzId)
+    Clz
+        .find()
+        .exec()
+        .then(clz => {
+            if(!clz){
+                res.status(500).json({
+                    state: false
+                })
+            } else{
+                Attendance
+                    .aggregate([
+                        { $match: { $and: [ { date } ] } }
+                    ])
+            }
+        })
 })
 
 module.exports = router; 
