@@ -24,7 +24,7 @@ router.get('/', (req, res) =>{
         .populate('contactDetails address')
         .exec() 
         .then(result => { 
-            console.log(result);
+            console.log(result); 
                 res.status(200).json({
                     User: result
             })

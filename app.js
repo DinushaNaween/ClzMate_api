@@ -11,6 +11,7 @@ const userRoutes = require('./api/routes/user');
 const markRoutes = require('./api/routes/mark');
 const attendanceRoutes = require('./api/routes/attendance');
 const subjectRoutes = require('./api/routes/subject');
+const paymentRoutes = require('./api/models/payment');
 
 mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
 // mongoose.connect('mongodb://localhost:27017/ClzMate');
@@ -43,6 +44,7 @@ app.use('/user', userRoutes);
 app.use('/mark', markRoutes);
 app.use('/attendance', attendanceRoutes);
 app.use('/subject', subjectRoutes);
+app.use('payment', paymentRoutes);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');

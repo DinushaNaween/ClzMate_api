@@ -16,7 +16,7 @@ router.get('/allAttendance', (req, res, next) => {
         .then(result => {
             console.log(result[0].date.getFullYear())
             res.status(200).json({
-                Attendance: result
+                Attendance: result 
             })
         })
         .catch(err => {
@@ -173,6 +173,7 @@ router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
                     state: false
                 })
             } else{
+                if(reqYear)
                 Attendance
                     .aggregate([
                         { $match: { $and: [ { year: reqYear }, { month: reqMonth } ] } }
