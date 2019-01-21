@@ -44,7 +44,7 @@ app.use('/user', userRoutes);
 app.use('/mark', markRoutes);
 app.use('/attendance', attendanceRoutes);
 app.use('/subject', subjectRoutes);
-app.use('payment', paymentRoutes);
+app.use('/payment', paymentRoutes);
 
 app.use((req, res, next)=>{
     const error = new Error('Not Found');
