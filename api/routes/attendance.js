@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const userController = require('../controllers/userController');
 const clzController = require('../controllers/clzController');
+const attendanceController = require('../controllers/attendanceController');
 
 const Attendance = require('../models/attendance');
 const Clz = require('../models/clz');
@@ -160,38 +161,26 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
 }); 
 
 //get attendance by clzId, year, month 
-router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
+router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExist, (req, res, next) => {
+    // const month = req.params.month;
+    const reqMonth = attendanceController.stringToNumber(req.params.month)
     const reqYear = req.params.year;
-    const reqMonth = req.params.month;
     const clzId = req.params.clzId;
-    Clz
-        .find({ _id: clzId })
+    Attendance
+        .find({
+            $and: [ { clz: clzId }, { year: reqYear }, { month: reqMonth } ]
+        })
         .exec()
-        .then(clz => {
-            if(!clz){
-                res.status(500).json({
-                    state: false
-                })
-            } else{
-                Attendance
-                    .aggregate([
-                        { $match: { $and: [ { year: reqYear }, { month: reqMonth }, { clz: clzId } ] } }
-                    ])
-                    .then(result => {
-                        res.status(200).json({
-                            Attendance: result
-                        })
-                    })
-                    .catch(err => {
-                        res.status(500).json({
-                            state: false
-                        })
-                    })
-            }
-        })  
+        .then(attendanceList => {
+            console.log(attendanceList);
+            res.status(200).json({
+                Attendance: attendanceList
+            })
+        })
         .catch(err => {
             res.status(500).json({
-                state: false
+                state: false,
+                Message: "error on aggregate"
             })
         })
 })
