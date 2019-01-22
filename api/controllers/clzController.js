@@ -21,6 +21,29 @@ function findClzById(req, res, next){
             })
         })
 }
+ 
+//find clz if exist by passing clzId via params
+function findClzIfExist(req, res, next){
+    const clzId = req.params.clzId;
+    Clz
+        .find({ _id: clzId })
+        .exec()
+        .then(clz => {
+            if(!clz){
+                res.status(500).json({
+                    state: false
+                })
+            } else{
+                console.log("clz found");
+                next()
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+}
 
 function count(cb){
     Clz
@@ -38,5 +61,6 @@ function count(cb){
 
 module.exports = {
     findClzById: findClzById,
-    count: count
+    count: count,
+    findClzIfExist: findClzIfExist
 }
