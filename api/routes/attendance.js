@@ -165,7 +165,7 @@ router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
     const reqMonth = req.params.month;
     const clzId = req.params.clzId;
     Clz
-        .find()
+        .find({ _id: clzId })
         .exec()
         .then(clz => {
             if(!clz){
@@ -173,10 +173,9 @@ router.get('/attendanceForClzId/:year/:month/:clzId', (req, res, next) => {
                     state: false
                 })
             } else{
-                if(reqYear)
                 Attendance
                     .aggregate([
-                        { $match: { $and: [ { year: reqYear }, { month: reqMonth } ] } }
+                        { $match: { $and: [ { year: reqYear }, { month: reqMonth }, { clz: clzId } ] } }
                     ])
                     .then(result => {
                         res.status(200).json({
