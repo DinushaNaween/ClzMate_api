@@ -170,6 +170,7 @@ router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExi
         .find({
             $and: [ { clz: clzId }, { year: reqYear } ]
         })
+        .populate('clz cardMarker')
         .exec()
         .then(attendanceList => {
             console.log(attendanceList);
