@@ -168,10 +168,10 @@ router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExi
     if(reqMonth == 0){
         Attendance
         .find(
-            { $and: [ { clz: clzId }, { year: reqYear } ] },
-            { $sort: [ { month: 1 } ] }
+            { $and: [ { clz: clzId }, { year: reqYear } ] }
         )
         .populate('student clz cardMarker', `indexNo clzNo fullName`)
+        .sort({ month: 1 })
         .exec()
         .then(attendanceList => {
             console.log(attendanceList);
