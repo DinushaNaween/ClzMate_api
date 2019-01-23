@@ -29,11 +29,10 @@ router.get('/allAttendance', (req, res, next) => {
 
 //create new attendance tuple for new week
 router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) => {
-    const clzId = clzController.clzNoToClzId(req.body.clz);
     const date = req.body.date;
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
-        clz: clzId,
+        clz: req.body.clz,
         cardMarker: req.body.cardMarker,
         date: date,
         year: date.split("-")[0],
@@ -42,8 +41,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
     attendance
         .save()
         .then(attendance => {
-            console.log(attendance)
-            res.status(200).json({
+            res.status(200).json({   
                 state: true,
                 Id: attendance._id,
                 date: attendance.date.toDateString(),
@@ -60,6 +58,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
             })
         });
 });
+
 
 //add attendance for a week in existing table
 router.patch('/addAttendance/:attendanceId', userController.findStudentById, (req, res, next) => {

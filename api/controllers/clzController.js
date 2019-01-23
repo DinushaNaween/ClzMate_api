@@ -12,6 +12,8 @@ function findClzById(req, res, next){
                     state: false
                 })
             } else {
+                req.body.clz = clz[0]._id;
+                console.log(req.body.clz)
                 console.log('find Clz OK')
                 next()
             }
@@ -54,38 +56,15 @@ function count(cb){
         .then(result => {
             const count = result.length+101
             console.log(count);
-            return cb('Clz'+count);
+            return cb('Class'+count);
         })
         .catch(err => {
             console.log(err);
         })
 }
 
-//convert clzNo to clzId
-function clzNoToClzId(clzNo){
-    Clz
-        .find({ clzNo: clzNo })
-        .exec()
-        .then(clz => {
-            if(!clz){
-                res.status(500).json({
-                    state: false
-                })
-            } else {
-                const clzId = clz[0]._id;
-                return clzId;
-            }
-        })
-        .catch(err => {
-            res.status(500).json({
-                state: false
-            })
-        })
-}
-
 module.exports = {
     findClzById: findClzById,
     count: count,
-    findClzIfExist: findClzIfExist,
-    clzNoToClzId: clzNoToClzId
+    findClzIfExist: findClzIfExist
 }
