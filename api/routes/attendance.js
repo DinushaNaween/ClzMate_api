@@ -162,7 +162,7 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
 
 //get attendance by clzId, year, month 
 router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExist, (req, res, next) => {
-    if(req.params.month == null){
+    if(!req.params.month){
         res.status(500).json({
             Message: "month not found"
         })
