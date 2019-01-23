@@ -105,7 +105,6 @@ function resetPassword(userId, newPassword){
         }else {
             console.log(hash)
             User
-                // .find({ _id: userId })
                 .update({ _id: userId },{$set: { password: hash }})
                 .then(result => {
                     console.log(result)

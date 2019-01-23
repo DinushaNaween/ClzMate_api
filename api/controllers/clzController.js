@@ -1,5 +1,6 @@
 const Clz = require('../models/clz');
 
+//find clz if exist
 function findClzById(req, res, next){
     const clzId = req.body.clz;
     Clz
@@ -71,7 +72,7 @@ function clzNoToClzId(clzNo){
                     state: false
                 })
             } else {
-                const clzId = clz._id;
+                const clzId = clz[0]._id;
                 return clzId;
             }
         })
