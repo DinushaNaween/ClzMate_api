@@ -165,7 +165,7 @@ router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExi
     const reqMonth = attendanceController.stringToNumber(req.params.month)
     const reqYear = req.params.year;
     const clzId = req.params.clzId;
-    if(month == 0){
+    if(reqMonth == 0){
         Attendance
         .find({
             $and: [ { clz: clzId }, { year: reqYear } ]
