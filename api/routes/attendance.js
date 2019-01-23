@@ -162,15 +162,28 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
 
 //get attendance by clzId, year, month 
 router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExist, (req, res, next) => {
-    if(!req.params.month){
-        res.status(500).json({
-            Message: "month not found"
-        })
-    }
     const reqMonth = attendanceController.stringToNumber(req.params.month)
     const reqYear = req.params.year;
     const clzId = req.params.clzId;
-    Attendance
+    if(month == 0){
+        Attendance
+        .find({
+            $and: [ { clz: clzId }, { year: reqYear } ]
+        })
+        .exec()
+        .then(attendanceList => {
+            console.log(attendanceList);
+            res.status(200).json({
+                Attendance: attendanceList
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+    } else{
+        Attendance
         .find({
             $and: [ { clz: clzId }, { year: reqYear }, { month: reqMonth } ]
         })
@@ -183,10 +196,10 @@ router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExi
         })
         .catch(err => {
             res.status(500).json({
-                state: false,
-                Message: "error on aggregate"
+                state: false
             })
         })
+    }
 })
 
 module.exports = router; 

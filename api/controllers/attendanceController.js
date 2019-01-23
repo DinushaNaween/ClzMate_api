@@ -4,7 +4,9 @@ function stringToNumber(month) {
     console.log("controller function");
     // const month = req.params.month;
     console.log(month)
-    if(month == "January"){
+    if(month == "All"){
+        month = 0;
+    }else if(month == "January"){
         month = 1;  
     } else if(month == "February"){
         month = 2;
