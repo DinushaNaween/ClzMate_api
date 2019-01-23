@@ -3,7 +3,7 @@ const Clz = require('../models/clz');
 function findClzById(req, res, next){
     const clzId = req.body.clz;
     Clz
-        .findById(clzId)
+        .find({ clzNo: clzId })
         .exec()
         .then(clz => {
             if(!clz){
@@ -45,6 +45,7 @@ function findClzIfExist(req, res, next){
         })
 }
 
+//count no of classes
 function count(cb){
     Clz
         .find()
@@ -59,8 +60,25 @@ function count(cb){
         })
 }
 
+//convert clzNo to clzId
+function clzNoToClzId(clzNo){
+    Clz
+        .find({ clzNo: clzNo })
+        .exec()
+        .then(clz => {
+            const clzId = clz._id;
+            return clzId;
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+}
+
 module.exports = {
     findClzById: findClzById,
     count: count,
-    findClzIfExist: findClzIfExist
+    findClzIfExist: findClzIfExist,
+    clzNoToClzId: clzNoToClzId
 }

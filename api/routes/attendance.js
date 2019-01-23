@@ -29,10 +29,11 @@ router.get('/allAttendance', (req, res, next) => {
 
 //create new attendance tuple for new week
 router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) => {
+    const clzId = clzController.clzNoToClzId(req.body.clz);
     const date = req.body.date;
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
-        clz: req.body.clz,
+        clz: clzId,
         cardMarker: req.body.cardMarker,
         date: date,
         year: date.split("-")[0],
