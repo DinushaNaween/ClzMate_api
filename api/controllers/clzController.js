@@ -66,8 +66,14 @@ function clzNoToClzId(clzNo){
         .find({ clzNo: clzNo })
         .exec()
         .then(clz => {
-            const clzId = clz._id;
-            return clzId;
+            if(!clz){
+                res.status(500).json({
+                    state: false
+                })
+            } else {
+                const clzId = clz._id;
+                return clzId;
+            }
         })
         .catch(err => {
             res.status(500).json({
