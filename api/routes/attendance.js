@@ -172,6 +172,7 @@ router.get('/attendanceForClzId/:year/:month/:clzId', clzController.findClzIfExi
         )
         .populate('student clz cardMarker', `indexNo clzNo fullName`)
         .sort({ month: 1 })
+        .group({ month })
         .exec()
         .then(attendanceList => {
             console.log(attendanceList);
