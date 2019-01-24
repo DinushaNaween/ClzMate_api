@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Payment = require('../models/payment');
 const paymentController = require('../controllers/paymentController');
 
+//receive payment responce from payhere
 router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) => {
     const payment = new Payment({
         _id: new mongoose.Types.ObjectId(),
@@ -16,8 +17,8 @@ router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) 
         status_code: req.body.status_code,
         status: req.body.status,
         md5sig: req.body.md5sig,
-        custom_1: req.body.custom_1,
-        custom_2: req.body.custom_2
+        student: req.body.student,
+        clz: req.body.clz
     });
     console.log(payment);
     payment     
@@ -30,6 +31,41 @@ router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) 
         .catch(err => {
             res.status(500).json({
                 err
+            })
+        })
+})
+
+//get all payments in database
+router.get('/', (req, res, next) => {
+    Payment
+        .find()
+        .exec()
+        .then(payments => {
+            res.status(200).json({
+                Payments: payments
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+})
+
+//get payments of a clz
+router.get('/:clzId', (req, res, next) => {
+    const clzId = req.params.clzId;
+    Payment
+        .find({ clz: clzId })
+        .exec()
+        .then(payments => {
+            res.status(200).json({
+                payments
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
             })
         })
 })
