@@ -8,6 +8,7 @@ const paymentSchema = mongoose.Schema({
     payhere_amount: { type: Number },
     payhere_currency: { type: String },
     status_code: { type: Number },
+    status: { type: String },
     md5sig: { type: String },
     custom_1: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, //StudentId
     custom_2: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },  //clzId

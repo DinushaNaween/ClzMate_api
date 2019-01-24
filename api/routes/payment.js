@@ -3,8 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Payment = require('../models/payment');
+const paymentController = require('../controllers/paymentController');
 
-router.post('/payHereResponce', (req, res, next) => {
+router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) => {
     const payment = new Payment({
         _id: new mongoose.Types.ObjectId(),
         merchant_id: req.body.merchant_id,
@@ -13,12 +14,13 @@ router.post('/payHereResponce', (req, res, next) => {
         payhere_amount: req.body.payhere_amount,
         payhere_currency: req.body.payhere_currency,
         status_code: req.body.status_code,
+        status: req.body.status,
         md5sig: req.body.md5sig,
         custom_1: req.body.custom_1,
         custom_2: req.body.custom_2
     });
     console.log(payment);
-    payment
+    payment     
         .save()
         .then(result => {
             res.status(200).json({
