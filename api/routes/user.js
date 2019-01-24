@@ -461,6 +461,7 @@ router.get('/getClasses/:studentId', (req, res) =>{
     const studentId = req.params.studentId;
     User
         .find({ _id: studentId })
+        .populate('clzes', `subjectName`)
         .exec()
         .then(student => {
             console.log(student[0].clzes)
