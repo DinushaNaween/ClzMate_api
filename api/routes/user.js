@@ -467,7 +467,7 @@ router.get('/getClasses/:studentId', (req, res) =>{
             console.log(student[0].clzes)
             res.status(200).json({
                 state: true,
-                clzes: student[0].clzes
+                clzes: student
             })
         })
         .catch(err => {
