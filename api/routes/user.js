@@ -456,14 +456,24 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
         })
 })
 
-router.get('/test/:role', (req, res) =>{
-    // .then(result => {
-        userController.countByRole(req.params.role, count)
-        console.log(count);
-    // })
-    res.status(200).json({
-        Message: true
-    })    
+//get classes of any student
+router.get('/getClasses/:studentId', (req, res) =>{
+    const studentId = req.params.studentId;
+    User
+        .find({ _id: studentId })
+        .exec()
+        .then(student => {
+            console.log(student[0].clzes)
+            res.status(200).json({
+                state: true,
+                clzes: student[0].clzes
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
 });
 
 module.exports = router; 
