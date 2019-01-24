@@ -39,6 +39,7 @@ router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) 
 router.get('/', (req, res, next) => {
     Payment
         .find()
+        .populate('custom_1 custom_2', `clzNo indexNo`)
         .exec()
         .then(payments => {
             res.status(200).json({
