@@ -10,8 +10,8 @@ const paymentSchema = mongoose.Schema({
     status_code: { type: Number },
     status: { type: String },
     md5sig: { type: String },
-    student: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, //StudentId
-    clz: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },  //clzId
+    custom_1: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, //StudentId
+    custom_2: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },  //clzId
     date: Date
     },{
         timestamps: true

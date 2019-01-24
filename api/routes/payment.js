@@ -17,8 +17,8 @@ router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) 
         status_code: req.body.status_code,
         status: req.body.status,
         md5sig: req.body.md5sig,
-        student: req.body.custom_1,
-        clz: req.body.custom_2
+        custom_1: req.body.custom_1,
+        custom_2: req.body.custom_2
     });
     console.log(payment);
     payment     
