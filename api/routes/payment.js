@@ -17,8 +17,8 @@ router.post('/payHereResponce', paymentController.checkStatus, (req, res, next) 
         status_code: req.body.status_code,
         status: req.body.status,
         md5sig: req.body.md5sig,
-        custom_1: req.body.custom_1,
-        custom_2: req.body.custom_2
+        custom_1: req.body.custom_1,     //student
+        custom_2: req.body.custom_2      //clz
     });
     console.log(payment);
     payment     
@@ -56,7 +56,7 @@ router.get('/', (req, res, next) => {
 router.get('/:clzId', (req, res, next) => {
     const clzId = req.params.clzId;
     Payment
-        .find({ clz: clzId })
+        .find({ custom_2: clzId })       //custom_2 = clz
         .exec()
         .then(payments => {
             res.status(200).json({
