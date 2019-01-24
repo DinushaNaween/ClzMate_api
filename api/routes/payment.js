@@ -21,4 +21,22 @@ router.post('/payHereResponce', (req, res, next) => {
         .save()
 })
 
+router.get('/test', (req, res, nexy) => {
+    const merchant_id = "1212111"
+    const return_url = "http://localhost:3000/payment/test/"
+    const cancel_url = "http://localhost:3000/payment/test/"
+    const notify_url = "http://localhost:3000/payment/test/"
+    const first_name = "Dinusha"
+    const last_name = "Naveen"
+    const email = "dldndasanayaka@gmail.com"
+    const phone = "0714778295"
+    const address = "30/A, Colincrasent"
+    const city = "Rathnapura"
+    const country = "Sri Lanka"
+    const order_id = "1212"
+    const items = "smart phone"
+    const currency = "LKR"
+    const amount = 10000
+})
+
 module.exports = router; 
