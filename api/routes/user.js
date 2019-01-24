@@ -460,19 +460,18 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
 router.get('/getClasses/:studentId', (req, res) =>{
     const studentId = req.params.studentId;
     User
-        .find({ _id: studentId })
+        .findById(studentId) 
         .populate('clzes', `subjectName`)
         .exec()
         .then(student => {
-            console.log(student[0].clzes)
             res.status(200).json({
-                student
+                clzes: student.clzes
             })
         })
-        .catch(err => {
+        .catch(err => { 
             res.status(500).json({
                 state: false
-            })
+            })     
         })
 });
 
