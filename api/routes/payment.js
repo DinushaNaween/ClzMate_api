@@ -43,7 +43,8 @@ router.get('/', (req, res, next) => {
         .exec()
         .then(payments => {
             res.status(200).json({
-                Payments: payments
+                Payments: payments,
+                Date: payment.createdAt.toDateString()
             })
         })
         .catch(err => {
