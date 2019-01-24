@@ -21,7 +21,7 @@ router.post('/payHereResponce', (req, res, next) => {
         .save()
 })
 
-router.get('/test', (req, res, nexy) => {
+router.get('/test', (req, res, next) => {
     const merchant_id = "1212111"
     const return_url = "http://localhost:3000/payment/test/"
     const cancel_url = "http://localhost:3000/payment/test/"
