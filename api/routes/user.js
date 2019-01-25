@@ -159,7 +159,7 @@ router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmi
         if (ops.propName == 'password'){
             userController.resetPassword(id, ops.value)
         } 
-        else {
+        else { 
             updateOps[ops.propName] = ops.value;
         }
     }
