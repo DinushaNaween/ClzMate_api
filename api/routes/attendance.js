@@ -54,7 +54,8 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
         .catch(err => {
             console.log(err)
             res.status(500).json({
-                state: false
+                state: false,
+                Message: "Not valid date"
             })
         });
 });
