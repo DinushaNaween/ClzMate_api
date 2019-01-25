@@ -421,7 +421,7 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
     User
         .find({ _id: userId })
         .then(user => {
-            if(user[0].role == 'cardmarker'){
+            if(user[0].role == 'Card Marker'){
                 res.status(200).json({
                     clzes: user[0].clzes
                 })
