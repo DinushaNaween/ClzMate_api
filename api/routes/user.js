@@ -112,7 +112,7 @@ router.post('/login', (req, res) =>{
 });
 
 //delete user by Id
-router.delete('/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res ) => {
+router.delete('/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res ) => {
     const Id = req.params.userId;
     User
         .findById(Id)
