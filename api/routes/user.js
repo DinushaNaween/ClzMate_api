@@ -330,7 +330,7 @@ router.get('/forgotPassword/:email', (req, res, next) => {
                     emailController.sendVerificationCode(userEmail, verificationCode);
                     res.status(200).json({
                         state: true, 
-                        userId: user._id,
+                        userId: user[0]._id,
                         code: verificationCode
                     })
                 } else {
