@@ -145,8 +145,7 @@ function checkUserIfExist(req, res, next){
         .then(user => {
             if(!user){
                 res.status(500).json({
-                    state: false,
-                    Message: "User Not Exist"
+                    state: false
                 })
             } else{
                 next()
@@ -154,7 +153,8 @@ function checkUserIfExist(req, res, next){
         })
         .catch(err => {
             res.status(500).json({
-                state: false
+                state: false,
+                Message: "User Not Exist"
             })
         })
 }
