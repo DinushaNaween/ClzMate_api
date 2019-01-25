@@ -152,7 +152,7 @@ function checkUserIfExist(req, res, next){
                 next()
             }
         })
-        .catck(err => {
+        .catch(err => {
             res.status(500).json({
                 state: false
             })
