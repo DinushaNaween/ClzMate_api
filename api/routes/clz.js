@@ -62,7 +62,7 @@ router.post('/', (req, res, next) => {
 });
 
 //get clz details by Id
-router.get('/:clzId', (req, res, next) => {
+router.get('/:clzId', clzController.findClzIfExist, (req, res, next) => {
     const searchId = req.params.clzId;
     Clz
         .findById(searchId)
@@ -83,7 +83,7 @@ router.get('/:clzId', (req, res, next) => {
 });
  
 //edit clz by Id
-router.patch('/:clzId', (req, res, next) => {
+router.patch('/:clzId', clzController.findClzIfExist, (req, res, next) => {
     const patchId = req.params.clzId;
     const updateOps = {};
     for (const ops of req.body) {
