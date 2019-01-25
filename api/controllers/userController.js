@@ -136,6 +136,29 @@ function findStudentById(req, res, next){
         })
 }
 
+//check if user is exist
+function checkUserIfExist(req, res, next){
+    const userId = req.params.userId;
+    User
+        .find({ _id: userId })
+        .exec()
+        .then(user => {
+            if(!user){
+                res.status(500).json({
+                    state: false,
+                    Message: "User Not Exist"
+                })
+            } else{
+                next()
+            }
+        })
+        .catck(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+}
+
 //add clz to existing student
 function addClz(user, value){
     User
@@ -199,5 +222,6 @@ module.exports = {
     addClz: addClz,
     generateRandomNumber: generateRandomNumber,
     generateRandomPassword: generateRandomPassword,
-    countByRole: countByRole
+    countByRole: countByRole,
+    checkUserIfExist: checkUserIfExist
 };

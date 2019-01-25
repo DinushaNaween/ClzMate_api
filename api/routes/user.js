@@ -149,7 +149,7 @@ router.delete('/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, r
 });
 
 //edit user by Id
-router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
+router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res, next) => {
     const id = req.params.userId;
     const updateOps = {};
     for (const ops of req.body) {
