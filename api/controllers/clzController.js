@@ -20,7 +20,8 @@ function findClzById(req, res, next){
         })
         .catch(err => {
             res.status(200).json({
-                state: false
+                state: false,
+                Message: "Not a valid class"
             })
         })
 }
