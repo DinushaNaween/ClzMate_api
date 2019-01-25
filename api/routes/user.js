@@ -246,7 +246,7 @@ router.patch('/contactDetailsUpdate/:userId', checkToken.checkToken, checkAuth.c
 });
 
 //get user details by Id
-router.get('/:userId', (req, res, next) => {
+router.get('/:userId', userController.checkUserIfExist, (req, res, next) => {
     const Id = req.params.userId;
     User
         .findById(Id)
