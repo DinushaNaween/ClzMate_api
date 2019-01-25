@@ -181,7 +181,7 @@ router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmi
 }); 
 
 //edit user address by Id
-router.patch('/addressUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
+router.patch('/addressUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res, next) => {
     const userId = req.params.userId;
     User
         .find({ _id: userId })
@@ -216,7 +216,7 @@ router.patch('/addressUpdate/:userId', checkToken.checkToken, checkAuth.checkIfA
 }); 
 
 //edit user contactDetails by Id
-router.patch('/contactDetailsUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, (req, res, next) => {
+router.patch('/contactDetailsUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res, next) => {
     const userId = req.params.userId;
     User
         .find({ _id: userId })
