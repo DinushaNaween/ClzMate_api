@@ -45,11 +45,8 @@ router.post('/', (req, res, next) => {
             .then(result => {
                 console.log(result);
                 res.status(201).json({
-                    state: true,
-                    clzId: clz._id,
-                    teacher: req.body.teacher,
-                    Card_Marker: req.body.cardMarker,
-                    ClzNo:count
+                    state: false,
+                    Message: "This time slot and hall used for another class"
                 });
             })
             .catch(err => {
