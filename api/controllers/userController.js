@@ -140,7 +140,7 @@ function findStudentById(req, res, next){
 function checkUserIfExist(req, res, next){
     const userId = req.params.userId;
     User
-        .findById(userId)
+        .find({ _id: userId })
         .exec()
         .then(user => {
             if(!user){
