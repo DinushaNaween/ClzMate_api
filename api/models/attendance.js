@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 
 const attendanceSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    date: { 
-        type: Date, 
-        // match: "/(\d+)(-|\/)(\d+)(?:-|\/)(?:(\d+)\s+(\d+):(\d+)(?::(\d+))?(?:\.(\d+))?)?/" 
-    },
+    date: Date,
     year: { type: Number },
     month: { type: Number },
     clz: { type: mongoose.Schema.Types.ObjectId, ref: 'Clz' },
