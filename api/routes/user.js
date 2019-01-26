@@ -279,9 +279,9 @@ router.get('/findByRole/:role', (req, res, next) => {
                     User: result
             })
         })
-        .catch(err => {
+        .catch(err => { 
             console.log(err);
-            res.status(500).json({
+            res.status(500).json({  
                 error: err
             });
         });

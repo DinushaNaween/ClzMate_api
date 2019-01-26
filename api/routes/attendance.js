@@ -41,6 +41,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
     attendance
         .save()
         .then(attendance => {
+            console.log(attendance)
             res.status(200).json({   
                 state: true,
                 Id: attendance._id,
@@ -55,7 +56,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
             console.log(err)
             res.status(500).json({
                 state: false,
-                Message: "Not valid date"
+                Message: "Not valid date" 
             })
         });
 });
