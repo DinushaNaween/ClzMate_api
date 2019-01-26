@@ -29,6 +29,7 @@ router.get('/allAttendance', (req, res, next) => {
 
 //create new attendance tuple for new week
 router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) => {
+    console.log(req.body);
     const date = req.body.date;
     const attendance = new Attendance({
         _id: new mongoose.Types.ObjectId(),
