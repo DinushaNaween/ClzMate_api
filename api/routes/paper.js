@@ -6,6 +6,7 @@ const Clz = require('../models/clz');
 const User = require('../models/user');
 
 const checkAuth = require('../middlewares/check-auth');
+const paperController = require('../controllers/paperController');
 
 //get all papers details
 router.get('/', (req, res, next) => {
@@ -27,35 +28,38 @@ router.get('/', (req, res, next) => {
 
 //create a paper
 router.post('/', (req, res, next) => {
-    const clzId = req.body.clzId;
-    Clz
-        .find({ _id: clzId })
-        .then(clz => {
-            if (!clz) {
-                return res.status(404).json({
+    paperController.count(function(count){
+        const clzId = req.body.clzId;
+        Clz
+            .find({ _id: clzId })
+            .then(clz => {
+                if (!clz) {
+                    return res.status(404).json({
+                        state: false
+                    });
+                }
+                const paper = new Paper({
+                    _id: new mongoose.Types.ObjectId(),
+                    paperNo: count,
+                    clz: req.body.clzId,
+                    date: req.body.date
+                });
+                return paper
+                    .save()
+                    .then(result => {
+                        console.log(result);
+                        res.status(201).json({
+                            state: true
+                        });
+                    })
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
                     state: false
                 });
-            }
-            const paper = new Paper({
-                _id: new mongoose.Types.ObjectId(),
-                clz: req.body.clzId,
-                date: req.body.date
-            });
-            return paper
-                .save()
-                .then(result => {
-                    console.log(result);
-                    res.status(201).json({
-                        state: true
-                    });
-                })
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                state: false
-            });
-        })
+            })
+    })
 });
 
 //get paper by Id
