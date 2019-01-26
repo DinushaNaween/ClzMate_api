@@ -78,6 +78,7 @@ router.post('/login', (req, res) =>{
         .then(user => {
             if(user.length < 1){
                 return res.status(200).json({
+                    state: false,
                     JWT_Token: null
                 });
             }
@@ -328,13 +329,14 @@ router.get('/forgotPassword/:email', (req, res, next) => {
                     const verificationCode = userController.generateRandomNumber()
                     console.log(verificationCode);
                     emailController.sendVerificationCode(userEmail, verificationCode);
+                    // emailController.sendEmail(userEmail)
                     res.status(200).json({
                         state: true, 
                         userId: user[0]._id,
                         code: verificationCode
                     })
-                } else {
-                    res.status(500).json({
+                } else {  
+                    res.status(500).json({ 
                         state: false,
                         Message: "Not Registered User"
                     })

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Paper = require('../models/paper');
 const Clz = require('../models/clz');
+const User = requires('../models/user');
 
 const checkAuth = require('../middlewares/check-auth');
 
@@ -131,6 +132,15 @@ router.patch('/:paperId', (req, res, next) => {
             });
         });
 });
+
+router.get('/getPapersForClass/:clzId/:studentId', (req, res, next) => {
+    const clzId = req.params.clzId;
+    const studentId = req.params.studentId;
+    Paper
+        .find({ clz: clzId })
+        .populate()
+        .exec()
+})
 
 /*special route for delete all users in database
 this is use for developing perposes
