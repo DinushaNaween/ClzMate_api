@@ -21,7 +21,7 @@ mongoose.Promise = global.Promise;
 app.use(morgan('dev'));  
 app.use(bodyparser.urlencoded({extended:false})); 
 app.use(bodyparser.json());  
-   
+
 app.use(passport.initialize()); 
 app.use(passport.session()); 
 

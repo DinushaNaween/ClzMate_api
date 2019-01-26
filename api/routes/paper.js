@@ -3,14 +3,14 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Paper = require('../models/paper');
 const Clz = require('../models/clz');
-const User = requires('../models/user');
+const User = require('../models/user');
 
 const checkAuth = require('../middlewares/check-auth');
 
 //get all papers details
 router.get('/', (req, res, next) => {
     Paper
-        .find()
+        .find() 
         .populate('clz')
         .exec()
         .then(result => {
