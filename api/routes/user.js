@@ -479,6 +479,9 @@ router.get('/getClasses/:studentId', (req, res) =>{
 
 router.patch('/userUpdate/:userId', (req, res, next) => {
     console.log(req.body);
+    res.status(200).json({
+        Message: "ඔබට සතුටුයිද දැන්"
+    })
 })
 
 module.exports = router; 

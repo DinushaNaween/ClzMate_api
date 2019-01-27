@@ -130,4 +130,10 @@ router.patch('/:markId', (req, res, next) => {
         })
 });
 
+router.get('/getmarksOfStudent/:studentId', (req, res, next) => {
+    const studentId = req.params.studentId;
+    Mark
+        .find({  })
+})
+
 module.exports = router;
