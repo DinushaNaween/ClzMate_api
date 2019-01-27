@@ -15,9 +15,9 @@ router.get('/', (req, res, next) => {
         .populate('clz')
         .exec()
         .then(result => {
-            res.status(200).json(
-                result
-            );
+            res.status(200).json({
+                Papers: result
+            });
         })
         .catch(err => {
             res.status(500).json({
