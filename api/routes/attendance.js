@@ -157,7 +157,8 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
             }
             res.status(200).json({
                 // date: result[0].date
-                attendedDates
+                // attendedDates
+                Attendances: result
             })
         })
         .catch(err => {
