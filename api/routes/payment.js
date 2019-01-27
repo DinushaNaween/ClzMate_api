@@ -71,4 +71,21 @@ router.get('/:clzId', (req, res, next) => {
         })
 })
 
+router.get("/getPaymentByStudent/:studentId", (req, res, next) => {
+    const studentId = req.params.studentId;
+    Payment
+        .find({ custom_1: studentId })
+        .exec()
+        .then(Payments => {
+            res.status(200).json({
+                Payments
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+})
+
 module.exports = router; 
