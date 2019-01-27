@@ -137,14 +137,24 @@ router.patch('/:paperId', (req, res, next) => {
         });
 });
 
-// router.get('/getPapersForClass/:clzId/:studentId', (req, res, next) => {
-//     const clzId = req.params.clzId;
-//     const studentId = req.params.studentId;
-//     Paper
-//         .find({ clz: clzId })
-//         .populate()
-//         .exec()
-// })
+//pass clzId to get its papers
+router.get('/getPapersForClass/:clzId', (req, res, next) => {
+    const clzId = req.params.clzId;
+    Paper
+        .find({ clz: clzId })
+        .populate('clz', `subjectName`)
+        .exec()
+        .then(papers => {
+            res.status(200).json({
+                Paper: papers
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+})
 
 /*special route for delete all users in database
 this is use for developing perposes
