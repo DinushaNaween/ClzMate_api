@@ -144,6 +144,7 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
     console.log(req.params.studentId)
     Attendance
         .find({ student: student })
+        .populate('clz cardMarker student', `indexNo clzNo`)
         .exec()
         .then(result => {
             const length = result.length;
