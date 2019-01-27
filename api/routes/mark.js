@@ -11,7 +11,7 @@ const checkAuth = require('../middlewares/check-auth');
 router.get('/', (req, res, next) => {
     Mark
         .find()
-        .populate('student paper paperMarker')
+        .populate('student paper paperMarker', `indexNo paperNo`)
         .exec()
         .then(mark => {
             res.status(200).json({
