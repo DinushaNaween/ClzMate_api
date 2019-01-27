@@ -130,10 +130,10 @@ router.patch('/:markId', (req, res, next) => {
         })
 });
 
-router.get('/getmarksOfStudent/:studentId', (req, res, next) => {
-    const studentId = req.params.studentId;
-    Mark
-        .find({  })
+router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
+    res.status(200).json({
+        state: true
+    })
 })
 
 module.exports = router;
