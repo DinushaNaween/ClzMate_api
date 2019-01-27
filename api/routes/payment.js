@@ -75,6 +75,7 @@ router.get("/getPaymentByStudent/:studentId", (req, res, next) => {
     const studentId = req.params.studentId;
     Payment
         .find({ custom_1: studentId })
+        .populate('custom_1 custom_2', `clzNo indexNo`)
         .exec()
         .then(Payments => {
             res.status(200).json({
