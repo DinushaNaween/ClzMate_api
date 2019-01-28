@@ -131,9 +131,33 @@ router.patch('/:markId', (req, res, next) => {
 });
 
 router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
-    res.status(200).json({
-        state: true
-    })
+    const userId = req.params.studentId;
+    const clzId = req. params.clzId;
+
+    Mark
+        .find({ student: userId })
+        .populate('paper', `clzNo`)
+        .exec()
+        .then(result => {
+            result
+                .find({ clzNo: clzId })
+                .exec()
+                .then(marks => {
+                    res.status(200).json({
+                        marks
+                    })
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        state: false
+                    })
+                })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
 })
 
 module.exports = router;

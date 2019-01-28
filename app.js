@@ -38,6 +38,12 @@ app.use((req, res, next)=>{
     next();
 });
 
+app.get('/', (req, res, next) => {
+    res.status(200).json({
+        state: true
+    })
+})
+
 app.use('/clz', clzRoutes);
 app.use('/paper', paperRoutes);
 app.use('/user', userRoutes);
