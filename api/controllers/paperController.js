@@ -15,6 +15,7 @@ function count(cb){
 }
 
 function getPapersForClz(clzId, cb){
+    console.log("get papers for clzID")
     Paper
         .find({ clz: clzId })
         .exec()

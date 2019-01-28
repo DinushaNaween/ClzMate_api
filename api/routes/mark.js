@@ -131,7 +131,10 @@ router.patch('/:markId', (req, res, next) => {
         })
 });
 
-router.get('/getmarksOfStudent/:studentId/:clzId',paperController.getPapersForClz,  (req, res, next) => {
+router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
+    paperController.getPapersForClz(req.params.clzId, function(list){
+        console.log(list);
+    })
     const userId = req.params.studentId;
     const clzId = req. params.clzId;
     Mark
