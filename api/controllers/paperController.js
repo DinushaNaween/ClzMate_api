@@ -20,6 +20,7 @@ function getPapersForClz(clzId, cb){
         .find({ clz: clzId })
         .exec()
         .then(papers => {
+            console.log(papers)
             var selectedPapers = [];
             var length = papers.length;
             for(i=0; i<=length; i++){
