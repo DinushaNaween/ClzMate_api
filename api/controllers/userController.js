@@ -207,6 +207,8 @@ function countByRole(searchRole, cb){
                 return cb('A'+count);
             }else if(searchRole == 'Paper Marker'){
                 return cb('P'+count);
+            }else if(searchRole == 'Super Admin'){
+                return cb('SA'+count);
             }else{
                 return cb();
             }
