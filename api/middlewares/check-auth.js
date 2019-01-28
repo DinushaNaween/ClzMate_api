@@ -78,7 +78,7 @@ function checkIfAdmin(req, res, next) {
     try {
         const decodeJWT = decode(req, res, next);
         req.userData = decodeJWT;
-        if (decodeJWT.user.role === 'Admin'){
+        if (decodeJWT.user.role === 'Admin' || decodeJWT.user.role === 'Super Admin'){
             next()
         } else{
             return res.status(200).json({
