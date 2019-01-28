@@ -155,6 +155,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json({
+                Error: err,
                 state: false
             })
         })
