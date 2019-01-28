@@ -477,11 +477,25 @@ router.get('/getClasses/:studentId', (req, res) =>{
         })
 });
 
+
+//edit user details
 router.patch('/userUpdate/:userId', (req, res, next) => {
-    console.log(req.body);
-    res.status(200).json({
-        Message: "ඔබට සතුටුයිද දැන්"
-    })
+    const userId = req.params.userId;
+    User
+        .find({ _id: userId })
+        .populate('address contactDetails')
+        .exec()
+        .then(user => {
+            console.log(user[0]);
+            res.status(200).json({
+                state: true
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
 })
 
 module.exports = router; 

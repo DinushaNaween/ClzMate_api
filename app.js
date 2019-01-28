@@ -13,15 +13,15 @@ const attendanceRoutes = require('./api/routes/attendance');
 const subjectRoutes = require('./api/routes/subject');
 const paymentRoutes = require('./api/routes/payment');
 
-mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
-// mongoose.connect('mongodb://localhost:27017/ClzMate');
+// mongoose.connect('mongodb://admin:admin123@ds028559.mlab.com:28559/clzmate');
+mongoose.connect('mongodb://localhost:27017/ClzMate');
 
 mongoose.Promise = global.Promise;
  
 app.use(morgan('dev'));  
 app.use(bodyparser.urlencoded({extended:false})); 
 app.use(bodyparser.json());  
-
+ 
 app.use(passport.initialize()); 
 app.use(passport.session());  
 
