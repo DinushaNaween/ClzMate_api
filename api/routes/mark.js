@@ -6,6 +6,7 @@ const Mark = require('../models/mark');
 const Paper = require('../models/paper');
 
 const checkAuth = require('../middlewares/check-auth');
+const paperController = require('../controllers/paperController');
 
 //get all marks
 router.get('/', (req, res, next) => {
@@ -130,17 +131,15 @@ router.patch('/:markId', (req, res, next) => {
         })
 });
 
-router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
+router.get('/getmarksOfStudent/:studentId/:clzId',paperController.getPapersForClz,  (req, res, next) => {
     const userId = req.params.studentId;
     const clzId = req. params.clzId;
-
     Mark
         .find({ student: userId })
-        .populate('paper', `clzNo`)
         .exec()
         .then(result => {
             result
-                .find({ clzNo: clzId })
+                .find({ clz: clzId })
                 .exec()
                 .then(marks => {
                     res.status(200).json({
