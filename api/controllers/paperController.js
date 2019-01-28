@@ -25,7 +25,7 @@ function getPapersForClz(clzId, cb){
             var selectedPapers = [];
             var length = papers.length;
             for(i=0; i<=length; i++){
-                selectedPapers.push(papers._id);
+                selectedPapers.push(papers[i]._id);
             }
             console.log(selectedPapers);
             return cb(selectedPapers);
