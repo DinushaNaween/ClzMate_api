@@ -38,6 +38,7 @@ function registerUser(req, res){
                             .catch(err => {
                                 console.log(err);
                                 res.status(500).json({
+                                    error: err,
                                     state: false,
                                     Message: "Some Validation Errors"
                                 });
