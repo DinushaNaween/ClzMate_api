@@ -12,7 +12,7 @@ const paperController = require('../controllers/paperController');
 router.get('/', (req, res, next) => {
     Paper
         .find() 
-        .populate('clz')
+        .populate('clz paperMarker')
         .exec()
         .then(result => {
             res.status(200).json({
