@@ -142,19 +142,21 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
             var searchValue = list[i];
             console.log(searchValue+"searchvalue");
             Mark
-                .find({ paper: searchValue })
+                .find({
+                    $and: [ { paper: searchValue }, { student: userId } ]
+                })
                 .exec()
                 .then(mark => {
                     console.log(mark); 
-                    mark
-                        .find({ student: userId })
-                        .exec()
-                        .then(result => {
-                            console.log(result);
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
+                    // mark
+                    //     .find({ student: userId })
+                    //     .exec()
+                    //     .then(result => {
+                    //         console.log(result);
+                    //     })
+                    //     .catch(err => {
+                    //         console.log(err)
+                    //     })
                 })
                 .catch(err => {
                     console.log(err)
