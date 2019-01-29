@@ -9,6 +9,7 @@ const clzController = require('../controllers/clzController');
 router.get('/', (req, res, next) => {
     Clz
         .find()
+        .populate('teacher')
         .exec() 
         .then(docs => {
             console.log(docs); 

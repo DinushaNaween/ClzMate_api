@@ -468,15 +468,18 @@ router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
         .exec()
         .then(result =>{
             console.log(result)
-            result
-                .find({ clzes: clzId })
-                .exec()
-                .then(users => {
-                    console.log(users+"thithithithithtihtiht")
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            const length = result.length;
+            for(i=o; i<length; i++){
+                console.log(result[i].clzes);
+            }
+                // .find({ clzes: clzId })
+                // .exec()
+                // .then(users => {
+                //     console.log(users+"thithithithithtihtiht")
+                // })
+                // .catch(err => {
+                //     console.log(err)
+                // })
         })
         .catch(err => {
             console.log(err)
