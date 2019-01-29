@@ -460,6 +460,23 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
         })
 })
 
+router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
+    const clzId = req.params.clzId;
+    console.log(clzId);
+    User
+        .find({ role: "Student" })
+        .exec()
+        .then(result =>{
+            console.log(result+"new new new new")
+            result
+                .find({ clzes: clzId })
+                .exec()
+                .then(users => {
+                    console.log(users+"thithithithithtihtiht")
+                })
+        })
+})
+
 //get classes of any student
 router.get('/getClasses/:studentId', (req, res) =>{
     const studentId = req.params.studentId;
