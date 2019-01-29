@@ -151,7 +151,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                     if(mark){
                         console.log(mark);
                         res.status(200).json({
-                            Marks: mark
+                            mark
                         }) 
                     }
                 })
