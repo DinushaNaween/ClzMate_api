@@ -11,7 +11,6 @@ router.get('/', (req, res, next) => {
         .find()
         .populate({
             path: 'teacher',
-            // Get friends of friends - populate the 'friends' array for every friend
             populate: { path: 'contactDetails' }
         })
         .exec() 
@@ -20,14 +19,6 @@ router.get('/', (req, res, next) => {
             res.status(200).json({
                 Clz: docs
             });
-            // docs.teacher
-            //     .populate('contactDetails')
-            //     .then(result => {
-            //         console.log(result);
-            //         res.status(200).json({
-            //             result
-            //         })
-            //     })
         })
         .catch(err => {
             console.log(err);

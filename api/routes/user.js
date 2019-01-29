@@ -469,7 +469,7 @@ router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
         .then(result =>{
             console.log(result)
             const length = result.length;
-            for(i=o; i<length; i++){
+            for(i=0; i<length; i++){
                 console.log(result[i].clzes);
             }
                 // .find({ clzes: clzId })
