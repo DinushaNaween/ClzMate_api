@@ -218,6 +218,20 @@ function countByRole(searchRole, cb){
         })
 }
 
+function getClasses(cb){
+    User    
+        .find({ role: "Student" })
+        .exec()
+        .then(users => {
+            return cb(users.clzes)
+        })
+        .catch(err => {
+            res.status(500).json({
+                err
+            })
+        })
+}
+
 module.exports = {
     registerUser: registerUser,
     findStudentById: findStudentById,
@@ -226,5 +240,6 @@ module.exports = {
     generateRandomNumber: generateRandomNumber,
     generateRandomPassword: generateRandomPassword,
     countByRole: countByRole,
-    checkUserIfExist: checkUserIfExist
+    checkUserIfExist: checkUserIfExist,
+    getClasses: getClasses
 };

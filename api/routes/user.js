@@ -461,23 +461,13 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
 })
 
 router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
-    const clzId = req.params.clzId;
-    console.log(clzId);
-    User
-        .find({
-            $and: [ { role: "Student" }, { clzes: clzId } ]
-        })
-        .exec()
-        .then(result =>{
-            console.log(result)
-            const length = result.length;
-            // for(i=0; i<length; i++){
-            //     console.log(result[i].clzes);
-            // }
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    userController.getClasses(function(list){
+        console.log(list);
+        const length = list.length;
+        for(i=0; i<length; i++){
+
+        }
+    })
 })
 
 //get classes of any student
