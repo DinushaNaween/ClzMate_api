@@ -147,7 +147,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                     $and: [ { paper: searchValue }, { student: userId } ]
                 })
                 .exec()
-                .then(mark => {
+                .then(mark => { 
                     if(mark){
                         console.log(mark);
                         res.status(200).json({
