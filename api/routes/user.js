@@ -468,9 +468,9 @@ router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
         .exec()
         .then(result =>{
             console.log(result)
-            result.clzes.indexOf(clzId)
-                // .find({ clzes: clzId })
-                // .exec()
+            result
+                .find({ clzes: clzId })
+                .exec()
                 .then(users => {
                     console.log(users+"thithithithithtihtiht")
                 })
