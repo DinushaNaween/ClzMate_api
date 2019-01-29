@@ -42,7 +42,8 @@ router.post('/', (req, res, next) => {
                     _id: new mongoose.Types.ObjectId(),
                     paperNo: count,
                     clz: req.body.clzId,
-                    date: req.body.date
+                    date: req.body.date,
+                    paperMarker: req.body.paperMarker
                 });
                 return paper
                     .save()
@@ -178,5 +179,23 @@ router.delete('/special/deleteAllPapers', (req, res, next) => {
         })
 })
 
+router.get('/getClzByPaperMarker/:userId', (req, res, next) => {
+    const paperMarkerId = req.params.userId;
+    Paper
+        .find({ _id: paperMarkerId })
+        .populate('clz', `clzNo`)
+        .exec()
+        .then(clz => {
+            res.status(200).json({
+                state: true,
+                Clz: clz
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
+            })
+        })
+})
 
 module.exports = router;
