@@ -9,21 +9,21 @@ const clzController = require('../controllers/clzController');
 router.get('/', (req, res, next) => {
     Clz
         .find()
-        .populate('teacher')
+        .populate('teacher teacher.contactDetails')
         .exec() 
         .then(docs => {
-            // console.log(docs); 
-            // res.status(200).json({
-            //     Clz: docs
-            // });
-            docs.teacher
-                .populate('contactDetails')
-                .then(result => {
-                    console.log(result);
-                    res.status(200).json({
-                        result
-                    })
-                })
+            console.log(docs); 
+            res.status(200).json({
+                Clz: docs
+            });
+            // docs.teacher
+            //     .populate('contactDetails')
+            //     .then(result => {
+            //         console.log(result);
+            //         res.status(200).json({
+            //             result
+            //         })
+            //     })
         })
         .catch(err => {
             console.log(err);
