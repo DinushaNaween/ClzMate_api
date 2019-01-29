@@ -134,33 +134,32 @@ router.patch('/:markId', (req, res, next) => {
 router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
     paperController.getPapersForClz(req.params.clzId, function(list){
         console.log(list);
-    })
-    const userId = req.params.studentId;
-    const clzId = req. params.clzId;
-    Mark
-        .find({ student: userId })
-        .exec()
-        .then(result => {
-            result
-                .find({ clz: clzId })
+        var arrayLength = list.length;
+        console.log(arrayLength);
+        const userId = req.params.studentId;
+        console.log(userId);
+        for(i=0; i<arrayLength; i++){
+            var searchValue = list[i];
+            Mark
+                .find({ paper: searchValue })
                 .exec()
-                .then(marks => {
-                    res.status(200).json({
-                        marks
-                    })
+                .then(mark => {
+                    console.log(mark);
+                    mark
+                        .find({ student: studentId })
+                        .exec()
+                        .then(result => {
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
                 })
                 .catch(err => {
-                    res.status(500).json({
-                        state: false
-                    })
+                    console.log(err)
                 })
-        })
-        .catch(err => {
-            res.status(500).json({
-                Error: err,
-                state: false
-            })
-        })
+        }
+    })
 })
 
 module.exports = router;
