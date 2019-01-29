@@ -179,10 +179,11 @@ router.delete('/special/deleteAllPapers', (req, res, next) => {
         })
 })
 
+//get classes of paper marker
 router.get('/getClzByPaperMarker/:userId', (req, res, next) => {
     const paperMarkerId = req.params.userId;
     Paper
-        .find({ _id: paperMarkerId })
+        .find({ paperMarker: paperMarkerId })
         .populate('clz', `clzNo`)
         .exec()
         .then(clz => {
