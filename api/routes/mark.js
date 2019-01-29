@@ -147,19 +147,12 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                 })
                 .exec()
                 .then(mark => {
-                    console.log(mark);
-                    res.status(200).json({
-                        Marks: mark
-                    }) 
-                    // mark
-                    //     .find({ student: userId })
-                    //     .exec()
-                    //     .then(result => {
-                    //         console.log(result);
-                    //     })
-                    //     .catch(err => {
-                    //         console.log(err)
-                    //     })
+                    if(mark){
+                        console.log(mark);
+                        res.status(200).json({
+                            Marks: mark
+                        }) 
+                    }
                 })
                 .catch(err => {
                     console.log(err)
