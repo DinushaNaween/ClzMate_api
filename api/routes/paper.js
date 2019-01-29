@@ -181,12 +181,15 @@ router.delete('/special/deleteAllPapers', (req, res, next) => {
 
 //get classes of paper marker
 router.get('/getClzByPaperMarker/:userId', (req, res, next) => {
+    console.log("special route")
     const paperMarkerId = req.params.userId;
+    console.log(paperMarkerId)
     Paper
         .find({ paperMarker: paperMarkerId })
         .populate('clz', `clzNo`)
         .exec()
         .then(clz => {
+            console.log(clz)
             res.status(200).json({
                 state: true,
                 Clz: clz
