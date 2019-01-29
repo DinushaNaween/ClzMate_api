@@ -461,11 +461,12 @@ router.get('/getStudentByClz/:clzId', (req, res, next) => {
 })
 
 router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
-    userController.getClasses(function(list){
-        console.log(list);
+    const clzId = req.params.clzId;
+    userController.getClasses(clzId, function(list){
+        // console.log(list);
         const length = list.length;
         for(i=0; i<length; i++){
-
+            
         }
     })
 })
@@ -473,7 +474,7 @@ router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
 //get classes of any student
 router.get('/getClasses/:studentId', (req, res) =>{
     const studentId = req.params.studentId;
-    User
+    User   
         .findById(studentId) 
         .populate('clzes', `subjectName`)
         .exec()

@@ -218,17 +218,25 @@ function countByRole(searchRole, cb){
         })
 }
 
-function getClasses(cb){
+function getClasses(clzId, cb){
+    var studentList = [];
     User    
         .find({ role: "Student" })
         .exec()
         .then(users => {
-            return cb(users.clzes)
+            console.log(users.length)
+            for(i=0; i<users.length; i++){
+                console.log(users[i].clzes)
+                for(j=0; j<users[i].clzes.length; i++){
+                    if(users[i].clzes[j] == clzId){
+                        studentList.push(users[i]._id);
+                    }
+                }
+            }
+            console.log(studentList);
+            return cb(studentList)
         })
         .catch(err => {
-            // res.status(500).json({
-            //     err
-            // })
             console.log(err)
         })
 }
