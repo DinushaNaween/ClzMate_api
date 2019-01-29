@@ -71,6 +71,7 @@ router.get('/:clzId', (req, res, next) => {
         })
 })
 
+//get payment by studentId
 router.get("/getPaymentByStudent/:studentId", (req, res, next) => {
     const studentId = req.params.studentId;
     Payment
@@ -79,6 +80,7 @@ router.get("/getPaymentByStudent/:studentId", (req, res, next) => {
         .exec()
         .then(Payments => {
             res.status(200).json({
+                state: true,
                 Payments
             })
         })
