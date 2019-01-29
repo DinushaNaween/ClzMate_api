@@ -146,7 +146,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                 .then(mark => {
                     console.log(mark);
                     mark
-                        .find({ student: studentId })
+                        .find({ student: userId })
                         .exec()
                         .then(result => {
                             console.log(result);
