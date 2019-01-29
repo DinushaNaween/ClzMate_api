@@ -36,10 +36,13 @@ function md5sigValidate(req, res, next){
     if(received_md5sig == generated_md5sig){
         next()
     } else{
-        
+        res.status(500).json({
+            state: false
+        })
     }
 }
 
 module.exports = {
-    checkStatus: checkStatus
+    checkStatus: checkStatus,
+    md5sigValidate: md5sigValidate
 }
