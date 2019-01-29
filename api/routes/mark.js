@@ -131,6 +131,7 @@ router.patch('/:markId', (req, res, next) => {
         })
 });
 
+//get marks by 
 router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
     paperController.getPapersForClz(req.params.clzId, function(list){
         console.log(list);
@@ -145,6 +146,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                 .find({
                     $and: [ { paper: searchValue }, { student: userId } ]
                 })
+                .populate('paper student paperMarker', `indexNo paperNo`)
                 .exec()
                 .then(mark => {
                     if(mark){

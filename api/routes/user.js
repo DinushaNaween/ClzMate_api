@@ -486,9 +486,13 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
         .exec()
         .then(user => {
             console.log(user[0]);
-            res.status(200).json({
-                state: true
-            })
+            if(!user){
+                res.status(500).json({
+                    state: false
+                })
+            } else{
+                
+            }
         })
         .catch(err => {
             res.status(500).json({
