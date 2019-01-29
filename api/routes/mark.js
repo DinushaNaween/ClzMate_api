@@ -140,7 +140,7 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
         console.log(userId+"user");
         for(i=0; i<arrayLength; i++){
             var searchValue = list[i];
-            // console.log(searchValue)
+            console.log(searchValue+"searchvalue");
             Mark
                 .find({ paper: searchValue })
                 .exec()
