@@ -479,6 +479,7 @@ router.get('/getClasses/:studentId', (req, res) =>{
 
 //edit user details
 router.patch('/userUpdate/:userId', (req, res, next) => {
+    console.log(req.body)
     const userId = req.params.userId;
     User
         .find({ _id: userId })
@@ -491,7 +492,7 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
                     state: false
                 })
             } else{
-                
+
             }
         })
         .catch(err => {
