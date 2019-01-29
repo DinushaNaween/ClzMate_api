@@ -16,8 +16,8 @@ router.get('/', (req, res, next) => {
             // res.status(200).json({
             //     Clz: docs
             // });
-            docs.contactDetails
-                .populate()
+            docs.teacher
+                .populate('contactDetails')
                 .then(result => {
                     console.log(result);
                     res.status(200).json({
