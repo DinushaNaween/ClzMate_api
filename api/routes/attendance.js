@@ -66,6 +66,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
 
 //add attendance for a week in existing table
 router.patch('/addAttendance/:attendanceId', userController.findStudentById, (req, res, next) => {
+    
     const attendanceId = req.params.attendanceId
     const newStudent = req.body.student;
     Attendance
