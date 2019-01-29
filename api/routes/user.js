@@ -464,22 +464,16 @@ router.get('/getStudentsOfClz/:clzId', (req, res, next) => {
     const clzId = req.params.clzId;
     console.log(clzId);
     User
-        .find({ role: "Student" })
+        .find({
+            $and: [ { role: "Student" }, { clzes: clzId } ]
+        })
         .exec()
         .then(result =>{
             console.log(result)
             const length = result.length;
-            for(i=0; i<length; i++){
-                console.log(result[i].clzes);
-            }
-                // .find({ clzes: clzId })
-                // .exec()
-                // .then(users => {
-                //     console.log(users+"thithithithithtihtiht")
-                // })
-                // .catch(err => {
-                //     console.log(err)
-                // })
+            // for(i=0; i<length; i++){
+            //     console.log(result[i].clzes);
+            // }
         })
         .catch(err => {
             console.log(err)
