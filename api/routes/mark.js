@@ -12,7 +12,7 @@ const paperController = require('../controllers/paperController');
 router.get('/', (req, res, next) => {
     Mark
         .find()
-        .populate('student paper paperMarker', `indexNo paperNo clz`)
+        .populate('student paper paperMarker', `indexNo paperNo clz fullName`)
         .exec()
         .then(mark => {
             res.status(200).json({
