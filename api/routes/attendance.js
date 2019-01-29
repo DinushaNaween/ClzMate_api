@@ -66,7 +66,7 @@ router.post('/newWeekAttendance', clzController.findClzById, (req, res, next) =>
 
 //add attendance for a week in existing table
 router.patch('/addAttendance/:attendanceId', userController.findStudentById, (req, res, next) => {
-    
+
     const attendanceId = req.params.attendanceId
     const newStudent = req.body.student;
     Attendance
@@ -153,9 +153,9 @@ router.get('/studentAttendance/:studentId', (req, res, next) => {
             const dateIs = result[0].date.toDateString()
             console.log(dateIs)
             const attendedDates = [{ date: Date, clz: mongoose.Schema.ObjectId}];
-            // for (i=0 ; i<length ; i++ ){
-            //     attendedDates[i] = result[i].date.toDateString()
-            // }
+            for (i=0 ; i<length ; i++ ){
+                attendedDates[i] = result[i].date.toDateString()
+            }
             res.status(200).json({
                 // date: result[0].date
                 attendedDates
