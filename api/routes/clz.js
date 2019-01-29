@@ -9,7 +9,11 @@ const clzController = require('../controllers/clzController');
 router.get('/', (req, res, next) => {
     Clz
         .find()
-        .populate('teacher teacher.contactDetails')
+        .populate({
+            path: 'teacher',
+            // Get friends of friends - populate the 'friends' array for every friend
+            populate: { path: 'contactDetails' }
+        })
         .exec() 
         .then(docs => {
             console.log(docs); 

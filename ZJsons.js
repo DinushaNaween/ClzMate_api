@@ -28,4 +28,20 @@
 // 	"dadNumber": "413243857678",
 // 	"gardianName": "gardian",
 // 	"gardianNumber": "234567"
-// }
+// // }
+
+// Clz
+//     .find()
+//     .populate('teacher')
+//     .exec(function (err, classes) {
+
+//         var iter = function (clz, callback) {
+//             User.populate(clz.ratings, {
+//                 path: 'rater'
+//             }, callback);
+//         };
+
+//         async.each(classes, iter, function done(err) {
+//             res.json(classes);
+//         });
+//     });
