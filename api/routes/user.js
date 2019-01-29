@@ -442,6 +442,7 @@ router.get('/getClzByCardMarkerId/:cardMarkerId', (req, res, next) => {
 //get students of any clz
 router.get('/getStudentByClz/:clzId', (req, res, next) => {
     const clzId = req.params.clzId;
+    console.log(clzId+'this clz')
     User
         .find({
             $and: [ { role: "Student" }, { clzes: clzId } ]
