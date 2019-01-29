@@ -146,7 +146,6 @@ router.get('/getmarksOfStudent/:studentId/:clzId', (req, res, next) => {
                 .find({
                     $and: [ { paper: searchValue }, { student: userId } ]
                 })
-                .populate('paper student paperMarker', `indexNo paperNo`)
                 .exec()
                 .then(mark => {
                     if(mark){
