@@ -99,7 +99,7 @@ router.patch('/addAttendance/:attendanceId', userController.findStudentById, (re
         })
 });
 
-//get attendance by week
+//get attendance by day
 router.get('/weekAttendance/:day', (req, res, next) => {
     const week = req.params.day;
     Attendance
@@ -129,6 +129,11 @@ router.get('/:attendanceId', (req, res, next) => {
         .then(attendance => {
             res.status(200).json({
                 attendance
+            })
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false
             })
         })
 });

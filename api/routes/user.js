@@ -148,38 +148,6 @@ router.delete('/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userCon
         });
 });
 
-//edit user by Id
-// router.patch('/userUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res, next) => {
-//     const id = req.params.userId;
-//     const updateOps = {};
-//     for (const ops of req.body) {
-//         if (ops.propName == 'clzes'){
-//             userController.addClz(id, ops.value)
-//         }
-//         if (ops.propName == 'password'){
-//             userController.resetPassword(id, ops.value)
-//         } 
-//         else { 
-//             updateOps[ops.propName] = ops.value;
-//         }
-//     }
-//     User
-//         .update({ _id: id }, { $set: updateOps })
-//         .exec()
-//         .then(result => {
-//             console.log(result);
-//             res.status(200).json({
-//                 state: true
-//             });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             res.status(500).json({
-//                 error: err
-//             });
-//       });
-// }); 
-
 //edit user address by Id
 router.patch('/addressUpdate/:userId', checkToken.checkToken, checkAuth.checkIfAdmin, userController.checkUserIfExist, (req, res, next) => {
     const userId = req.params.userId;
@@ -493,6 +461,11 @@ router.get('/getClasses/:studentId', (req, res) =>{
 
 //edit user details
 router.patch('/userUpdate/:userId', (req, res, next) => {
+    const x=req.body;
+    const indexNo = x.indexNo;
+    const nicNo = x.nicNo;
+    const email = x.email;
+    const role = x.role;
     console.log(req.body)
     const userId = req.params.userId;
     User
@@ -506,6 +479,7 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
                     state: false
                 })
             } else{
+                user[0].
                 res.status(200).json({
                     state: true
                 })

@@ -11,7 +11,8 @@ const ContactDetails = userModels.contactDetails;
 //user registration function
 function registerUser(req, res){
     countByRole(req.body.role, function(IndexNo){
-        User.find({ email: req.body.email })
+    User
+        .find({ email: req.body.email })
         .exec()
         .then(user => { 
             if(user.length >= 1){
@@ -46,6 +47,12 @@ function registerUser(req, res){
                     }
                 });
             }
+        })
+        .catch(err => {
+            res.status(500).json({
+                state: false,
+                error: err
+            })
         })
     })
 }
