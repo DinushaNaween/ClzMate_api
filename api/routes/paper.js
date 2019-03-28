@@ -102,7 +102,7 @@ router.delete('/:paperId', (req, res, next) => {
                 Paper
                     .remove({ _id: deleteId })
                     .then()
-
+ 
                     res.status(200).json({
                         state: true
                     })
