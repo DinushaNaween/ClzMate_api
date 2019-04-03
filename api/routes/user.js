@@ -492,4 +492,8 @@ router.patch('/userUpdate/:userId', (req, res, next) => {
         })
 })
 
+router.post('/testServer', (req, res, next) => {
+    console.log("access route");
+})
+
 module.exports = router; 
