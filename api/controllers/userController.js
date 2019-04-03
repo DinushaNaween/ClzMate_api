@@ -80,6 +80,7 @@ function saveUser(req, hash, IndexNo){
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
         indexNo: IndexNo,
+        imageURL: req.body.imageURL,
         nicNo: req.body.nicNo,
         email: req.body.email,
         password: hash, 
