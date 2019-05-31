@@ -10,4 +10,4 @@ const paperSchema = mongoose.Schema({
         timestamps: true
 });
 
-module.exports = mongoose.model('Paper', paperSchema);
+module.exports = mongoose.model('Paper', paperSchema);jhhkhhkjhkjh
